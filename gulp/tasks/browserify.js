@@ -36,7 +36,7 @@ function buildScript(file, watch) {
   bundler.transform(sassify, {
     'auto-inject': true, // Inject css directly in the code
     sourceMap: false, // Add source map to the code,
-    base64Encode: false
+    base64Encode: true
   });
   bundler.transform(babelify);
   bundler.transform(debowerify);
