@@ -1,0 +1,76 @@
+* {
+  padding : 0;
+}
+
+ul {
+  list-style : none;
+}
+
+*, h1, h3, h4, p, hr, ul {
+  margin : 0;
+}
+
+hr {
+  border : 0;
+}
+
+input, textarea {
+  border     : 0;
+  outline    : none;
+  background : none;
+}
+
+button {
+  outline : none;
+}
+
+a:hover {
+  text-decoration : none;
+}
+
+html, body {
+  overflow-x : hidden;
+}
+
+body {
+  background  : #fafafa;
+  color       : #444;
+}
+
+hr {
+  background : #ebebeb;
+  height     : 1px;
+}
+
+.content-inner {
+  max-width : 688px;
+  margin    : auto;
+  padding   : 0 24px;
+  position  : relative;
+}
+
+#wrapper:not(.menuOpen) #content {
+  padding-left : 241px;
+}
+
+@media screen and (max-width: 600px) {
+  #content {
+    font-size : 9px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #content {
+    padding : 0 !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #wrapper.open {
+    left : 240px;
+  }
+
+  .open #menu-inner {
+    left : 0;
+  }
+}

@@ -1,62 +1,74 @@
 'use strict';
 
-import React              from 'react/addons';
-import {ListenerMixin}    from 'reflux';
+var _ = require('lodash');
+var React = require('react/addons');
+var ExecutionEnvironment = require('react/lib/ExecutionEnvironment');
+var Router = require('react-router');
+var Menu = require('./components/menu/Menu');
+var Content = require('./components/content/Content');
+var ReactTransitionGroup = React.addons.TransitionGroup;
+var Api = require('./utils/Api');
+var AppActions = require('./actions/AppActions');
+var AppStore = require('./stores/AppStore');
 
-import CurrentUserActions from './actions/CurrentUserActions';
-import CurrentUserStore   from './stores/CurrentUserStore';
-import Header             from './components/Header';
-import Footer             from './components/Footer';
+require('../styles/main.sass');
 
-const App = React.createClass({
+var App = React.createClass({
 
-  mixins: [ListenerMixin],
-
-  getInitialState() {
+  getInitialState: function() {
     return {
-      currentUser: {}
+      categories: [],
+      isAdmin: true
     };
   },
 
-  _onUserChange(err, user) {
-    if ( err ) {
-      this.setState({ error: err });
-    } else {
-      this.setState({ currentUser: user || {}, error: null });
-    }
+  contextTypes: {
+    router: React.PropTypes.func
   },
 
-  componentWillMount() {
-    console.log('About to mount App');
-  },
-
-  componentDidMount() {
-    this.listenTo(CurrentUserStore, this._onUserChange);
-    CurrentUserActions.checkLoginStatus();
-  },
-
-  renderChildren() {
-    return React.cloneElement(this.props.children, {
-      params: this.props.params,
-      query: this.props.query,
-      currentUser: this.state.currentUser
+  handleSectionScroll: function(sectionTitle) {
+    this.setState({
+      currentSection: sectionTitle
     });
   },
 
-  render() {
+  _onChange() {
+    this.setState({
+      categories: AppStore.getCategories()
+    });
+  },
+
+  handleScroll() {
+    this.refs.content.onScroll();
+  },
+
+  componentDidMount() {
+    AppActions.getCategories();
+    AppStore.addChangeListener(this._onChange);
+
+    if (ExecutionEnvironment.canUseDOM) {
+      document.addEventListener('scroll', this.handleScroll);
+    }
+  },
+
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this._onChange);
+    document.removeEventListener('scroll', this.handleScroll);
+  },
+
+  render: function() {
+    var logged = true;
+    if (!logged) {
+      this.context.router.transitionTo('login');
+    }
+
     return (
-      <div>
-
-        <Header />
-
-        {this.renderChildren()}
-
-        <Footer />
-
+      <div id='wrapper'>
+        <Menu categories={this.state.categories} currentSection={this.state.currentSection} />
+        <Content isAdmin={this.state.isAdmin} categories={this.state.categories} onSectionScroll={this.handleSectionScroll} ref='content' />
       </div>
     );
   }
-
 });
 
-export default App;
+module.exports = App;

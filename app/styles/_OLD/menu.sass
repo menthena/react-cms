@@ -1,0 +1,105 @@
+$orange   : #ff4400
+$white    : #fff
+$grey     : #e6e6e6
+$darkGrey : #888
+
+@import 'logo';
+
+#menu
+  width         : 240px;
+  position      : absolute;
+  top           : 0;
+  height        : 100%;
+  left          : -240px;
+  z-index       : 10000;
+
+  ul
+    overflow : hidden;
+    margin   : 0 0 5px 0;
+
+    li
+      margin-bottom : 13px;
+      font-size     : 16px;
+      position      : relative;
+      padding       : 0 24px;
+    
+
+    .active
+      color       : $orange;
+      font-family : 'apercubold';
+    
+
+  
+
+  .scroll
+    overflow : auto;
+
+    ul
+      margin-top : -8px;
+    
+
+    ul.open
+      display : block;
+    
+
+    h3
+      padding    : 17px 24px 13px 24px;
+      border-top : 1px solid #ebebeb;
+    
+
+    #categories 
+      h3
+        padding-bottom : 20px;
+        cursor         : pointer;
+      
+
+      h3.open
+      
+    
+
+    .actions
+      position : absolute;
+    
+
+    .left
+      left : 8px;
+    
+
+    .right
+      right : 8px;
+
+      .fa
+        margin-left : 5px;
+      
+    
+
+    .create
+      cursor : pointer;
+
+      input
+        cursor : inherit;
+      
+
+      .right
+        right : 26px;
+      
+
+    
+
+  
+
+
+#menu-inner
+  background    : $white;
+  border-right  : 1px solid $grey;
+  height        : 100%;
+  left          : 0;
+  position      : fixed;
+  top           : 0;
+  width         : 240px;
+
+
+@media screen and (max-width: 767px)
+  #menu, #menu-inner
+    left:-240px;
+  
