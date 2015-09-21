@@ -12,6 +12,7 @@ var browserify   = require('browserify');
 var babelify     = require('babelify');
 var uglify       = require('gulp-uglify');
 var browserSync  = require('browser-sync');
+var sassify      = require('sassify');
 var debowerify   = require('debowerify');
 var handleErrors = require('../util/handle-errors');
 var config       = require('../config');
@@ -32,6 +33,11 @@ function buildScript(file, watch) {
     bundler.on('update', rebundle);
   }
 
+  bundler.transform(sassify, {
+    'auto-inject': true, // Inject css directly in the code
+    sourceMap: false, // Add source map to the code,
+    base64Encode: false
+  });
   bundler.transform(babelify);
   bundler.transform(debowerify);
 

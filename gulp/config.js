@@ -10,12 +10,12 @@ module.exports = {
   },
 
   'images': {
-    'src': './app/images/**/*.{jpeg,jpg,png}',
+    'src': './app/images/**/*.{jpeg,jpg,png,gif}',
     'dest': './build/images/'
   },
 
   'styles': {
-    'src': './app/styles/**/*.scss',
+    'src': './app/styles/**/*.*',
     'dest': './build/css/'
   },
 

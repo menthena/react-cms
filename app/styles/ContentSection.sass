@@ -1,0 +1,64 @@
+@import '_variables'
+
+section
+  padding       : 5.5em 0 8.8em 0
+  border-bottom : 1px solid $grey
+
+  header
+    margin-bottom : 22px
+
+    h1
+      overflow      : hidden
+      text-overflow : ellipsis
+
+  .form-control
+    font-size : 1em
+    p:not(:first-child)
+      margin : 30px 0 0 0
+
+  .copy
+    .btn-toolbar
+      margin-bottom : 10px
+    
+
+    p p, span
+      font-size: inherit !important
+    
+
+    p:not(:first-child)
+      margin : 30px 0 0 0
+    
+
+    .test p:last-child:after
+      color    : #999
+      position : absolute
+      cursor   : pointer
+      margin   : 10px 0 0 5px
+      content  : "\f040"
+      font     : normal normal normal 14px/1 FontAwesome
+
+  img
+    max-width : 100%
+  
+
+  .downloadButtons
+    margin-top : 10px
+
+    .file-upload
+      position : relative
+      overflow : hidden
+
+      input[type=file]
+        position   : absolute
+        top        : 0
+        left       : 0
+        min-width  : 100%
+        min-height : 100%
+        font-size  : 100px
+        text-align : right
+        filter     : alpha(opacity=0)
+        opacity    : 0
+        outline    : none
+        background : $white
+        cursor     : inherit
+        display    : block

@@ -1,0 +1,28 @@
+html, body
+  overflow-x : hidden
+
+body
+  background  : #fafafa
+  color       : #444
+
+hr
+  background : #ebebeb
+  height     : 1px
+
+.content-inner
+  max-width : 688px
+  margin    : auto
+  padding   : 0 24px
+  position  : relative
+
+[ng-click],
+[data-ng-click],
+[x-ng-click]
+  cursor : pointer
+
+@media screen and (max-width: 767px)
+  #wrapper.open
+    left : 240px
+
+  .open #menu-inner
+    left : 0

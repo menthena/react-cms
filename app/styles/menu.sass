@@ -1,0 +1,105 @@
+@import 'logo'
+@import '_variables'
+
+#wrapper, .navbar, #menu-inner
+  left     : 0
+  position : relative
+
+  -webkit-transition : all .15s ease-out
+  -o-transition      : all .15s ease-out
+  transition         : all .15s ease-out
+
+#menu
+  width         : 240px
+  position      : absolute
+  top           : 0
+  height        : 100%
+  left          : -240px
+  z-index       : 10000
+
+  ul
+    overflow : hidden
+    margin   : 0 0 5px 0
+
+    li
+      margin-bottom : 13px
+      font-size     : 16px
+      position      : relative
+      padding       : 0 24px
+
+      p
+        font-size : inherit
+
+    .active
+      color       : $orange
+      font-family : 'apercubold'
+
+  .scroll
+    overflow : auto
+
+    ul
+      margin-top : -8px
+
+    ul.open
+      display : block
+
+    h3
+      padding    : 17px 24px 13px 24px
+      border-top : 1px solid #ebebeb
+
+    #categories
+      h3.has-sections
+        background     : url(../images/right-arrow.gif) no-repeat 207px 24px
+        padding-bottom : 20px
+        cursor         : pointer
+
+      h3.has-sections.open
+        background-image : url(../images/down-arrow.gif)
+
+    .actions
+      position : absolute
+
+    .left
+      left : 8px
+
+    .right
+      right : 8px
+
+      .fa
+        margin-left : 5px
+
+    .fa-pencil
+      margin-left: 10px
+    .fa-remove
+      margin-top: 21px
+    .fa-reorder
+      margin-top: 24px
+    .full-section
+      .fa-remove, .fa-reorder
+        margin-top: 0
+
+
+    .create
+      cursor : pointer
+
+      input
+        cursor : inherit
+
+
+      .right
+        right : 26px
+
+
+#menu-inner
+  background    : $white
+  border-right  : 1px solid $grey
+  height        : 100%
+  left          : 0
+  position      : fixed
+  top           : 0
+  width         : 240px
+
+
+@media screen and (max-width: 767px)
+  #menu, #menu-inner
+    left:-240px
