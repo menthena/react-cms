@@ -1,12 +1,14 @@
 'use strict';
 
-var config  = require('../config');
-var http    = require('http');
-var express = require('express');
-var gulp    = require('gulp');
-var gutil   = require('gulp-util');
-var morgan  = require('morgan');
+var gulp = require('gulp');
+var nodemon = require('gulp-nodemon');
+var browserSync = require('browser-sync');
 
-gulp.task('server', function() {
-  require('../../server/bin/www');
+gulp.task('nodemon', function() {
+  nodemon({
+    script: 'server/app.js'
+  })
+  .on('restart', function() {
+    browserSync.reload();
+  });
 });
