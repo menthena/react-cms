@@ -60,11 +60,16 @@ var DragMixin = {
       var from = Number(this.dragged.dataset.order);
       var to = Number(this.over.dataset.order);
       if (!isNaN(to) && !isNaN(from)) {
+
         var dragged = _.find(this.draggableData, { order: from});
-        var over = _.find(this.draggableData, { order: to});
         dragged.order = to;
-        over.order = from;
-        this.setDraggableData(dragged, over);
+
+        _.each(this.draggableData, function(data, index) {
+          if (data !== dragged) {
+            this.draggableData[index].order++;
+          }
+        }.bind(this));
+        this.setDraggableData(this.draggableData);
       }
       this.dragged = null;
     } else {

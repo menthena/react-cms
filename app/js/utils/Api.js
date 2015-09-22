@@ -26,8 +26,8 @@ var Api = {
     });
   },
 
-  addNewCategory(title) {
-    axios.post(baseApiUrl + 'categories', { title: title, order: 0 }).then(function(response) {
+  addNewCategory(title, order) {
+    axios.post(baseApiUrl + 'categories', { title: title, order: order }).then(function(response) {
       var category = response.data.data;
       ServerActions.receiveNewCategory(category);
     });
@@ -81,12 +81,13 @@ var Api = {
     });
   },
 
-  sortCategories(dragged, over) {
-    return axios.all([
-      axios.patch(baseApiUrl + 'categories/' + dragged.id, { order: dragged.order }),
-      axios.patch(baseApiUrl + 'categories/' + over.id, { order: over.order })
-    ]).then(function(data) {
-      ServerActions.receiveSortedCategories(dragged, over);
+  sortCategories(categories) {
+    var promises = [];
+    _.each(categories, (category) => {
+      promises.push(axios.patch(baseApiUrl + 'categories/' + category.id, { order: category.order }));
+    });
+    return axios.all(promises).then(function() {
+      ServerActions.receiveSortedCategories(categories);
     });
   }
 };

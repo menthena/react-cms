@@ -17,8 +17,8 @@ var Accordion = React.createClass({
     };
   },
 
-  setDraggableData: function(dragged, over) {
-    AppActions.sortCategories(dragged, over);
+  setDraggableData: function(categories) {
+    AppActions.sortCategories(categories);
   },
 
   handleClick: function(category) {
@@ -49,7 +49,7 @@ var Accordion = React.createClass({
     return (
         <div id="categories" className="Accordion" onDragOver={this.dragOver}>
           {categories}
-          <NewCategory />
+          <NewCategory categories={categories} />
         </div>
       );
   }

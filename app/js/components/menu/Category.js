@@ -72,7 +72,7 @@ var Category = React.createClass({
             <i className="fa fa-remove" onClick={this.deleteCategory}></i>
           </div>
           <div className="actions right" draggable="true" data-parent="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
-            <i className="fa fa-reorder ui-sortable-handle"></i>
+            <i className="fa fa-reorder ui-sortable-handle">drag</i>
           </div>
           <h3 className={ classes } onClick={this.handleClick}>
             <input style={titleInputStyle} type="text" maxLength="20" ref="theInput" name="title" value={this.state.title} onChange={this.handleInputChange} onKeyDown={this.update} />

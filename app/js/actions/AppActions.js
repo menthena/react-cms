@@ -15,8 +15,8 @@ var AppActions = {
     Api.getCategories();
   },
 
-  addNewCategory(title) {
-    Api.addNewCategory(title);
+  addNewCategory(title, order) {
+    Api.addNewCategory(title, order);
   },
 
   deleteCategory(categoryID) {
@@ -51,8 +51,8 @@ var AppActions = {
     Api.sortCategorySections(categoryID, dragged, over);
   },
 
-  sortCategories(dragged, over) {
-    Api.sortCategories(dragged, over);
+  sortCategories(categories) {
+    Api.sortCategories(categories);
   },
 
   closeAllNewSectionComponents() {

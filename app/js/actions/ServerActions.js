@@ -83,11 +83,10 @@ var ServerActions = {
     });
   },
 
-  receiveSortedCategories: function(dragged, over) {
+  receiveSortedCategories: function(categories) {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.SORT_CATEGORIES,
-      dragged: dragged,
-      over: over
+      categories: categories
     });
   }
 };
