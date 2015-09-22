@@ -100,7 +100,13 @@ app.get('/auth/google/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-  });
+  }
+);
+
+app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 // Serve index.html for all routes to leave routing up to react-router
 app.all('/*', function(req, res) {
