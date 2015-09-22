@@ -13,6 +13,7 @@ var Login = React.createClass({
         <div className="container container-narrow">
           <div className="text-center">
             <h2>Sign in to React With TAB</h2>
+            <a href="auth/google">test</a>
           </div>
 
           <script src="https://apis.google.com/js/platform.js" async defer></script>
