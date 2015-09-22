@@ -19,7 +19,7 @@ var MenuSections = React.createClass({
   },
 
   setDraggableData: function(dragged, over) {
-    var categoryID = this.props.category._id;
+    var categoryID = this.props.category.id;
     AppActions.sortCategorySections(categoryID, dragged, over);
   },
 
@@ -40,26 +40,26 @@ var MenuSections = React.createClass({
         <div onDragOver={this.dragOver} style={ inlineStyles }>
           <ul>
             {category.sections.map(function(section, index) {
-              var titleInputStyle = { display: this.state.isEditing && this.state.sectionID === section._id ? 'block' : 'none' };
-              var titleStyle = { display: !this.state.isEditing && this.state.sectionID === section._id ? 'block' : 'none' };
+              var titleInputStyle = { display: this.state.isEditing && this.state.sectionID === section.id ? 'block' : 'none' };
+              var titleStyle = { display: !this.state.isEditing && this.state.sectionID === section.id ? 'block' : 'none' };
               var currentSectionStyle = {
                 fontWeight : currentSection === section.title ? 'bold' : 'normal'
               };
 
               return (
                 <li className="full-section" data-order={section.order} style={ currentSectionStyle }>
-                  <Section key={ category.title + section.title } section={section} categoryID={this.props.category._id} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
+                  <Section key={ category.title + section.title } section={section} categoryID={this.props.category.id} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
             }.bind(this))}
           </ul>
-          <NewSection categoryID={category._id} />
+          <NewSection categoryID={category.id} />
         </div>
       );
     } else {
       var placeholder;
       if (isVisible) {
-        placeholder = <NewSection categoryID={category._id} />;
+        placeholder = <NewSection categoryID={category.id} />;
       }
       return (
         <div>

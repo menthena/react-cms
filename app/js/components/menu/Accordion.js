@@ -43,7 +43,7 @@ var Accordion = React.createClass({
 
     items = _.sortBy(items, 'order');
     items.map(function(item) {
-      categories.push(<Category key={item._id} category={item} currentSection={currentSection} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover} />);
+      categories.push(<Category key={item.id} category={item} currentSection={currentSection} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover} />);
     }.bind(this));
 
     return (

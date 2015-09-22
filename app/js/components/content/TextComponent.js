@@ -16,7 +16,7 @@ var TextComponent = React.createClass({
     console.log(this.state.componentID);
     if (this.state.componentID) {
       // UPDATE
-      var component = _.find(section.components, {_id: this.state.componentID});
+      var component = _.find(section.components, {id: this.state.componentID});
       component.data = content;
     } else {
       // INSERT

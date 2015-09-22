@@ -28,32 +28,32 @@ var AppStore = assign(EventEmitter.prototype, {
   },
 
   deleteCategory(categoryID) {
-    _.remove(_categories, { _id: categoryID });
+    _.remove(_categories, { id: categoryID });
   },
 
   addNewSection(categoryID, newCategory) {
-    var category = _.find(_categories, { _id: categoryID });
+    var category = _.find(_categories, { id: categoryID });
     category.sections = newCategory.sections;
   },
 
   deleteSection(categoryID, sectionID) {
-    var category = _.find(_categories, { _id: categoryID });
-    _.remove(category.sections, { _id: sectionID });
+    var category = _.find(_categories, { id: categoryID });
+    _.remove(category.sections, { id: sectionID });
   },
 
   getSection(sectionID) {
     var section;
     _.each(_categories, function(category) {
       if (!section) {
-        section = _.find(category.sections, {_id: sectionID});
+        section = _.find(category.sections, {id: sectionID});
       }
     });
     return section;
   },
 
   updateComponents(categoryID, sectionID, components) {
-    var category = _.find(_categories, { _id: categoryID });
-    var section = _.find(category.sections, { _id: sectionID });
+    var category = _.find(_categories, { id: categoryID });
+    var section = _.find(category.sections, { id: sectionID });
     if (section) {
       section.components = components;
     }
@@ -63,7 +63,7 @@ var AppStore = assign(EventEmitter.prototype, {
     if (sections) {
       _.each(_categories, function(category) {
         _.each(category.sections, function(section) {
-          if (category._id === categoryID) {
+          if (category.id === categoryID) {
             category.sections = sections;
           }
         });
@@ -73,9 +73,9 @@ var AppStore = assign(EventEmitter.prototype, {
 
   sortCategories(dragged, over) {
     _.each(_categories, function(category) {
-      if (category._id === dragged._id) {
+      if (category.id === dragged.id) {
         category.order = dragged.order;
-      } else if (category._id === over._id) {
+      } else if (category.id === over.id) {
         category.order = over.order;
       }
     });
@@ -85,9 +85,9 @@ var AppStore = assign(EventEmitter.prototype, {
     // TODO
     // _.each(_categories, function(category) {
     //   _.each(category.sections, function(section) {
-    //     if (section._id === dragged._id) {
+    //     if (section.id === dragged.id) {
     //       section.order = dragged.order;
-    //     } else if (section._id === over._id) {
+    //     } else if (section.id === over.id) {
     //       section.order = dragged.order;
     //     }
     //   });
@@ -96,7 +96,7 @@ var AppStore = assign(EventEmitter.prototype, {
 
   updateSection(index, data){
     _.each(_categories, function(category) {
-      var newSection = _.find(category.sections, { _id: index });
+      var newSection = _.find(category.sections, { id: index });
       if (newSection) {
         _.each(data, function(item, itemIndex) {
           newSection[itemIndex] = item;
@@ -106,7 +106,7 @@ var AppStore = assign(EventEmitter.prototype, {
   },
 
   updateCategory(index, data){
-    var category = _.find(_categories, { _id: index });
+    var category = _.find(_categories, { id: index });
     _.each(data, function(value, index) {
       category[index] = value;
     });
@@ -134,7 +134,7 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
     case AppConstants.UPDATE_SECTION:
       AppStore.updateSection(action.index, action.data);
-      AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1]._id);
+      AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
       break;
     case AppConstants.UPDATE_CATEGORY:
       AppStore.updateCategory(action.index, action.data);

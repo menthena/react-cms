@@ -22,9 +22,9 @@ var ListComponent = React.createClass({
     var sectionID = this.props.sectionID;
     var stateData = this.state.data;
     _.each(stateData, function(component) {
-      if (component._id === dragged._id) {
+      if (component.id === dragged.id) {
         component.order = dragged.order;
-      } else if (component._id === over._id) {
+      } else if (component.id === over.id) {
         component.order = over.order;
       }
     });
@@ -83,7 +83,7 @@ var ListComponent = React.createClass({
 
   updateSingleComponent(componentType, newComponentData) {
     if (newComponentData.id) {
-      var component = _.find(this.state.data, { _id: newComponentData.id });
+      var component = _.find(this.state.data, { id: newComponentData.id });
       component.data = newComponentData;
       this.updateComponents();
     } else {
