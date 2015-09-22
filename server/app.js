@@ -13,6 +13,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var categories = require('./routes/categories');
 var components = require('./routes/components');
+var User = require('./models/User')
 var port = process.env.PORT || '3000';
 var http = require('http');
 
@@ -90,8 +91,8 @@ app.use(function(req, res, next) {
 });
 
 // app.use('/categories', ensureAuthenticated, categories);
-app.use('/categories', categories);
-app.use('/components', components);
+app.use('/categories', ensureAuthenticated, categories);
+app.use('/components', ensureAuthenticated, components);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
