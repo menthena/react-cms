@@ -3,7 +3,7 @@
 var axios = require('axios');
 var AppActions = require('../actions/AppActions');
 var ServerActions = require('../actions/ServerActions');
-var baseApiUrl = 'http://localhost:3000/';
+var baseApiUrl = 'http://localhost:3001/';
 var _ = require('lodash');
 
 var Api = {
@@ -16,7 +16,7 @@ var Api = {
 
   updateSection(categoryID, sectionID, data) {
     return axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + sectionID, data).then(function(response) {
-      ServerActions.receiveSection(sectionID, _.find(response.data.data.sections, {_id: sectionID}));
+      ServerActions.receiveSection(sectionID, _.find(response.data.data.sections, {id: sectionID}));
     });
   },
 
@@ -54,8 +54,8 @@ var Api = {
 
   sortCategorySections(categoryID, dragged, over) {
     return axios.all([
-      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + dragged._id, { order: dragged.order }),
-      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + over._id, { order: over.order })
+      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + dragged.id, { order: dragged.order }),
+      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + over.id, { order: over.order })
     ]).then(function(data) {
       // var sections = data[0].data.data.sections;
       var sections = data[0].data.data.sections;
@@ -76,15 +76,15 @@ var Api = {
       components: components
     }).then(function(response) {
       var data = response.data.data;
-      var section = _.find(data.sections, {_id: sectionID});
+      var section = _.find(data.sections, {id: sectionID});
       ServerActions.receiveUpdatedComponents(categoryID, sectionID, section.components);
     });
   },
 
   sortCategories(dragged, over) {
     return axios.all([
-      axios.patch(baseApiUrl + 'categories/' + dragged._id, { order: dragged.order }),
-      axios.patch(baseApiUrl + 'categories/' + over._id, { order: over.order })
+      axios.patch(baseApiUrl + 'categories/' + dragged.id, { order: dragged.order }),
+      axios.patch(baseApiUrl + 'categories/' + over.id, { order: over.order })
     ]).then(function(data) {
       ServerActions.receiveSortedCategories(dragged, over);
     });

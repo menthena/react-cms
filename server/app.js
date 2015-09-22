@@ -12,6 +12,10 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var categories = require('./routes/categories');
+var components = require('./routes/components');
+var User = require('./models/User')
+var port = process.env.PORT || '3000';
+var http = require('http');
 
 mongoose.connect(config.db.mongodb);
 
@@ -86,8 +90,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use('/categories', ensureAuthenticated, categories);
-app.use('/categories', categories);
+app.use('/categories', ensureAuthenticated, categories);
+app.use('/components', ensureAuthenticated, components);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -147,5 +151,12 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
+app.set('port', port);
+
+var server = http.createServer(app);
+
+server.listen(port);
+
+console.log('Running the server on ' + port);
 
 module.exports = app;

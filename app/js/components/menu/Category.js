@@ -16,7 +16,7 @@ var Category = React.createClass({
   },
 
   deleteCategory() {
-    var categoryID = this.props.category._id;
+    var categoryID = this.props.category.id;
     AppActions.deleteCategory(categoryID);
   },
 
@@ -42,7 +42,7 @@ var Category = React.createClass({
 
   update(event) {
     if (event.keyCode === 13) {
-      var categoryID = this.props.category._id;
+      var categoryID = this.props.category.id;
       AppActions.updateCategory(categoryID, { title: this.state.title });
       this.setState({
         isEditing: false

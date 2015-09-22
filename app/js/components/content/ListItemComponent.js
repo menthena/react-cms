@@ -70,7 +70,7 @@ var ListItemComponent = React.createClass({
         this.props.updateSingleComponent('link', {
           title: this.state.title,
           url: this.state.url,
-          id: this.props.item._id
+          id: this.props.item.id
       });
 
         this.setState({

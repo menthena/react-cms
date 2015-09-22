@@ -18,12 +18,12 @@ var ContentSection = React.createClass({
   },
 
   getOffsetTop: function() {
-    var domNode = this.refs['section_' + this.props.section._id].getDOMNode();
+    var domNode = this.refs['section_' + this.props.section.id].getDOMNode();
     return domNode.getBoundingClientRect().top;
   },
 
   handleContentChange(title) {
-    AppActions.updateSection(this.props.categoryID, this.props.section._id, {title: title});
+    AppActions.updateSection(this.props.categoryID, this.props.section.id, {title: title});
   },
 
   handleKeyDown: function(e) {
@@ -44,7 +44,7 @@ var ContentSection = React.createClass({
   render: function () {
     var section = this.props.section;
     var isAdmin = this.props.isAdmin;
-    var sectionID = section._id;
+    var sectionID = section.id;
 
     return (
         <section ref={'section_' + sectionID}>

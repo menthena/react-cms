@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('underscore');
+var _ = require('lodash');
 var should = require('should');
 var request = require('supertest');  
 var mongoose = require('mongoose');
@@ -30,7 +30,7 @@ describe('Routing', function() {
           'title': 'test' + n, 
           'order': n, 
           '_id': new ObjectId(),
-          'sections': _(3).times(function(s) { 
+          'sections': _.times(3, function(s) { 
             return { 
               '_id': new ObjectId(), 
               'title': 'sect' + s + '_' + n, 
@@ -52,7 +52,7 @@ describe('Routing', function() {
 			.end(function(err, res) {
         should.not.exist(err);
         res.body.data.length.should.eql(categories.length);
-        res.body.data[0].should.have.properties('_id', 'title', 'order');
+        res.body.data[0].should.have.properties('id', 'title', 'order');
         res.body.data[0].should.not.have.property('sections');
         done();
 	    });
@@ -67,9 +67,9 @@ describe('Routing', function() {
       .end(function(err, res) {
         should.not.exist(err);
         res.body.data.length.should.eql(categories.length);
-        res.body.data[0].should.have.properties('_id', 'title', 'order', 'sections');
+        res.body.data[0].should.have.properties('id', 'title', 'order', 'sections');
         res.body.data[0].sections.length.should.eql(3)
-        res.body.data[0].sections[0].should.have.properties('_id', 'title', 'order');
+        res.body.data[0].sections[0].should.have.properties('id', 'title', 'order');
         done();
       });
     });
@@ -79,11 +79,11 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .get('/categories/' + category['_id'])
+      .get('/categories/' + category.id)
       .expect(200)
       .end(function(err, res) {
         should.not.exist(err);
-        res.body.data['_id'].should.eql(category['_id'].toHexString());
+        res.body.data['id'].should.eql(category.id);
         res.body.data['title'].should.eql(category['title']);
         res.body.data['order'].should.eql(category['order']);
         res.body.data.should.not.have.property('sections');
@@ -96,11 +96,11 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .get('/categories/' + category['_id'] + '?includes=sections')
+      .get('/categories/' + category.id + '?includes=sections')
       .expect(200)
       .end(function(err, res) {
         should.not.exist(err);
-        res.body.data['_id'].should.eql(category['_id'].toHexString());
+        res.body.data['id'].should.eql(category.id);
         res.body.data['title'].should.eql(category['title']);
         res.body.data['order'].should.eql(category['order']);
         res.body.data.sections.length.should.eql(3);
@@ -113,12 +113,12 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .delete('/categories/' + category['_id'])
+      .delete('/categories/' + category.id)
       .expect(204)
       .end(function(err, res) {
         should.not.exist(err);
         
-        Category.findById(category['_id'], function(err, cat) { 
+        Category.findById(category.id, function(err, cat) { 
           should.not.exist(err);
           should.not.exist(cat);
           done();
@@ -131,21 +131,21 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .delete('/categories/' + category['_id'])
+      .delete('/categories/' + category.id)
       .expect(204)
       .end(function(err, res) {
         
-        Category.findById(category['_id'], function(err, cat) { 
+        Category.findById(category.id, function(err, cat) { 
           should.not.exist(err);
           should.not.exist(cat);
           
           request(app)
-          .delete('/categories/' + category['_id'])
+          .delete('/categories/' + category.id)
           .expect(204)
           .end(function(err, res) {
             should.not.exist(err);
             
-            Category.findById(category['_id'], function(err, cat) { 
+            Category.findById(category.id, function(err, cat) { 
               should.not.exist(err);
               should.not.exist(cat);
               done();
@@ -161,16 +161,16 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .delete('/categories/' + category['_id'] + '/sections/' + section['_id'])
+      .delete('/categories/' + category.id + '/sections/' + section.id)
       .expect(204)
       .end(function(err, res) {
         should.not.exist(err);
         
-        Category.findById(category['_id'], function(err, cat) { 
+        Category.findById(category.id, function(err, cat) { 
           should.not.exist(err);
           cat.sections.length.should.eql(2);
-          cat.sections[0]['_id'].should.not.eql(section['_id'].toHexString());
-          cat.sections[1]['_id'].should.not.eql(section['_id'].toHexString());
+          cat.sections[0].id.should.not.eql(section.id);
+          cat.sections[1].id.should.not.eql(section.id);
           done();
         });
       });
@@ -182,24 +182,24 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .delete('/categories/' + category['_id'] + '/sections/' + section['_id'])
+      .delete('/categories/' + category.id + '/sections/' + section.id)
       .expect(204)
       .end(function(err, res) {
         
-        Category.findById(category['_id'], function(err, cat) { 
+        Category.findById(category.id, function(err, cat) { 
           should.not.exist(err);
 
           request(app)
-          .delete('/categories/' + category['_id'] + '/sections/' + section['_id'])
+          .delete('/categories/' + category.id + '/sections/' + section.id)
           .expect(204)
           .end(function(err, res) {
             should.not.exist(err);
             
-            Category.findById(category['_id'], function(err, cat) { 
+            Category.findById(category.id, function(err, cat) { 
               should.not.exist(err);
               cat.sections.length.should.eql(2);
-              cat.sections[0]['_id'].should.not.eql(section['_id'].toHexString());
-              cat.sections[1]['_id'].should.not.eql(section['_id'].toHexString());
+              cat.sections[0].id.should.not.eql(section.id);
+              cat.sections[1].id.should.not.eql(section.id);
               done();
             });
           });
@@ -213,14 +213,14 @@ describe('Routing', function() {
       passportStub.login({username: 'john.doe'});
 
       request(app)
-      .patch('/categories/' + category['_id'])
+      .patch('/categories/' + category.id)
       .send(categoryUpdate)
       .expect(200)
       .end(function(err, res) {
         should.not.exist(err);
         res.body.data.should.match(categoryUpdate);
 
-        Category.findById(category['_id'], function(err, category) { 
+        Category.findById(category.id, function(err, category) { 
           should.not.exist(err);
           category.should.match(categoryUpdate);
           done();
@@ -230,8 +230,8 @@ describe('Routing', function() {
 
     it('should update a single section', function(done) {
       var category = _.sample(categories);
-      var categoryId = category._id;
-      var sectionId = _.sample(category.sections)._id;
+      var categoryId = category.id;
+      var sectionId = _.sample(category.sections).id;
       var sectionUpdate = {'title': 'NEW TITLE'};
       passportStub.login({username: 'john.doe'});
 
@@ -242,12 +242,12 @@ describe('Routing', function() {
       .end(function(err, res) {
         should.not.exist(err);
         
-        var resultSection = _.find(res.body.data.sections, function(s) { return s._id === sectionId.toHexString(); });
+        var resultSection = _.find(res.body.data.sections, function(s) { return s.id === sectionId; });
         resultSection.should.match(sectionUpdate);
 
         Category.findById(categoryId, function(err, category) { 
           should.not.exist(err);
-          var dbSection = _.find(category.sections, function(s) { return s._id.toHexString() === sectionId.toHexString(); });
+          var dbSection = _.find(category.sections, function(s) { return s.id === sectionId; });
           dbSection.should.match(sectionUpdate);
           done();
         });
@@ -266,7 +266,7 @@ describe('Routing', function() {
         should.not.exist(err);
         res.body.data.should.match(newCategory);
 
-        Category.findById(res.body.data._id, function(err, category) { 
+        Category.findById(res.body.data.id, function(err, category) { 
           should.not.exist(err);
           category.should.match(newCategory);
           done();
@@ -275,7 +275,7 @@ describe('Routing', function() {
     });
 
     it('should create a single section', function(done) {
-      var categoryId = _.sample(categories)._id;
+      var categoryId = _.sample(categories).id;
       var newSection = {'title': 'NEW SECT', 'order': 55};
       passportStub.login({username: 'john.doe'});
 
@@ -290,31 +290,7 @@ describe('Routing', function() {
 
         Category.findById(categoryId, function(err, category) { 
           should.not.exist(err);
-          var dbSection = _.find(category.sections, function(s) { return s._id.toHexString() === resultSection._id; });
-          dbSection.should.match(newSection);
-          done();
-        });
-      });
-    });
-
-    it('should allow sections to have component data', function(done) {
-      var categoryId = _.sample(categories)._id;
-      var newComponents = [{'componentType': 'text', 'data': 'hi'}];
-      var newSection = {'title': 'NEW SECT', 'order': 55, 'template': 'page', 'components': newComponents};
-      passportStub.login({username: 'john.doe'});
-
-      request(app)
-      .post('/categories/' + categoryId + '/sections')
-      .send(newSection)
-      .expect(201)
-      .end(function(err, res) {
-        should.not.exist(err);
-        var resultSection = _.find(res.body.data.sections, function(s) { return s.order === 55; });
-        resultSection.should.match(newSection);
-
-        Category.findById(categoryId, function(err, category) { 
-          should.not.exist(err);
-          var dbSection = _.find(category.sections, function(s) { return s._id.toHexString() === resultSection._id; });
+          var dbSection = _.find(category.sections, function(s) { return s.id === resultSection.id; });
           dbSection.should.match(newSection);
           done();
         });
