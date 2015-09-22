@@ -88,7 +88,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+<<<<<<< HEAD
 app.use('/categories', ensureAuthenticated, categories);
+=======
+// app.use('/categories', ensureAuthenticated, categories);
+app.use('/categories', categories);
+>>>>>>> 0f7671c48b0b9d8074e9a20436617f7051144091
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
