@@ -17,7 +17,7 @@ var Menu = React.createClass({
           <div id='menu-inner'>
             <div id="logo">
               <img alt="Logo" src="../images/logo.gif"/>
-              <h3>Resource centare test</h3>
+              <h3>Resource centre test</h3>
               <h4>Beta v0.1</h4>
             </div>
             <div className='scroll'>
