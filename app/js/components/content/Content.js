@@ -2,7 +2,6 @@
 
 var React = require('react/addons');
 var ContentSection = require('./ContentSection');
-var Header = require('../Header');
 var _ = require('lodash');
 
 require('../../../styles/Content.sass');
@@ -44,7 +43,6 @@ var Content = React.createClass({
 
     return (
         <div id="content">
-          <Header/>
           {contentSections}
         </div>
       );

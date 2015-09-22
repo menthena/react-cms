@@ -1,21 +1,27 @@
 @import 'logo'
 @import '_variables'
 
-#wrapper, .navbar, #menu-inner
-  left     : 0
-  position : relative
-
-  -webkit-transition : all .15s ease-out
-  -o-transition      : all .15s ease-out
-  transition         : all .15s ease-out
-
 #menu
-  width         : 240px
-  position      : absolute
-  top           : 0
-  height        : 100%
-  left          : -240px
-  z-index       : 10000
+  -webkit-backface-visibility: hidden
+  background: $white
+  bottom: 0
+  box-sizing: content-box
+  -webkit-overflow-scrolling: touch
+  -ms-overflow-style: -ms-autohiding-scrollbar
+  overflow-x: hidden
+  overflow-y: auto
+  position: absolute
+  transition: transform 500ms ease 0s
+  z-index: 1001
+  -webkit-transform: translate3d(-100%, 0, 0)
+  -moz-transform: translate3d(-100%, 0, 0)
+  -ms-transform: translate(-100%, 0)
+  -o-transform: translate3d(-100%, 0, 0)
+  transform: translate3d(-100%, 0, 0)
+  left: 0
+  top: 0
+  width: 240px
+  border-right  : 1px solid $grey
 
   ul
     overflow : hidden
@@ -91,15 +97,6 @@
 
 
 #menu-inner
-  background    : $white
-  border-right  : 1px solid $grey
-  height        : 100%
-  left          : 0
-  position      : fixed
-  top           : 0
-  width         : 240px
-
-
-@media screen and (max-width: 767px)
-  #menu, #menu-inner
-    left:-240px
+  position : fixed
+  top : 0
+  width : 100%

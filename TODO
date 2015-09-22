@@ -1,0 +1,6 @@
+TO DO
+
+-- Autoprefixer CSS
+-- Make sure I have the latest code
+-- Clean up all other CSS. Make compoments require files instead of importing. Use $sass variables
+-- JSHint, JSCS
