@@ -19,6 +19,16 @@ module.exports = {
     'dest': './build/css/'
   },
 
+  'bootstrap': {
+    'src': './app/styles/bootstrap/**/*.*',
+    'dest': './build/css/'
+  },
+
+  'fontawesome': {
+    'src': './app/styles/fontawesome/**/*.*',
+    'dest': './build/css/'
+  },
+
   'sourceDir': './app/',
 
   'buildDir': './build/'
