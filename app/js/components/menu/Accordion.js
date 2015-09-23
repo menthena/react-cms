@@ -2,13 +2,13 @@
 
 var React = require('react/addons');
 var Category = require('./Category');
-var DragMixin = require('../../mixins/DragMixin');
+var ReorderMixin = require('../../mixins/ReorderMixin');
 var AppActions = require('../../actions/AppActions');
 var NewCategory = require('./NewCategory');
 var _ = require('lodash');
 
 var Accordion = React.createClass({
-  mixins: [DragMixin],
+  mixins: [ReorderMixin],
 
   getInitialState: function() {
     return {

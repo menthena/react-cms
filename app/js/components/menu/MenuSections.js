@@ -1,14 +1,14 @@
 'use strict';
 
 var React = require('react/addons');
-var DragMixin = require('../../mixins/DragMixin');
+var ReorderMixin = require('../../mixins/ReorderMixin');
 var AppActions = require('../../actions/AppActions');
 var NewSection = require('./NewSection');
 var Section = require('./Section');
 var _ = require('lodash');
 
 var MenuSections = React.createClass({
-  mixins: [DragMixin],
+  mixins: [ReorderMixin],
 
   getInitialState() {
     return {
@@ -18,9 +18,9 @@ var MenuSections = React.createClass({
     };
   },
 
-  setDraggableData: function(dragged, over) {
+  setDraggableData: function(sections) {
     var categoryID = this.props.category.id;
-    AppActions.sortCategorySections(categoryID, dragged, over);
+    AppActions.sortCategorySections(categoryID, sections);
   },
 
   render: function () {
@@ -53,13 +53,13 @@ var MenuSections = React.createClass({
               );
             }.bind(this))}
           </ul>
-          <NewSection categoryID={category.id} />
+          <NewSection sections={category.sections} categoryID={category.id} />
         </div>
       );
     } else {
       var placeholder;
       if (isVisible) {
-        placeholder = <NewSection categoryID={category.id} />;
+        placeholder = <NewSection sections={category.sections} categoryID={category.id} />;
       }
       return (
         <div>

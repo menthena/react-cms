@@ -1,7 +1,6 @@
 'use strict';
 
 var axios = require('axios');
-var AppActions = require('../actions/AppActions');
 var ServerActions = require('../actions/ServerActions');
 var baseApiUrl = 'http://localhost:3001/';
 var _ = require('lodash');
@@ -21,7 +20,7 @@ var Api = {
   },
 
   updateCategory(categoryID, data) {
-    return axios.patch(baseApiUrl + 'categories/' + categoryID, data).then(function(response) {
+    return axios.patch(baseApiUrl + 'categories/' + categoryID, data).then(function() {
       ServerActions.receiveCategory(categoryID, data);
     });
   },
@@ -34,38 +33,37 @@ var Api = {
   },
 
   deleteCategory(categoryID) {
-    axios.delete(baseApiUrl + 'categories/' + categoryID).then(function(response) {
+    axios.delete(baseApiUrl + 'categories/' + categoryID).then(function() {
       ServerActions.receiveDeletedCategory(categoryID);
     });
   },
 
-  addNewSection(categoryID, title) {
-    axios.post(baseApiUrl + 'categories/' + categoryID + '/sections', { title: title, order: 0 }).then(function(response) {
+  addNewSection(categoryID, title, order) {
+    axios.post(baseApiUrl + 'categories/' + categoryID + '/sections', { title: title, order: order }).then(function(response) {
       var section = response.data.data;
       ServerActions.receiveNewSection(categoryID, section);
     });
   },
 
   deleteSection(categoryID, sectionID) {
-    axios.delete(baseApiUrl + 'categories/' + categoryID + '/sections/' + sectionID).then(function(response) {
+    axios.delete(baseApiUrl + 'categories/' + categoryID + '/sections/' + sectionID).then(function() {
       ServerActions.receiveDeletedSection(categoryID, sectionID);
     });
   },
 
-  sortCategorySections(categoryID, dragged, over) {
-    return axios.all([
-      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + dragged.id, { order: dragged.order }),
-      axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + over.id, { order: over.order })
-    ]).then(function(data) {
-      // var sections = data[0].data.data.sections;
-      var sections = data[0].data.data.sections;
-      ServerActions.receiveSortedCategorySections(categoryID, sections);
+  sortCategorySections(categoryId, sections) {
+    var promises = [];
+    _.each(sections, (section) => {
+      promises.push(axios.patch(baseApiUrl + 'categories/' + categoryId + '/sections/' + section.id, { order: section.order }));
+    });
+    return axios.all(promises).then(function() {
+      ServerActions.receiveSortedCategorySections(categoryId, sections);
     });
   },
 
   sortSectionItems(sectionID, items) {
     // Missing endpoint?
-    return axios.get(baseApiUrl + 'categories').then(function(response) {
+    return axios.get(baseApiUrl + 'categories').then(function() {
       // Mocking success
       ServerActions.receiveSortedSectionItems(sectionID, items);
     });

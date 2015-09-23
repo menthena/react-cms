@@ -128,7 +128,8 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
     case AppConstants.UPDATE_SECTION:
       AppStore.updateSection(action.index, action.data);
-      AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
+      // AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
+      AppStore.emitChange();
       break;
     case AppConstants.UPDATE_CATEGORY:
       AppStore.updateCategory(action.index, action.data);

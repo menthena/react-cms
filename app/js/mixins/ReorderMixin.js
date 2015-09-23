@@ -1,9 +1,9 @@
 'use strict';
 
-require('../../styles/DragMixin.sass');
+require('../../styles/ReorderMixin.sass');
 var _ = require( 'lodash' );
 
-var DragMixin = {
+var ReorderMixin = {
 
   componentWillMount() {
     this.draggableData = [];
@@ -51,7 +51,7 @@ var DragMixin = {
     }
   },
 
-  dragEnd: function(e) {
+  dragEnd: function() {
     if (this.over && this.dragged.dataset.droppable === this.over.dataset.droppable) {
       this.dragged.style.display = 'block';
       this.over.parentNode.removeChild(this.placeholder);
@@ -60,15 +60,10 @@ var DragMixin = {
       var from = Number(this.dragged.dataset.order);
       var to = Number(this.over.dataset.order);
       if (!isNaN(to) && !isNaN(from)) {
-
-        var dragged = _.find(this.draggableData, { order: from});
-        dragged.order = to;
-
+        this.draggableData.splice(to, 0, this.draggableData.splice(from, 1)[0]);
         _.each(this.draggableData, function(data, index) {
-          if (data !== dragged) {
-            this.draggableData[index].order++;
-          }
-        }.bind(this));
+          data.order = index;
+        });
         this.setDraggableData(this.draggableData);
       }
       this.dragged = null;
@@ -99,4 +94,4 @@ var DragMixin = {
 };
 
 
-module.exports = DragMixin;
+module.exports = ReorderMixin;

@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
-var DragMixin = require('../../mixins/DragMixin');
+var ReorderMixin = require('../../mixins/ReorderMixin');
 var AppActions = require('../../actions/AppActions');
 var GoogleDriveMixin = require('../../mixins/GoogleDriveMixin');
 var update = React.addons.update;
@@ -10,7 +10,7 @@ var _ = require('lodash');
 
 require('../../../styles/ListComponent.sass');
 var ListComponent = React.createClass({
-  mixins: [DragMixin, GoogleDriveMixin],
+  mixins: [ReorderMixin, GoogleDriveMixin],
 
   getInitialState: function() {
     return {

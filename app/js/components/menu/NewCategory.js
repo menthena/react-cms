@@ -16,7 +16,7 @@ var NewCategory = React.createClass({
   handleSubmit(e) {
     var numberOfExistingCategories = this.props.categories.length;
     e.preventDefault();
-    AppActions.addNewCategory(this.state.title, numberOfExistingCategories + 1);
+    AppActions.addNewCategory(this.state.title, numberOfExistingCategories);
     this.setState({
       title: ''
     });
