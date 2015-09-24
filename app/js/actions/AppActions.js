@@ -15,8 +15,8 @@ var AppActions = {
     Api.getCategories();
   },
 
-  addNewCategory(title) {
-    Api.addNewCategory(title);
+  addNewCategory(title, order) {
+    Api.addNewCategory(title, order);
   },
 
   deleteCategory(categoryID) {
@@ -31,8 +31,8 @@ var AppActions = {
     Api.updateComponents(categoryID, sectionID, components);
   },
 
-  addNewSection(categoryID, title) {
-    Api.addNewSection(categoryID, title);
+  addNewSection(categoryID, title, order) {
+    Api.addNewSection(categoryID, title, order);
   },
 
   deleteSection(categoryID, sectionID) {
@@ -47,12 +47,12 @@ var AppActions = {
     Api.sortSectionItems(sectionID, dragged, over);
   },
 
-  sortCategorySections(categoryID, dragged, over) {
-    Api.sortCategorySections(categoryID, dragged, over);
+  sortCategorySections(categoryId, sections) {
+    Api.sortCategorySections(categoryId, sections);
   },
 
-  sortCategories(dragged, over) {
-    Api.sortCategories(dragged, over);
+  sortCategories(categories) {
+    Api.sortCategories(categories);
   },
 
   closeAllNewSectionComponents() {

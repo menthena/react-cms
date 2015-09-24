@@ -13,7 +13,6 @@ var TextComponent = React.createClass({
 
   handleContentChange: function(content) {
     var section = AppStore.getSection(this.props.sectionID);
-    console.log(this.state.componentID);
     if (this.state.componentID) {
       // UPDATE
       var component = _.find(section.components, {id: this.state.componentID});
