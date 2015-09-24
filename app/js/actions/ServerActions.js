@@ -26,12 +26,17 @@ var ServerActions = {
     });
   },
 
-  receiveUpdatedComponents(categoryID, sectionID, components) {
+  receiveComponents(components) {
     AppDispatcher.handleViewAction({
-      actionType: AppConstants.UPDATE_COMPONENTS,
-      categoryID: categoryID,
-      sectionID: sectionID,
+      actionType: AppConstants.GET_COMPONENTS,
       components: components
+    });
+  },
+
+  receiveNewSectionComponent(component) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.GET_NEW_SECTION_COMPONENT,
+      component: component
     });
   },
 
@@ -83,11 +88,10 @@ var ServerActions = {
     });
   },
 
-  receiveSortedCategories: function(dragged, over) {
+  receiveSortedCategories: function(categories) {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.SORT_CATEGORIES,
-      dragged: dragged,
-      over: over
+      categories: categories
     });
   }
 };

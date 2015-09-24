@@ -64,6 +64,10 @@ var Category = React.createClass({
       {'has-sections' : true },
       {'open' : isVisible}
     );
+    var toggleClasses = classNames(
+      {'fa fa-caret-down' : isVisible},
+      {'fa fa-caret-right' : !isVisible}
+    );
     var titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
     var titleStyle = { display: !this.state.isEditing ? 'block' : 'none' };
     return (
@@ -72,6 +76,7 @@ var Category = React.createClass({
             <i className="fa fa-remove" onClick={this.deleteCategory}></i>
           </div>
           <div className="actions right" draggable="true" data-parent="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
+            <i className={ toggleClasses }></i>
             <i className="fa fa-reorder ui-sortable-handle"></i>
           </div>
           <h3 className={ classes } onClick={this.handleClick}>

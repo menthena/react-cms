@@ -13,19 +13,40 @@ require('../../../styles/PageComponent.sass');
 
 var PageComponent = React.createClass({
 
+  getInitialState() {
+    return {
+      components: []
+    };
+  },
+
+  _onChange() {
+    this.setState({
+      components: AppStore.getComponents(this.props.sectionID)
+    });
+  },
+
+  componentWillMount() {
+    AppStore.addChangeListener(this._onChange);
+    AppActions.getComponents(this.props.sectionID);
+  },
+
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this._onChange);
+  },
+
   render: function () {
     var template = this.props.template;
-    var components = this.props.components;
+    var components = this.state.components;
     var isAdmin = this.props.isAdmin;
     var sectionComponents = [];
 
     _.each(components, function(component) {
       switch (component.componentType) {
-        case 'textComponent':
-          sectionComponents.push(<TextComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} template={component.data}></TextComponent>);
+        case 'TextComponent':
+          sectionComponents.push(<TextComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} componentID={component.id} template={component.data}></TextComponent>);
           break;
-        case 'listComponent':
-          sectionComponents.push(<ListComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} components={components}></ListComponent>);
+        case 'ListComponent':
+          sectionComponents.push(<ListComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} componentID={component.id}></ListComponent>);
           break;
       }
     }.bind(this));

@@ -22,7 +22,6 @@ var NewSectionComponent = React.createClass({
   getInitialState() {
     return {
       sectionComponentSelectorVisible: false,
-      newComponent: null,
       plusButtonVisible: true
     };
   },
@@ -32,25 +31,22 @@ var NewSectionComponent = React.createClass({
     this.setState({
       // sectionComponentSelectorVisible: this.state.sectionComponentSelectorVisible ? false : true, // TO DO - toggle
       sectionComponentSelectorVisible: true,
-      newComponent: null,
       plusButtonVisible: false
     });
   },
 
   handleNewComponent(component) {
     this.setState({
-      newComponent: component,
-      plusButtonVisible: true
+      plusButtonVisible: true,
+      sectionComponentSelectorVisible: false
     });
     AppActions.addNewSectionComponent(component, this.props.sectionID, this.props.categoryID);
   },
 
   _onChange(type) {
-    if (type === AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS) {
-      this.setState({
-        sectionComponentSelectorVisible: false
-      });
-    }
+    this.setState({
+      sectionComponentSelectorVisible: false
+    });
   },
 
   componentDidMount() {
@@ -63,11 +59,7 @@ var NewSectionComponent = React.createClass({
     var template;
     var style = { display : this.state.plusButtonVisible ? 'block' : 'none'};
 
-    if (this.state.newComponent === 'TextComponent') {
-      template = <TextComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin}></TextComponent>;
-    } else if (this.state.newComponent === 'ListComponent') {
-      template = <ListComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin}></ListComponent>;
-    } else if (sectionComponentSelectorVisible) {
+    if (sectionComponentSelectorVisible) {
       template = <div className="row new-section-component-selector">
         <div className="col-md-6 col-md-offset-3 text-center">
           <div className="row">

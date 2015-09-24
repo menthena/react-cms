@@ -12,8 +12,9 @@ var NewSection = React.createClass({
   },
 
   handleSubmit(e) {
+    var numberOfExistingSections = this.props.sections.length;
     e.preventDefault();
-    AppActions.addNewSection(this.props.categoryID, this.state.title);
+    AppActions.addNewSection(this.props.categoryID, this.state.title, numberOfExistingSections);
     this.setState({
       title: ''
     });

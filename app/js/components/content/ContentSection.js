@@ -52,7 +52,7 @@ var ContentSection = React.createClass({
             <header>
               <Editor tag="h1" text={section.title} onChange={this.handleContentChange} options={{toolbar: false, buttons: [], disableReturn: true}} />
             </header>
-            <PageComponent categoryID={this.props.categoryID} sectionID={sectionID} isAdmin={isAdmin} template={section.template} components={section.components}></PageComponent>
+            <PageComponent categoryID={this.props.categoryID} sectionID={sectionID} isAdmin={isAdmin} template={section.template}></PageComponent>
           </div>
         </section>
       );

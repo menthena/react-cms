@@ -12,6 +12,7 @@ EventEmitter.prototype._maxListeners = 100;
 var CHANGE_EVENT = 'change';
 
 var _categories = [];
+var _components = [];
 
 function _updateItem(index, content) {
     //sections[index].title = content;
@@ -51,6 +52,30 @@ var AppStore = assign(EventEmitter.prototype, {
     return section;
   },
 
+  getComponents(sectionID) {
+    var sectionComponents = [];
+    _.each(_components, function(componentList) {
+      if (componentList.length > 0 && componentList[0].sectionid === sectionID) {
+        sectionComponents = componentList;
+      }
+    });
+    return sectionComponents;
+  },
+
+  storeNewComponent(component) {
+    var sectionID = component.sectionid;
+    var storedComponent = this.getComponents(sectionID);
+    if (storedComponent.length > 0) {
+      storedComponent.push(component);
+    } else {
+      this.storeComponents([component]);
+    }
+  },
+
+  storeComponents(components) {
+    _components.push(components);
+  },
+
   updateComponents(categoryID, sectionID, components) {
     var category = _.find(_categories, { id: categoryID });
     var section = _.find(category.sections, { id: sectionID });
@@ -71,14 +96,8 @@ var AppStore = assign(EventEmitter.prototype, {
     }
   },
 
-  sortCategories(dragged, over) {
-    _.each(_categories, function(category) {
-      if (category.id === dragged.id) {
-        category.order = dragged.order;
-      } else if (category.id === over.id) {
-        category.order = over.order;
-      }
-    });
+  sortCategories(categories) {
+    _categories = categories;
   },
 
   sortSectionItems(sectionID, dragged, over) {
@@ -134,7 +153,8 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
     case AppConstants.UPDATE_SECTION:
       AppStore.updateSection(action.index, action.data);
-      AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
+      // AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
+      AppStore.emitChange();
       break;
     case AppConstants.UPDATE_CATEGORY:
       AppStore.updateCategory(action.index, action.data);
@@ -156,6 +176,14 @@ AppDispatcher.register(function(payload) {
       AppStore.sortSectionItems(action.sectionID, action.dragged, action.over);
       AppStore.emitChange();
       break;
+    case AppConstants.GET_NEW_SECTION_COMPONENT:
+        AppStore.storeNewComponent(action.component);
+        AppStore.emitChange();
+        break;
+    case AppConstants.GET_COMPONENTS:
+      AppStore.storeComponents(action.components);
+      AppStore.emitChange();
+      break;
     case AppConstants.UPDATE_COMPONENTS:
       AppStore.updateComponents(action.categoryID, action.sectionID, action.components);
       AppStore.emitChange();
@@ -169,7 +197,7 @@ AppDispatcher.register(function(payload) {
       AppStore.emitChange();
       break;
     case AppConstants.SORT_CATEGORIES:
-      AppStore.sortCategories(action.dragged, action.over);
+      AppStore.sortCategories(action.categories);
       AppStore.emitChange();
       break;
     case AppConstants.ADD_NEW_SECTION_COMPONENT:

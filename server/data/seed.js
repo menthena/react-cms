@@ -12,7 +12,7 @@ var categories = {
         _id: ObjectId(),
         'title' : 'Home',
         'template' : 'basicpage',
-        'order': 1
+        'order': 0
       }
     ]
   },
@@ -25,13 +25,13 @@ var categories = {
         _id: ObjectId(),
         'title' : 'Section 1a',
         'template' : 'basicpage',
-        'order': 1
+        'order': 0
       },
       {
         _id: ObjectId(),
         'title' : 'Section 1b',
         'template' : 'basicpage',
-        'order': 2
+        'order': 1
       }
     ]
   },
@@ -44,7 +44,7 @@ var categories = {
         _id: ObjectId(),
         'title' : 'Section 2',
         'template' : 'basicpage',
-        'order': 1
+        'order': 0
       }
     ]
   },
@@ -57,7 +57,7 @@ var categories = {
         _id: ObjectId(),
         'title' : 'Section 3',
         'template' : 'basicpage',
-        'order': 1
+        'order': 0
       }
     ]
   },
@@ -66,26 +66,26 @@ var categories = {
     'title': 'Category 4',
     'order': 4,
     'sections': []
-  }, 
+  },
 };
 
 Object.keys(categories).forEach(function(category){
-  db.categories.save(categories[category]); 
+  db.categories.save(categories[category]);
 });
 
-var components = {
-  'home': {
-    componentType: 'list',
-    data: [],
-    order: 1,
-    sectionid: categories['home'].sections[0]._id,
-    categoryid: categories['home']._id
-  }
-};
-
-Object.keys(components).forEach(function(component){
-  db.components.save(components[component]);  
-});
+// var components = {
+//   'home': {
+//     componentType: 'list',
+//     data: [],
+//     order: 1,
+//     sectionid: categories['home'].sections[0]._id,
+//     categoryid: categories['home']._id
+//   }
+// };
+//
+// Object.keys(components).forEach(function(component){
+//   db.components.save(components[component]);
+// });
 
 // var data = [{
 //  'title': 'IT Guide',
