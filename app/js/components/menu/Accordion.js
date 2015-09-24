@@ -2,13 +2,13 @@
 
 var React = require('react/addons');
 var Category = require('./Category');
-var DragMixin = require('../../mixins/DragMixin');
+var ReorderMixin = require('../../mixins/ReorderMixin');
 var AppActions = require('../../actions/AppActions');
 var NewCategory = require('./NewCategory');
 var _ = require('lodash');
 
 var Accordion = React.createClass({
-  mixins: [DragMixin],
+  mixins: [ReorderMixin],
 
   getInitialState: function() {
     return {
@@ -17,8 +17,8 @@ var Accordion = React.createClass({
     };
   },
 
-  setDraggableData: function(dragged, over) {
-    AppActions.sortCategories(dragged, over);
+  setDraggableData: function(categories) {
+    AppActions.sortCategories(categories);
   },
 
   handleClick: function(category) {
@@ -49,7 +49,7 @@ var Accordion = React.createClass({
     return (
         <div id="categories" className="Accordion" onDragOver={this.dragOver}>
           {categories}
-          <NewCategory />
+          <NewCategory categories={categories} />
         </div>
       );
   }
