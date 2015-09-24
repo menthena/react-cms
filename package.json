@@ -30,6 +30,7 @@
     "express-session": "^1.11.3",
     "flux": "^2.1.1",
     "jade": "~1.11.0",
+    "keymirror": "^0.1.1",
     "medium-editor": "^5.8.1",
     "mongoose": "^4.1.8",
     "mongoose-findorcreate": "^0.1.2",

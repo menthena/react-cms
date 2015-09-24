@@ -11,23 +11,30 @@ var Header = require('./components/Header');
 var ReactTransitionGroup = React.addons.TransitionGroup;
 var Api = require('./utils/Api');
 var AppActions = require('./actions/AppActions');
-var AppStore = require('./stores/AppStore');
+var CategoryStore = require('./stores/CategoryStore');
 
 require('../styles/main.sass');
+
+function getCategoryState() {
+  return {
+    allCategories: CategoryStore.getAll()
+  };
+}
 
 var App = React.createClass({
 
   getInitialState: function() {
-    return {
-      categories: [],
-      isAdmin: true,
-      mobilePanelVisible: false
-    };
+    return getCategoryState();
+    // return {
+    //   categories: AppActions.getCategories(),
+    //   isAdmin: true,
+    //   mobilePanelVisible: false
+    // };
   },
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+  // contextTypes: {
+  //   router: React.PropTypes.func
+  // },
 
   handleSectionScroll: function(sectionTitle) {
     this.setState({
@@ -36,9 +43,7 @@ var App = React.createClass({
   },
 
   _onChange() {
-    this.setState({
-      categories: AppStore.getCategories()
-    });
+    this.setState(getCategoryState());
   },
 
   toggleMobilePanel() {
@@ -52,8 +57,7 @@ var App = React.createClass({
   },
 
   componentDidMount() {
-    AppActions.getCategories();
-    AppStore.addChangeListener(this._onChange);
+    CategoryStore.addChangeListener(this._onChange);
 
     if (ExecutionEnvironment.canUseDOM) {
       document.addEventListener('scroll', this.handleScroll);
@@ -61,7 +65,7 @@ var App = React.createClass({
   },
 
   componentWillUnmount() {
-    AppStore.removeChangeListener(this._onChange);
+    CategoryStore.removeChangeListener(this._onChange);
     document.removeEventListener('scroll', this.handleScroll);
   },
 
@@ -80,8 +84,8 @@ var App = React.createClass({
       <div className={classes}>
         <div className='inner-wrap'>
           <Header toggleMobilePanel={this.toggleMobilePanel} />
-          <Menu categories={this.state.categories} currentSection={this.state.currentSection} />
-          <Content isAdmin={this.state.isAdmin} categories={this.state.categories} onSectionScroll={this.handleSectionScroll} ref='content' />
+          <Menu categories={this.state.allCategories} currentSection={this.state.currentSection} />
+          <Content isAdmin={this.state.isAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
         </div>
       </div>
     );

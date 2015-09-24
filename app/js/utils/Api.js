@@ -4,13 +4,37 @@ var axios = require('axios');
 var ServerActions = require('../actions/ServerActions');
 var baseApiUrl = 'http://localhost:3001/';
 var _ = require('lodash');
+var ServerActionCreators = require('../actions/ServerActionCreators');
+var CategoryStore = require('../stores/CategoryStore');
 
 var Api = {
 
-  getCategories() {
+  getAllCategories() {
     return axios.get(baseApiUrl + 'categories?includes=sections').then(function(response) {
       // TODO: Handle errors
-      ServerActions.receiveData(response.data.data);
+      var rawCategories = response.data.data;
+      ServerActionCreators.receiveAll(rawCategories);
+    });
+  },
+
+  createCategory(name) {
+    var order = CategoryStore.getAll().length;
+    axios.post(baseApiUrl + 'categories', {title: name, order: order}).then(function(response) {
+      // TODO: Handle errors
+      ServerActionCreators.receiveCreatedCategory(response.data.data);
+    });
+  },
+
+  deleteCategory(id) {
+    axios.delete(baseApiUrl + 'category/' + id).then(function(response) {
+      console.log(response);
+    });
+  },
+
+  updateCategory(id, data) {
+    axios.patch(baseApiUrl + 'categories/' + id, data).then(function(response) {
+      // TODO: Handle errors
+      ServerActionCreators.receiveUpdatedCategory(response.data.data);
     });
   },
 
@@ -28,24 +52,11 @@ var Api = {
     });
   },
 
-  updateCategory(categoryID, data) {
-    return axios.patch(baseApiUrl + 'categories/' + categoryID, data).then(function() {
-      // TODO: Handle errors
-      ServerActions.receiveCategory(categoryID, data);
-    });
-  },
-
   addNewCategory(title, order) {
     axios.post(baseApiUrl + 'categories', { title: title, order: order }).then(function(response) {
       // TODO: Handle errors
       var category = response.data.data;
       ServerActions.receiveNewCategory(category);
-    });
-  },
-
-  deleteCategory(categoryID) {
-    axios.delete(baseApiUrl + 'categories/' + categoryID).then(function() {
-      ServerActions.receiveDeletedCategory(categoryID);
     });
   },
 

@@ -4,6 +4,7 @@ var React = require('react/addons');
 var MenuSections = require('./MenuSections');
 var classNames = require('classnames');
 var AppActions = require('../../actions/AppActions');
+var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 
 var Category = React.createClass({
 
@@ -11,13 +12,48 @@ var Category = React.createClass({
     return {
       isVisible: false,
       isEditing: false,
-      title: this.props.category.title
+      categoryName: this.props.category.title
     };
   },
 
+  // handleSubmit(e) {
+  //   // var numberOfExistingCategories = this.props.categories.length;
+  //   // e.preventDefault();
+  //   // AppActions.addNewCategory(this.state.title, numberOfExistingCategories);
+  //   // this.setState({
+  //   //   title: ''
+  //   // });
+  //   e.preventDefault();
+  //   var categoryName = this.state.categoryName;
+  //   if (categoryName) {
+  //     CategoryActionCreators.createCategory(categoryName);
+  //     this.setState({
+  //       categoryName: ''
+  //     });
+  //   }
+  // },
+  //
+  // handleChange(event) {
+  //   this.setState({
+  //     categoryName: event.target.value
+  //   });
+  // },
+
   deleteCategory() {
-    var categoryID = this.props.category.id;
-    AppActions.deleteCategory(categoryID);
+    var categoryId = this.props.category.id;
+    // AppActions.deleteCategory(categoryID);
+    CategoryActionCreators.deleteCategory(categoryId);
+  },
+
+  updateCategory() {
+    if (event.keyCode === 13) {
+      var categoryId = this.props.category.id;
+      var categoryName = this.state.categoryName;
+      CategoryActionCreators.updateCategory(categoryId, {title: categoryName});
+      this.setState({
+        isEditing: false
+      });
+    }
   },
 
   handleClick: function() {
@@ -40,19 +76,9 @@ var Category = React.createClass({
     });
   },
 
-  update(event) {
-    if (event.keyCode === 13) {
-      var categoryID = this.props.category.id;
-      AppActions.updateCategory(categoryID, { title: this.state.title });
-      this.setState({
-        isEditing: false
-      });
-    }
-  },
-
   handleInputChange(event) {
     this.setState({
-      title: event.target.value
+      categoryName: event.target.value
     });
   },
 
@@ -80,7 +106,7 @@ var Category = React.createClass({
             <i className="fa fa-reorder ui-sortable-handle"></i>
           </div>
           <h3 className={ classes } onClick={this.handleClick}>
-            <input style={titleInputStyle} type="text" maxLength="20" ref="theInput" name="title" value={this.state.title} onChange={this.handleInputChange} onKeyDown={this.update} />
+            <input style={titleInputStyle} type="text" maxLength="20" ref="theInput" name="title" value={this.state.categoryName} onChange={this.handleInputChange} onKeyDown={this.updateCategory} />
             <span style={titleStyle}>{category.title}<i className="fa fa-pencil" onClick={this.handleEditTitle}></i></span>
           </h3>
           <MenuSections category={category} isVisible={this.state.isVisible} currentSection={currentSection} />

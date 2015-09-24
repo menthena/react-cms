@@ -8,7 +8,6 @@ var AppConstants = require('../constants/AppConstants');
 var _ = require('lodash');
 
 EventEmitter.prototype._maxListeners = 100;
-
 var CHANGE_EVENT = 'change';
 
 var _categories = [];
@@ -148,73 +147,73 @@ var AppStore = assign(EventEmitter.prototype, {
   }
 });
 
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  switch(action.actionType) {
-    case AppConstants.UPDATE_SECTION:
-      AppStore.updateSection(action.index, action.data);
-      // AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
-      AppStore.emitChange();
-      break;
-    case AppConstants.UPDATE_CATEGORY:
-      AppStore.updateCategory(action.index, action.data);
-      AppStore.emitChange();
-      break;
-    case AppConstants.ADD_NEW_CATEGORY:
-      AppStore.addNewCategory(action.category);
-      AppStore.emitChange();
-      break;
-    case AppConstants.ADD_NEW_SECTION:
-        AppStore.addNewSection(action.categoryID, action.section);
-        AppStore.emitChange();
-        break;
-    case AppConstants.SORT_CATEGORY_SECTIONS:
-      AppStore.sortCategorySections(action.categoryID, action.sections);
-      AppStore.emitChange();
-      break;
-    case AppConstants.SORT_SECTION_ITEMS:
-      AppStore.sortSectionItems(action.sectionID, action.dragged, action.over);
-      AppStore.emitChange();
-      break;
-    case AppConstants.GET_NEW_SECTION_COMPONENT:
-        AppStore.storeNewComponent(action.component);
-        AppStore.emitChange();
-        break;
-    case AppConstants.GET_COMPONENTS:
-      AppStore.storeComponents(action.components);
-      AppStore.emitChange();
-      break;
-    case AppConstants.UPDATE_COMPONENTS:
-      AppStore.updateComponents(action.categoryID, action.sectionID, action.components);
-      AppStore.emitChange();
-      break;
-    case AppConstants.DELETE_CATEGORY:
-      AppStore.deleteCategory(action.categoryID);
-      AppStore.emitChange();
-      break;
-    case AppConstants.DELETE_SECTION:
-      AppStore.deleteSection(action.categoryID, action.sectionID);
-      AppStore.emitChange();
-      break;
-    case AppConstants.SORT_CATEGORIES:
-      AppStore.sortCategories(action.categories);
-      AppStore.emitChange();
-      break;
-    case AppConstants.ADD_NEW_SECTION_COMPONENT:
-      AppStore.emitChange(AppConstants.ADD_NEW_SECTION_COMPONENT);
-      break;
-    case AppConstants.GET_CATEGORIES:
-      AppStore.loadCategories(action.data);
-      AppStore.emitChange();
-      break;
-    case AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS:
-      AppStore.emitChange(AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS);
-      break;
-
-    default:
-      return true;
-  }
-});
-
-
+// AppDispatcher.register(function(payload) {
+//   var action = payload.action;
+//   return;
+//   switch(action.actionType) {
+//     case AppConstants.UPDATE_SECTION:
+//       AppStore.updateSection(action.index, action.data);
+//       // AppStore.emitChange(AppConstants.UPDATE_SECTION, action.data.components[action.data.components.length - 1].id);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.UPDATE_CATEGORY:
+//       AppStore.updateCategory(action.index, action.data);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.ADD_NEW_CATEGORY:
+//       AppStore.addNewCategory(action.category);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.ADD_NEW_SECTION:
+//         AppStore.addNewSection(action.categoryID, action.section);
+//         AppStore.emitChange();
+//         break;
+//     case AppConstants.SORT_CATEGORY_SECTIONS:
+//       AppStore.sortCategorySections(action.categoryID, action.sections);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.SORT_SECTION_ITEMS:
+//       AppStore.sortSectionItems(action.sectionID, action.dragged, action.over);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.GET_NEW_SECTION_COMPONENT:
+//         AppStore.storeNewComponent(action.component);
+//         AppStore.emitChange();
+//         break;
+//     case AppConstants.GET_COMPONENTS:
+//       AppStore.storeComponents(action.components);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.UPDATE_COMPONENTS:
+//       AppStore.updateComponents(action.categoryID, action.sectionID, action.components);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.DELETE_CATEGORY:
+//       AppStore.deleteCategory(action.categoryID);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.DELETE_SECTION:
+//       AppStore.deleteSection(action.categoryID, action.sectionID);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.SORT_CATEGORIES:
+//       AppStore.sortCategories(action.categories);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.ADD_NEW_SECTION_COMPONENT:
+//       AppStore.emitChange(AppConstants.ADD_NEW_SECTION_COMPONENT);
+//       break;
+//     case AppConstants.GET_CATEGORIES:
+//       AppStore.loadCategories(action.data);
+//       AppStore.emitChange();
+//       break;
+//     case AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS:
+//       AppStore.emitChange(AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS);
+//       break;
+//
+//     default:
+//       return true;
+//   }
+// });
+//
 module.exports = AppStore;

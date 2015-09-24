@@ -8,11 +8,11 @@ var Api = require('../utils/Api');
 var AppActions = {
 
   getCategories(data) {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.GET_CATEGORIES,
-      data: data
-    });
-    Api.getCategories();
+    // AppDispatcher.handleViewAction({
+    //   actionType: AppConstants.GET_CATEGORIES,
+    //   data: data
+    // });
+    // Api.getCategories();
   },
 
   addNewCategory(title, order) {
@@ -60,9 +60,9 @@ var AppActions = {
   },
 
   closeAllNewSectionComponents() {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS
-    });
+    // AppDispatcher.handleViewAction({
+    //   actionType: AppConstants.CLOSE_ALL_NEW_SECTION_COMPONENTS
+    // });
   },
 
   addNewSectionComponent(type, sectionID, categoryID) {
