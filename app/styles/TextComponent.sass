@@ -1,2 +1,33 @@
+@import '_variables'
+
 .TextComponent
   border: 1px dashed #f00
+
+.editor
+  outline:none
+
+.template
+  padding : 20px
+  border  : 2px solid transparent
+  position: relative
+
+  .actions
+    display:none
+    position : absolute
+    bottom : 0
+    right:0
+    border : 2px solid $orange
+    border-bottom :0
+    border-right:0
+
+    .fa
+      color:$orange
+      display:inline-block
+      padding: 20px
+      &:first-child
+        border-right : 2px solid $orange
+
+  &:hover
+    border : 2px solid $orange
+    .actions
+      display:block

@@ -17,12 +17,6 @@ var TextComponent = React.createClass({
     });
   },
 
-  handleMouseOver() {
-    this.setState({
-      hovered: this.state.hovered === false ? true : false
-    });
-  },
-
   getInitialState: function() {
     return {
       template: this.props.template,
@@ -31,12 +25,13 @@ var TextComponent = React.createClass({
   },
 
   render: function () {
-    var className = this.state.hovered ? 'hovered' : '';
     return (
-        <div onMouseOver={this.handleMouseOver}>
-          <div className="template">
-           <Editor sectionID={this.props.sectionID} className={className} text={this.state.template} onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
-          </div>
+        <div className='template'>
+           <Editor className='editor' sectionID={this.props.sectionID} text={this.state.template} onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
+           <div className='actions'>
+             <a className='fa fa-trash-o fa-lg'></a>
+             <a className='fa fa-trash-o fa-lg'></a>
+           </div>
         </div>
       );
   }
