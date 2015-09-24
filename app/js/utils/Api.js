@@ -88,7 +88,14 @@ var Api = {
     ]).then(function(data) {
       ServerActions.receiveSortedCategories(dragged, over);
     });
-  }
+  },
+
+  addNewSectionComponent(componentType, sectionID, categoryID) {
+    axios.post(baseApiUrl + 'components', { sectionid: sectionID, categoryid: categoryID, componentType: componentType }).then(function(response) {
+      // var category = response.data.data;
+      // ServerActions.receiveNewCategory(category);
+    });
+  },
 };
 
 module.exports = Api;

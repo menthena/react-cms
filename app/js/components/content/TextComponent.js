@@ -12,21 +12,21 @@ require('../../../styles/TextComponent.sass');
 var TextComponent = React.createClass({
 
   handleContentChange: function(content) {
-    var section = AppStore.getSection(this.props.sectionID);
-    console.log(this.state.componentID);
-    if (this.state.componentID) {
-      // UPDATE
-      var component = _.find(section.components, {id: this.state.componentID});
-      component.data = content;
-    } else {
-      // INSERT
-      section.components = section.components || [];
-      section.components.push({
-        componentType: 'textComponent',
-        data: content
-      });
-    }
-    AppActions.updateSection(this.props.categoryID, this.props.sectionID, {components: section.components});
+    // var section = AppStore.getSection(this.props.sectionID);
+    // console.log(this.state.componentID);
+    // if (this.state.componentID) {
+    //   // UPDATE
+    //   var component = _.find(section.components, {id: this.state.componentID});
+    //   component.data = content;
+    // } else {
+    //   // INSERT
+    //   section.components = section.components || [];
+    //   section.components.push({
+    //     componentType: 'textComponent',
+    //     data: content
+    //   });
+    // }
+    AppActions.updateComponent(this.props.categoryID, this.props.sectionID);
   },
 
   handleMouseOver() {

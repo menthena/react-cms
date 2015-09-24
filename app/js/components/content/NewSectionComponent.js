@@ -42,7 +42,7 @@ var NewSectionComponent = React.createClass({
       newComponent: component,
       plusButtonVisible: true
     });
-    AppActions.addNewSectionComponent();
+    AppActions.addNewSectionComponent(component, this.props.sectionID, this.props.categoryID);
   },
 
   _onChange(type) {

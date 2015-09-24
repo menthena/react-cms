@@ -61,10 +61,8 @@ var AppActions = {
     });
   },
 
-  addNewSectionComponent() {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.ADD_NEW_SECTION_COMPONENT
-    });
+  addNewSectionComponent(type, sectionID, categoryID) {
+    Api.addNewSectionComponent(type, sectionID, categoryID);
   }
 };
 

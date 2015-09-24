@@ -22,10 +22,10 @@ var PageComponent = React.createClass({
     _.each(components, function(component) {
       switch (component.componentType) {
         case 'textComponent':
-          sectionComponents.push(<TextComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} componentID={component.id} isAdmin={isAdmin} template={component.data}></TextComponent>);
+          sectionComponents.push(<TextComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} template={component.data}></TextComponent>);
           break;
         case 'listComponent':
-          sectionComponents.push(<ListComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} componentID={component.id} isAdmin={isAdmin} components={components}></ListComponent>);
+          sectionComponents.push(<ListComponent categoryID={this.props.categoryID} sectionID={this.props.sectionID} isAdmin={isAdmin} components={components}></ListComponent>);
           break;
       }
     }.bind(this));
