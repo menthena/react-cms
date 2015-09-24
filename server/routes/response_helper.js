@@ -23,6 +23,8 @@ ResponseHelper.prototype.sanitizeDbResult = function(obj) {
   if (!obj) { return null };
 
   var sanitizeWithId = function (idObj) {
+    if (!idObj) { return idObj; }
+
     if (idObj.toObject) {
       idObj = idObj.toObject();
     }
@@ -36,6 +38,8 @@ ResponseHelper.prototype.sanitizeDbResult = function(obj) {
   }
 
   var walkObjectTree = function(root) {
+    if (!root) { return root; }
+
     if (Array.isArray(root)) {
       root = root.map(function(item) { 
         var sanitizedItem = sanitizeWithId(item);
@@ -45,7 +49,9 @@ ResponseHelper.prototype.sanitizeDbResult = function(obj) {
       root = sanitizeWithId(root);
 
       Object.keys(root).forEach(function(key) {
-        root[key] = walkObjectTree(root[key]);
+        if (Object.prototype.hasOwnProperty(root, key)) {
+          root[key] = walkObjectTree(root[key]);
+        }
       });
     }
 
