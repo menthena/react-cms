@@ -10,7 +10,6 @@ var Content = require('./components/content/Content');
 var Header = require('./components/Header');
 var ReactTransitionGroup = React.addons.TransitionGroup;
 var Api = require('./utils/Api');
-// var AppActions = require('./actions/AppActions');
 var CategoryStore = require('./stores/CategoryStore');
 
 require('../styles/main.sass');
@@ -26,7 +25,6 @@ var App = React.createClass({
   getInitialState: function() {
     return getCategoryState();
     // return {
-    //   categories: AppActions.getCategories(),
     //   isAdmin: true,
     //   mobilePanelVisible: false
     // };

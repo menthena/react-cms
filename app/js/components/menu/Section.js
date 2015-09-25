@@ -1,9 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var MenuSections = require('./MenuSections');
-var classNames = require('classnames');
-// var AppActions = require('../../actions/AppActions');
+var SectionActionCreators = require('../../actions/SectionActionCreators');
 
 require('../../../styles/section.sass');
 
@@ -17,9 +15,9 @@ var Section = React.createClass({
   },
 
   deleteSection() {
-    var sectionID = this.props.section.id;
-    var categoryID = this.props.categoryID;
-    // AppActions.deleteSection(categoryID, sectionID);
+    var sectionId = this.props.section.id;
+    var categoryId = this.props.categoryId;
+    SectionActionCreators.deleteSection(categoryId, sectionId);
   },
 
   handleClick: function() {
@@ -46,7 +44,6 @@ var Section = React.createClass({
     if (event.keyCode === 13) {
       var sectionID = this.props.section.id;
       var categoryID = this.props.categoryID;
-      // AppActions.updateSection(categoryID, sectionID, { title: this.state.title });
       this.setState({
         isEditing: false
       });

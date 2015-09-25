@@ -64,7 +64,7 @@ router.patch('/:id/sections/:section_id', function (req, res, next) {
 
   Category
   .findOneAndUpdate({ _id: categoryId, 'sections._id': sectionId }, updatedModel, { 'new': true })
-  .exec(ResponseHelper.sanitizeAndSendResponse(res));
+  .exec(ResponseHelper.sanitizeAndSendResponse(res))
   .then(function(category) {
     var handler = ResponseHelper.sanitizeAndSendResponse(res);
 
@@ -92,7 +92,7 @@ router.post('/:id/sections', function (req, res, next) {
 
   Category
   .findOneAndUpdate({ _id: categoryId }, { $push: { sections: newSection }}, { 'new': true })
-  .exec(ResponseHelper.sanitizeAndSendResponse(res, 201));
+  .exec(ResponseHelper.sanitizeAndSendResponse(res, 201))
   .then(function(category) {
     var handler = ResponseHelper.sanitizeAndSendResponse(res, 201);
     var sectionId = newSection._id.toHexString();

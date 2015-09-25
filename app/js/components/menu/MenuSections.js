@@ -2,7 +2,6 @@
 
 var React = require('react/addons');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-// var AppActions = require('../../actions/AppActions');
 var NewSection = require('./NewSection');
 var Section = require('./Section');
 var _ = require('lodash');
@@ -19,8 +18,6 @@ var MenuSections = React.createClass({
   },
 
   setDraggableData: function(sections) {
-    // var categoryID = this.props.category.id;
-    // AppActions.sortCategorySections(categoryID, sections);
   },
 
   render: function () {
@@ -46,7 +43,7 @@ var MenuSections = React.createClass({
 
               return (
                 <li className="full-section" data-order={section.order} style={ currentSectionStyle }>
-                  <Section key={ category.title + section.title } section={section} categoryID={this.props.category.id} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
+                  <Section key={ category.title + section.title } section={section} categoryId={this.props.category.id} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
             }.bind(this))}

@@ -3,7 +3,6 @@
 var React = require('react/addons');
 var Category = require('./Category');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-// var AppActions = require('../../actions/AppActions');
 var NewCategory = require('./NewCategory');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 var _ = require('lodash');
@@ -50,7 +49,7 @@ var Accordion = React.createClass({
     return (
         <div id="categories" className="Accordion" onDragOver={this.dragOver}>
           {categories}
-          <NewCategory categories={categories} />
+          <NewCategory />
         </div>
       );
   }

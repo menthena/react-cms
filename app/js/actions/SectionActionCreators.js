@@ -17,12 +17,13 @@ module.exports = {
     Api.createSection(categoryId, name);
   },
 
-  deleteSection: function(id) {
+  deleteSection: function(categoryId, sectionId) {
     AppDispatcher.dispatch({
       type: ActionTypes.DELETE_SECTION,
-      id: id
+      category_id: categoryId,
+      section_id: sectionId
     });
-    Api.deleteSection(id);
+    Api.deleteSection(categoryId, sectionId);
   },
 
   updateSection: function(id, data) {

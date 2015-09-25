@@ -3,7 +3,6 @@
 var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-// var AppActions = require('../../actions/AppActions');
 var GoogleDriveMixin = require('../../mixins/GoogleDriveMixin');
 var update = React.addons.update;
 var _ = require('lodash');
@@ -71,7 +70,6 @@ var ListComponent = React.createClass({
     var sectionID = this.props.sectionID;
     var categoryID = this.props.categoryID;
     var data = this.removePlaceholders();
-    // AppActions.updateComponents(categoryID, sectionID, data);
   },
 
   removeLink(item) {

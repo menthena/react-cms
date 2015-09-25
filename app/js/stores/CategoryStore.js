@@ -62,9 +62,14 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
         break;
 
       case ActionTypes.RECEIVE_CREATED_SECTION:
-      console.log(action);
         var category = _.find(_categories, { id: action.category_id });
-        category.sections.push(action.rawSection);
+        category.sections = action.sections;
+        CategoryStore.emitChange();
+        break;
+
+      case ActionTypes.RECEIVE_DELETED_SECTION:
+        var category = _.find(_categories, { _id: action.category_id });
+        _.remove(category.sections, { _id: action.section_id });
         CategoryStore.emitChange();
         break;
 

@@ -34,11 +34,19 @@ module.exports = {
     });
   },
 
-  receiveCreatedSection: function(categoryId, section) {
+  receiveCreatedSection: function(categoryId, sections) {
     AppDispatcher.dispatch({
       type: ActionTypes.RECEIVE_CREATED_SECTION,
       category_id: categoryId,
-      section: section
+      sections: sections
+    });
+  },
+
+  receiveDeletedSection: function(categoryId, sectionId) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.RECEIVE_DELETED_SECTION,
+      category_id: categoryId,
+      section_id: sectionId
     });
   }
 };

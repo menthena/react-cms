@@ -1,23 +1,10 @@
 'use strict';
 
 var React = require('react/addons');
-var TextComponent = require('./TextComponent');
-var ListComponent = require('./ListComponent');
-// var AppActions = require('../../actions/AppActions');
-// var AppStore = require('../../stores/AppStore');
-// var AppConstants = require('../../constants/AppConstants');
 
 require('../../../styles/NewSectionComponent.sass');
 
 var NewSectionComponent = React.createClass({
-
-  // mixins: [
-  //   require('react-onclickoutside')
-  // ],
-  //
-  // handleClickOutside: function(evt) {
-  //   AppActions.closeAllNewSectionComponents();
-  // },
 
   getInitialState() {
     return {
@@ -27,9 +14,7 @@ var NewSectionComponent = React.createClass({
   },
 
   handleClick() {
-    // AppActions.closeAllNewSectionComponents();
     this.setState({
-      // sectionComponentSelectorVisible: this.state.sectionComponentSelectorVisible ? false : true, // TO DO - toggle
       sectionComponentSelectorVisible: true,
       plusButtonVisible: false
     });
@@ -40,17 +25,12 @@ var NewSectionComponent = React.createClass({
       plusButtonVisible: true,
       sectionComponentSelectorVisible: false
     });
-    // AppActions.addNewSectionComponent(component, this.props.sectionID, this.props.categoryID);
   },
 
   _onChange(type) {
     this.setState({
       sectionComponentSelectorVisible: false
     });
-  },
-
-  componentDidMount() {
-    // AppStore.addChangeListener(this._onChange);
   },
 
   render: function () {

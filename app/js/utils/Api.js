@@ -52,86 +52,17 @@ var Api = {
   createSection(categoryId, name) {
     axios.post(baseApiUrl + 'categories/' + categoryId + '/sections', {title: name}).then(function(response) {
       // TODO: Handle errors
-      var section = response.data.data;
-      ServerActionCreators.receiveCreatedSection(categoryId, section);
+      var sections = response.data.data.sections;
+      ServerActionCreators.receiveCreatedSection(categoryId, sections);
     });
   },
 
+  deleteSection(categoryId, sectionId) {
+    axios.delete(baseApiUrl + 'categories/' + categoryId + '/sections/' + sectionId).then(function(response) {
+      ServerActionCreators.receiveDeletedSection(categoryId, sectionId);
+    });
+  }
 
-
-
-
-
-
-
-
-
-
-
-  // getComponents(sectionID) {
-  //   return axios.get(baseApiUrl + 'components?sectionid=' + sectionID).then(function(response) {
-  //     // TODO: Handle errors
-  //     ServerActions.receiveComponents(response.data.data);
-  //   });
-  // },
-  //
-  // updateSection(categoryID, sectionID, data) {
-  //   return axios.patch(baseApiUrl + 'categories/' + categoryID + '/sections/' + sectionID, data).then(function(response) {
-  //     // TODO: Handle errors
-  //     ServerActions.receiveSection(sectionID, _.find(response.data.data.sections, {id: sectionID}));
-  //   });
-  // },
-  //
-  // addNewCategory(title, order) {
-  //   axios.post(baseApiUrl + 'categories', { title: title, order: order }).then(function(response) {
-  //     // TODO: Handle errors
-  //     var category = response.data.data;
-  //     ServerActions.receiveNewCategory(category);
-  //   });
-  // },
-  //
-  // addNewSection(categoryID, title, order) {
-  //   axios.post(baseApiUrl + 'categories/' + categoryID + '/sections', { title: title, order: order }).then(function(response) {
-  //     var section = response.data.data;
-  //     // TODO: Handle errors
-  //     ServerActions.receiveNewSection(categoryID, section);
-  //   });
-  // },
-  //
-  // deleteSection(categoryID, sectionID) {
-  //   axios.delete(baseApiUrl + 'categories/' + categoryID + '/sections/' + sectionID).then(function() {
-  //     ServerActions.receiveDeletedSection(categoryID, sectionID);
-  //   });
-  // },
-  //
-  // sortCategorySections(categoryId, sections) {
-  //   var promises = [];
-  //   _.each(sections, (section) => {
-  //     promises.push(axios.patch(baseApiUrl + 'categories/' + categoryId + '/sections/' + section.id, { order: section.order }));
-  //   });
-  //   return axios.all(promises).then(function() {
-  //     ServerActions.receiveSortedCategorySections(categoryId, sections);
-  //   });
-  // },
-  //
-  // sortSectionItems(sectionID, items) {
-  //   return axios.get(baseApiUrl + 'categories').then(function() {
-  //     ServerActions.receiveSortedSectionItems(sectionID, items);
-  //   });
-  // },
-  //
-  // updateComponent(componentID, data) {
-  //   return axios.patch(baseApiUrl + 'components/' + componentID, data).then(function() {
-  //     // ServerActions.receiveUpdatedComponents(categoryID, sectionID, section.components);
-  //   });
-  // },
-  //
-  // addNewSectionComponent(componentType, sectionID, categoryID) {
-  //   axios.post(baseApiUrl + 'components', { sectionid: sectionID, categoryid: categoryID, componentType: componentType }).then(function(response) {
-  //     var component = response.data.data;
-  //     ServerActions.receiveNewSectionComponent(component);
-  //   });
-  // },
 };
 
 module.exports = Api;

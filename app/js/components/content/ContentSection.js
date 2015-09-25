@@ -2,7 +2,6 @@
 
 var React = require('react/addons');
 var PageComponent = require('./PageComponent');
-// var AppActions = require('../../actions/AppActions');
 var Editor = require('react-medium-editor');
 
 require('../../../styles/ContentSection.sass');
@@ -10,7 +9,7 @@ require('../../../styles/ContentSection.sass');
 var ContentSection = React.createClass({
 
   componentDidMount: function() {
-    $('h1').on('keydown', this.handleKeyDown);
+    // $('h1').on('keydown', this.handleKeyDown);
   },
 
   propTypes: {
@@ -23,7 +22,6 @@ var ContentSection = React.createClass({
   },
 
   handleContentChange(title) {
-    // AppActions.updateSection(this.props.categoryID, this.props.section.id, {title: title});
   },
 
   handleKeyDown: function(e) {
@@ -52,7 +50,6 @@ var ContentSection = React.createClass({
             <header>
               <Editor tag="h1" text={section.title} onChange={this.handleContentChange} options={{toolbar: false, buttons: [], disableReturn: true}} />
             </header>
-            <PageComponent categoryID={this.props.categoryID} sectionID={sectionID} isAdmin={isAdmin} template={section.template}></PageComponent>
           </div>
         </section>
       );

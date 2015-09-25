@@ -2,19 +2,12 @@
 
 var React = require('react/addons');
 var Editor = require('react-medium-editor');
-// var AppActions = require('../../actions/AppActions');
-// var AppStore = require('../../stores/AppStore');
-// var AppConstants = require('../../constants/AppConstants');
-var _ = require('lodash');
 
 require('../../../styles/TextComponent.sass');
 
 var TextComponent = React.createClass({
 
   handleContentChange: function(content) {
-    // AppActions.updateComponent(this.props.componentID, {
-    //   data: content
-    // });
   },
 
   getInitialState: function() {

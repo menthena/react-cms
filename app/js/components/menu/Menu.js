@@ -2,7 +2,6 @@
 
 var React = require('react/addons');
 var Accordion = require('./Accordion');
-// var AppStore = require('../../stores/AppStore');
 
 require('../../../styles/Menu.sass');
 
