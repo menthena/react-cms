@@ -6,6 +6,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var ObjectId = require('mongoose').Types.ObjectId;
 
+var searchClient = require('../services/search_client');
+
 var ResponseHelper = require('./response_helper');
 var Category = require('../models/Category');
 
@@ -33,11 +35,17 @@ router.get('/:id', function (req, res, next) {
 
 router.patch('/:id', function (req, res, next) {
   var updatedModel = _.pick(req.body, ['title', 'order']);
+  var responseHandler = ResponseHelper.sanitizeAndSendResponse(res);
 
   Category
   .findOneAndUpdate({ _id: req.params.id }, updatedModel, { 'new': true })
   .select('_id title order')
-  .exec(ResponseHelper.sanitizeAndSendResponse(res));
+  .then(function(category) {
+    responseHandler(null, category);
+    searchClient.update();
+  }, function(err) {
+    responseHandler(err);
+  });
 });
 
 router.patch('/:id/sections/:section_id', function (req, res, next) {
