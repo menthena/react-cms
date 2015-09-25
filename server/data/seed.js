@@ -1,5 +1,4 @@
 db.categories.drop();
-db.sections.drop();
 db.components.drop();
 
 var categories = {

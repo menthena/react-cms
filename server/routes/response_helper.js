@@ -1,3 +1,5 @@
+'use strict';
+
 function ResponseHelper() {
   
 }
@@ -21,11 +23,14 @@ ResponseHelper.prototype.sendResponseWithStatus = function(res, status, err, dat
 
 ResponseHelper.prototype.sanitizeDbResult = function(obj) {
   if (!obj) { return null };
+  if (!Array.isArray(obj) && !obj.toObject) { return null; }
 
   var sanitizeWithId = function (idObj) {
+    if (!idObj) { return idObj; }
+
     if (idObj.toObject) {
       idObj = idObj.toObject();
-    }
+    } 
 
     if (idObj._id) {
       idObj.id = idObj._id;
@@ -36,6 +41,8 @@ ResponseHelper.prototype.sanitizeDbResult = function(obj) {
   }
 
   var walkObjectTree = function(root) {
+    if (!root) { return root; }
+
     if (Array.isArray(root)) {
       root = root.map(function(item) { 
         var sanitizedItem = sanitizeWithId(item);
@@ -47,7 +54,7 @@ ResponseHelper.prototype.sanitizeDbResult = function(obj) {
       Object.keys(root).forEach(function(key) {
         root[key] = walkObjectTree(root[key]);
       });
-    }
+    } 
 
     return root;
   }

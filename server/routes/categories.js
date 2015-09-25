@@ -100,7 +100,7 @@ router.post('/:id/sections', function (req, res, next) {
     var createdSection = category.sections.filter(function(section) {
       return section.id === sectionId
     });
-    
+
     handler(null, createdSection[0]);
   }, function(err) {
     var handler = ResponseHelper.sanitizeAndSendResponse(res);
