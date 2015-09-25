@@ -242,7 +242,7 @@ describe('Routing', function() {
       .end(function(err, res) {
         should.not.exist(err);
         
-        var resultSection = _.find(res.body.data.sections, function(s) { return s.id === sectionId; });
+        var resultSection = res.body.data;
         resultSection.should.match(sectionUpdate);
 
         Category.findById(categoryId, function(err, category) { 
@@ -285,7 +285,7 @@ describe('Routing', function() {
       .expect(201)
       .end(function(err, res) {
         should.not.exist(err);
-        var resultSection = _.find(res.body.data.sections, function(s) { return s.order === 55; });
+        var resultSection = res.body.data;
         resultSection.should.match(newSection);
 
         Category.findById(categoryId, function(err, category) { 
