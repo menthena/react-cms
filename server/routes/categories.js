@@ -9,6 +9,8 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var ResponseHelper = require('./response_helper');
 var Category = require('../models/Category');
 
+//var searchClient = require('../services/search_client');
+
 var allowedSectionProps = ['title', 'order', 'template', 'components'];
 
 router.get('/', function (req, res, next) {
@@ -27,7 +29,7 @@ router.get('/:id', function (req, res, next) {
   if (req.query.includes !== 'sections') {
     query = query.select('_id title order');
   }
-  
+
   query.exec(ResponseHelper.sanitizeAndSendResponse(res));
 });
 
@@ -37,7 +39,12 @@ router.patch('/:id', function (req, res, next) {
   Category
   .findOneAndUpdate({ _id: req.params.id }, updatedModel, { 'new': true })
   .select('_id title order')
-  .exec(ResponseHelper.sanitizeAndSendResponse(res));
+  .exec(ResponseHelper.sanitizeAndSendResponse(res))
+  .then(function(category) {
+    //if (category) {
+    //  searchClient.
+    //}
+  });
 });
 
 router.patch('/:id/sections/:section_id', function (req, res, next) {
@@ -58,6 +65,18 @@ router.patch('/:id/sections/:section_id', function (req, res, next) {
   Category
   .findOneAndUpdate({ _id: categoryId, 'sections._id': sectionId }, updatedModel, { 'new': true })
   .exec(ResponseHelper.sanitizeAndSendResponse(res));
+  .then(function(category) {
+    var handler = ResponseHelper.sanitizeAndSendResponse(res);
+
+    var updateSection = category.sections.filter(function(section) {
+      return section.id === sectionId
+    });
+
+    handler(null, updateSection[0]);
+  }, function(err) {
+    var handler = ResponseHelper.sanitizeAndSendResponse(res);
+    handler(err);
+  });
 });
 
 router.post('/', function (req, res, next) {
@@ -68,11 +87,25 @@ router.post('/', function (req, res, next) {
 
 router.post('/:id/sections', function (req, res, next) {
   var newSection = _.pick(req.body, allowedSectionProps);
+  newSection._id = ObjectId();
   var categoryId = req.params.id;
 
   Category
   .findOneAndUpdate({ _id: categoryId }, { $push: { sections: newSection }}, { 'new': true })
   .exec(ResponseHelper.sanitizeAndSendResponse(res, 201));
+  .then(function(category) {
+    var handler = ResponseHelper.sanitizeAndSendResponse(res, 201);
+    var sectionId = newSection._id.toHexString();
+
+    var createdSection = category.sections.filter(function(section) {
+      return section.id === sectionId
+    });
+    
+    handler(null, createdSection[0]);
+  }, function(err) {
+    var handler = ResponseHelper.sanitizeAndSendResponse(res);
+    handler(err);
+  });
 });
 
 router.delete('/:id', function (req, res, next) {
