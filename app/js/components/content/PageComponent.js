@@ -4,9 +4,9 @@ var React = require('react/addons');
 var TextComponent = require('./TextComponent');
 var ListComponent = require('./ListComponent');
 var NewSectionComponent = require('./NewSectionComponent');
-var AppActions = require('../../actions/AppActions');
-var AppConstants = require('../../constants/AppConstants');
-var AppStore = require('../../stores/AppStore');
+// var AppActions = require('../../actions/AppActions');
+// var AppConstants = require('../../constants/AppConstants');
+// var AppStore = require('../../stores/AppStore');
 var _ = require('lodash');
 
 require('../../../styles/PageComponent.sass');
@@ -20,18 +20,18 @@ var PageComponent = React.createClass({
   },
 
   _onChange() {
-    this.setState({
-      components: AppStore.getComponents(this.props.sectionID)
-    });
+    // this.setState({
+    //   components: AppStore.getComponents(this.props.sectionID)
+    // });
   },
 
   componentWillMount() {
-    AppStore.addChangeListener(this._onChange);
-    AppActions.getComponents(this.props.sectionID);
+    // AppStore.addChangeListener(this._onChange);
+    // AppActions.getComponents(this.props.sectionID);
   },
 
   componentWillUnmount() {
-    AppStore.removeChangeListener(this._onChange);
+    // AppStore.removeChangeListener(this._onChange);
   },
 
   render: function () {

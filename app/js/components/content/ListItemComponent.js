@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var AppActions = require('../../actions/AppActions');
+// var AppActions = require('../../actions/AppActions');
 
 require('../../../styles/ListItemComponent.sass');
 

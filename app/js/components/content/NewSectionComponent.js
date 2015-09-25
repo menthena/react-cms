@@ -3,9 +3,9 @@
 var React = require('react/addons');
 var TextComponent = require('./TextComponent');
 var ListComponent = require('./ListComponent');
-var AppActions = require('../../actions/AppActions');
-var AppStore = require('../../stores/AppStore');
-var AppConstants = require('../../constants/AppConstants');
+// var AppActions = require('../../actions/AppActions');
+// var AppStore = require('../../stores/AppStore');
+// var AppConstants = require('../../constants/AppConstants');
 
 require('../../../styles/NewSectionComponent.sass');
 
@@ -27,7 +27,7 @@ var NewSectionComponent = React.createClass({
   },
 
   handleClick() {
-    AppActions.closeAllNewSectionComponents();
+    // AppActions.closeAllNewSectionComponents();
     this.setState({
       // sectionComponentSelectorVisible: this.state.sectionComponentSelectorVisible ? false : true, // TO DO - toggle
       sectionComponentSelectorVisible: true,
@@ -40,7 +40,7 @@ var NewSectionComponent = React.createClass({
       plusButtonVisible: true,
       sectionComponentSelectorVisible: false
     });
-    AppActions.addNewSectionComponent(component, this.props.sectionID, this.props.categoryID);
+    // AppActions.addNewSectionComponent(component, this.props.sectionID, this.props.categoryID);
   },
 
   _onChange(type) {
@@ -50,7 +50,7 @@ var NewSectionComponent = React.createClass({
   },
 
   componentDidMount() {
-    AppStore.addChangeListener(this._onChange);
+    // AppStore.addChangeListener(this._onChange);
   },
 
   render: function () {

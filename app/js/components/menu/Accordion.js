@@ -3,7 +3,7 @@
 var React = require('react/addons');
 var Category = require('./Category');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-var AppActions = require('../../actions/AppActions');
+// var AppActions = require('../../actions/AppActions');
 var NewCategory = require('./NewCategory');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 var _ = require('lodash');

@@ -2,7 +2,7 @@
 
 var React = require('react/addons');
 var PageComponent = require('./PageComponent');
-var AppActions = require('../../actions/AppActions');
+// var AppActions = require('../../actions/AppActions');
 var Editor = require('react-medium-editor');
 
 require('../../../styles/ContentSection.sass');
@@ -23,7 +23,7 @@ var ContentSection = React.createClass({
   },
 
   handleContentChange(title) {
-    AppActions.updateSection(this.props.categoryID, this.props.section.id, {title: title});
+    // AppActions.updateSection(this.props.categoryID, this.props.section.id, {title: title});
   },
 
   handleKeyDown: function(e) {

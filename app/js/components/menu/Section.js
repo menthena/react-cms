@@ -3,7 +3,7 @@
 var React = require('react/addons');
 var MenuSections = require('./MenuSections');
 var classNames = require('classnames');
-var AppActions = require('../../actions/AppActions');
+// var AppActions = require('../../actions/AppActions');
 
 require('../../../styles/section.sass');
 
@@ -19,7 +19,7 @@ var Section = React.createClass({
   deleteSection() {
     var sectionID = this.props.section.id;
     var categoryID = this.props.categoryID;
-    AppActions.deleteSection(categoryID, sectionID);
+    // AppActions.deleteSection(categoryID, sectionID);
   },
 
   handleClick: function() {
@@ -46,7 +46,7 @@ var Section = React.createClass({
     if (event.keyCode === 13) {
       var sectionID = this.props.section.id;
       var categoryID = this.props.categoryID;
-      AppActions.updateSection(categoryID, sectionID, { title: this.state.title });
+      // AppActions.updateSection(categoryID, sectionID, { title: this.state.title });
       this.setState({
         isEditing: false
       });

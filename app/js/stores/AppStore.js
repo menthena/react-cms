@@ -4,147 +4,147 @@ var AppDispatcher = require('../dispatchers/AppDispatcher');
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var Api = require('../utils/Api');
-var AppConstants = require('../constants/AppConstants');
+// var AppConstants = require('../constants/AppConstants');
 var _ = require('lodash');
 
-EventEmitter.prototype._maxListeners = 100;
-var CHANGE_EVENT = 'change';
-
-var _categories = [];
-var _components = [];
-
-function _updateItem(index, content) {
-    //sections[index].title = content;
-}
+// EventEmitter.prototype._maxListeners = 100;
+// var CHANGE_EVENT = 'change';
+//
+// var _categories = [];
+// var _components = [];
+//
+// function _updateItem(index, content) {
+//     //sections[index].title = content;
+// }
 
 var AppStore = assign(EventEmitter.prototype, {
 
-  loadCategories(data) {
-    _categories = data;
-  },
-
-  addNewCategory(category) {
-    _categories.push(category);
-  },
-
-  deleteCategory(categoryID) {
-    _.remove(_categories, { id: categoryID });
-  },
-
-  addNewSection(categoryID, newCategory) {
-    var category = _.find(_categories, { id: categoryID });
-    category.sections = newCategory.sections;
-  },
-
-  deleteSection(categoryID, sectionID) {
-    var category = _.find(_categories, { id: categoryID });
-    _.remove(category.sections, { id: sectionID });
-  },
-
-  getSection(sectionID) {
-    var section;
-    _.each(_categories, function(category) {
-      if (!section) {
-        section = _.find(category.sections, {id: sectionID});
-      }
-    });
-    return section;
-  },
-
-  getComponents(sectionID) {
-    var sectionComponents = [];
-    _.each(_components, function(componentList) {
-      if (componentList.length > 0 && componentList[0].sectionid === sectionID) {
-        sectionComponents = componentList;
-      }
-    });
-    return sectionComponents;
-  },
-
-  storeNewComponent(component) {
-    var sectionID = component.sectionid;
-    var storedComponent = this.getComponents(sectionID);
-    if (storedComponent.length > 0) {
-      storedComponent.push(component);
-    } else {
-      this.storeComponents([component]);
-    }
-  },
-
-  storeComponents(components) {
-    _components.push(components);
-  },
-
-  updateComponents(categoryID, sectionID, components) {
-    var category = _.find(_categories, { id: categoryID });
-    var section = _.find(category.sections, { id: sectionID });
-    if (section) {
-      section.components = components;
-    }
-   },
-
-  sortCategorySections(categoryID, sections) {
-    if (sections) {
-      _.each(_categories, function(category) {
-        _.each(category.sections, function(section) {
-          if (category.id === categoryID) {
-            category.sections = sections;
-          }
-        });
-      });
-    }
-  },
-
-  sortCategories(categories) {
-    _categories = categories;
-  },
-
-  sortSectionItems(sectionID, dragged, over) {
-    // TODO
-    // _.each(_categories, function(category) {
-    //   _.each(category.sections, function(section) {
-    //     if (section.id === dragged.id) {
-    //       section.order = dragged.order;
-    //     } else if (section.id === over.id) {
-    //       section.order = dragged.order;
-    //     }
-    //   });
-    // });
-  },
-
-  updateSection(index, data){
-    _.each(_categories, function(category) {
-      var newSection = _.find(category.sections, { id: index });
-      if (newSection) {
-        _.each(data, function(item, itemIndex) {
-          newSection[itemIndex] = item;
-        });
-      }
-    });
-  },
-
-  updateCategory(index, data){
-    var category = _.find(_categories, { id: index });
-    _.each(data, function(value, index) {
-      category[index] = value;
-    });
-  },
-
-  getCategories: function() {
-    return _categories;
-  },
-
-  emitChange: function(type, data) {
-    this.emit(CHANGE_EVENT, type, data);
-  },
-
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  }
+  // loadCategories(data) {
+  //   _categories = data;
+  // },
+  //
+  // addNewCategory(category) {
+  //   _categories.push(category);
+  // },
+  //
+  // deleteCategory(categoryID) {
+  //   _.remove(_categories, { id: categoryID });
+  // },
+  //
+  // addNewSection(categoryID, newCategory) {
+  //   var category = _.find(_categories, { id: categoryID });
+  //   category.sections = newCategory.sections;
+  // },
+  //
+  // deleteSection(categoryID, sectionID) {
+  //   var category = _.find(_categories, { id: categoryID });
+  //   _.remove(category.sections, { id: sectionID });
+  // },
+  //
+  // getSection(sectionID) {
+  //   var section;
+  //   _.each(_categories, function(category) {
+  //     if (!section) {
+  //       section = _.find(category.sections, {id: sectionID});
+  //     }
+  //   });
+  //   return section;
+  // },
+  //
+  // getComponents(sectionID) {
+  //   var sectionComponents = [];
+  //   _.each(_components, function(componentList) {
+  //     if (componentList.length > 0 && componentList[0].sectionid === sectionID) {
+  //       sectionComponents = componentList;
+  //     }
+  //   });
+  //   return sectionComponents;
+  // },
+  //
+  // storeNewComponent(component) {
+  //   var sectionID = component.sectionid;
+  //   var storedComponent = this.getComponents(sectionID);
+  //   if (storedComponent.length > 0) {
+  //     storedComponent.push(component);
+  //   } else {
+  //     this.storeComponents([component]);
+  //   }
+  // },
+  //
+  // storeComponents(components) {
+  //   _components.push(components);
+  // },
+  //
+  // updateComponents(categoryID, sectionID, components) {
+  //   var category = _.find(_categories, { id: categoryID });
+  //   var section = _.find(category.sections, { id: sectionID });
+  //   if (section) {
+  //     section.components = components;
+  //   }
+  //  },
+  //
+  // sortCategorySections(categoryID, sections) {
+  //   if (sections) {
+  //     _.each(_categories, function(category) {
+  //       _.each(category.sections, function(section) {
+  //         if (category.id === categoryID) {
+  //           category.sections = sections;
+  //         }
+  //       });
+  //     });
+  //   }
+  // },
+  //
+  // sortCategories(categories) {
+  //   _categories = categories;
+  // },
+  //
+  // sortSectionItems(sectionID, dragged, over) {
+  //   // TODO
+  //   // _.each(_categories, function(category) {
+  //   //   _.each(category.sections, function(section) {
+  //   //     if (section.id === dragged.id) {
+  //   //       section.order = dragged.order;
+  //   //     } else if (section.id === over.id) {
+  //   //       section.order = dragged.order;
+  //   //     }
+  //   //   });
+  //   // });
+  // },
+  //
+  // updateSection(index, data){
+  //   _.each(_categories, function(category) {
+  //     var newSection = _.find(category.sections, { id: index });
+  //     if (newSection) {
+  //       _.each(data, function(item, itemIndex) {
+  //         newSection[itemIndex] = item;
+  //       });
+  //     }
+  //   });
+  // },
+  //
+  // updateCategory(index, data){
+  //   var category = _.find(_categories, { id: index });
+  //   _.each(data, function(value, index) {
+  //     category[index] = value;
+  //   });
+  // },
+  //
+  // getCategories: function() {
+  //   return _categories;
+  // },
+  //
+  // emitChange: function(type, data) {
+  //   this.emit(CHANGE_EVENT, type, data);
+  // },
+  //
+  // addChangeListener: function(callback) {
+  //   this.on(CHANGE_EVENT, callback);
+  // },
+  //
+  // removeChangeListener: function(callback) {
+  //   this.removeListener(CHANGE_EVENT, callback);
+  // }
 });
 
 // AppDispatcher.register(function(payload) {
