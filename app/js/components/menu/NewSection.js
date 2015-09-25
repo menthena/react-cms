@@ -1,28 +1,31 @@
 'use strict';
 
 var React = require('react/addons');
-var AppActions = require('../../actions/AppActions');
+var SectionActionCreators = require('../../actions/SectionActionCreators');
 
 var NewSection = React.createClass({
 
   getInitialState() {
     return {
-      title: ''
+      sectionName: ''
     };
   },
 
   handleSubmit(e) {
-    var numberOfExistingSections = this.props.sections.length;
     e.preventDefault();
-    AppActions.addNewSection(this.props.categoryID, this.state.title, numberOfExistingSections);
-    this.setState({
-      title: ''
-    });
+    var categoryId = this.props.categoryId;
+    var sectionName = this.state.sectionName;
+    if (sectionName) {
+      SectionActionCreators.createSection(categoryId, sectionName);
+      this.setState({
+        sectionName: ''
+      });
+    }
   },
 
   handleChange(event) {
     this.setState({
-      title: event.target.value
+      sectionName: event.target.value
     });
   },
 
@@ -33,7 +36,7 @@ var NewSection = React.createClass({
           <div className="actions right">
             <i className="fa fa-plus"></i>
           </div>
-          <input type="text" onChange={this.handleChange} placeholder="Add new section" maxLength="20" name="title" value={this.state.title} />
+          <input type="text" onChange={this.handleChange} placeholder="Add new section" maxLength="20" name="title" value={this.state.sectionName} />
         </h3>
       </form>
     );

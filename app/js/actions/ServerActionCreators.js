@@ -25,5 +25,20 @@ module.exports = {
       type: ActionTypes.RECEIVE_UPDATED_CATEGORY,
       rawCategory: updatedCategory
     });
+  },
+
+  receiveUpdatedCategories: function(updatedCategories) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.RECEIVE_UPDATED_CATEGORIES,
+      rawCategories: updatedCategories
+    });
+  },
+
+  receiveCreatedSection: function(categoryId, section) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.RECEIVE_CREATED_SECTION,
+      category_id: categoryId,
+      section: section
+    });
   }
 };

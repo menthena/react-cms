@@ -20,7 +20,7 @@ var MenuSections = React.createClass({
 
   setDraggableData: function(sections) {
     var categoryID = this.props.category.id;
-    AppActions.sortCategorySections(categoryID, sections);
+    // AppActions.sortCategorySections(categoryID, sections);
   },
 
   render: function () {
@@ -40,8 +40,6 @@ var MenuSections = React.createClass({
         <div onDragOver={this.dragOver} style={ inlineStyles }>
           <ul>
             {category.sections.map(function(section, index) {
-              var titleInputStyle = { display: this.state.isEditing && this.state.sectionID === section.id ? 'block' : 'none' };
-              var titleStyle = { display: !this.state.isEditing && this.state.sectionID === section.id ? 'block' : 'none' };
               var currentSectionStyle = {
                 fontWeight : currentSection === section.title ? 'bold' : 'normal'
               };
@@ -53,13 +51,13 @@ var MenuSections = React.createClass({
               );
             }.bind(this))}
           </ul>
-          <NewSection sections={category.sections} categoryID={category.id} />
+          <NewSection sections={category.sections} categoryId={category.id} />
         </div>
       );
     } else {
       var placeholder;
       if (isVisible) {
-        placeholder = <NewSection sections={category.sections} categoryID={category.id} />;
+        placeholder = <NewSection sections={category.sections} categoryId={category.id} />;
       }
       return (
         <div>

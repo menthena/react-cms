@@ -5,6 +5,7 @@ var Category = require('./Category');
 var ReorderMixin = require('../../mixins/ReorderMixin');
 var AppActions = require('../../actions/AppActions');
 var NewCategory = require('./NewCategory');
+var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 var _ = require('lodash');
 
 var Accordion = React.createClass({
@@ -18,7 +19,7 @@ var Accordion = React.createClass({
   },
 
   setDraggableData: function(categories) {
-    AppActions.sortCategories(categories);
+    CategoryActionCreators.updateCategories(categories);
   },
 
   handleClick: function(category) {

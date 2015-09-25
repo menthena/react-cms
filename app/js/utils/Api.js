@@ -38,6 +38,36 @@ var Api = {
     });
   },
 
+  updateCategories(categories) {
+    var promises = [];
+    _.each(categories, (category) => {
+      promises.push(axios.patch(baseApiUrl + 'categories/' + category.id, { order: category.order }));
+      // TODO: Handle errors
+    });
+    return axios.all(promises).then(function() {
+      ServerActionCreators.receiveUpdatedCategories(categories);
+    });
+  },
+
+  createSection(categoryId, name) {
+    axios.post(baseApiUrl + 'categories/' + categoryId + '/sections', {title: name}).then(function(response) {
+      // TODO: Handle errors
+      var section = response.data.data;
+      ServerActionCreators.receiveCreatedSection(categoryId, section);
+    });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
   getComponents(sectionID) {
     return axios.get(baseApiUrl + 'components?sectionid=' + sectionID).then(function(response) {
       // TODO: Handle errors
@@ -93,16 +123,6 @@ var Api = {
   updateComponent(componentID, data) {
     return axios.patch(baseApiUrl + 'components/' + componentID, data).then(function() {
       // ServerActions.receiveUpdatedComponents(categoryID, sectionID, section.components);
-    });
-  },
-
-  sortCategories(categories) {
-    var promises = [];
-    _.each(categories, (category) => {
-      promises.push(axios.patch(baseApiUrl + 'categories/' + category.id, { order: category.order }));
-    });
-    return axios.all(promises).then(function() {
-      ServerActions.receiveSortedCategories(categories);
     });
   },
 

@@ -3,7 +3,6 @@
 var React = require('react/addons');
 var MenuSections = require('./MenuSections');
 var classNames = require('classnames');
-var AppActions = require('../../actions/AppActions');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 
 var Category = React.createClass({
@@ -16,32 +15,8 @@ var Category = React.createClass({
     };
   },
 
-  // handleSubmit(e) {
-  //   // var numberOfExistingCategories = this.props.categories.length;
-  //   // e.preventDefault();
-  //   // AppActions.addNewCategory(this.state.title, numberOfExistingCategories);
-  //   // this.setState({
-  //   //   title: ''
-  //   // });
-  //   e.preventDefault();
-  //   var categoryName = this.state.categoryName;
-  //   if (categoryName) {
-  //     CategoryActionCreators.createCategory(categoryName);
-  //     this.setState({
-  //       categoryName: ''
-  //     });
-  //   }
-  // },
-  //
-  // handleChange(event) {
-  //   this.setState({
-  //     categoryName: event.target.value
-  //   });
-  // },
-
   deleteCategory() {
     var categoryId = this.props.category.id;
-    // AppActions.deleteCategory(categoryID);
     CategoryActionCreators.deleteCategory(categoryId);
   },
 

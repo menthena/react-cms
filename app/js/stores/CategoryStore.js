@@ -48,18 +48,25 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case ActionTypes.RECEIVE_UPDATED_CATEGORY:
-      // var category = _.find(_categories, { id: action.rawCategory.id });
-      // category = action.rawCategory;
       _.each(_categories, (category, index) => {
         if (category.id === action.rawCategory.id) {
           _categories[index] = action.rawCategory;
         }
       });
-      // _.each(action.rawCategory, function(value, index) {
-        // category[index] = value;
-      // });
       CategoryStore.emitChange();
       break;
+
+      case ActionTypes.RECEIVE_UPDATED_CATEGORIES:
+        _categories = action.rawCategories;
+        CategoryStore.emitChange();
+        break;
+
+      case ActionTypes.RECEIVE_CREATED_SECTION:
+      console.log(action);
+        var category = _.find(_categories, { id: action.category_id });
+        category.sections.push(action.rawSection);
+        CategoryStore.emitChange();
+        break;
 
     default:
       //do nothing

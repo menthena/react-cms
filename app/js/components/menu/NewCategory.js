@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react/addons');
-var AppActions = require('../../actions/AppActions');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
 
 require('../../../styles/NewCategory.sass');
@@ -14,13 +13,7 @@ var NewCategory = React.createClass({
     };
   },
 
-  handleSubmit(e, order) {
-    // var numberOfExistingCategories = this.props.categories.length;
-    // e.preventDefault();
-    // AppActions.addNewCategory(this.state.title, numberOfExistingCategories);
-    // this.setState({
-    //   title: ''
-    // });
+  handleSubmit(e) {
     e.preventDefault();
     var categoryName = this.state.categoryName;
     if (categoryName) {

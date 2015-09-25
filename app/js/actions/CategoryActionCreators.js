@@ -31,6 +31,14 @@ module.exports = {
       data: data
     });
     Api.updateCategory(id, data);
+  },
+
+  updateCategories: function(categories) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.UPDATE_CATEGORIES,
+      categories: categories
+    });
+    Api.updateCategories(categories);
   }
 
 };
