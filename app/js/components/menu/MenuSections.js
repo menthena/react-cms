@@ -5,9 +5,15 @@ var ReorderMixin = require('../../mixins/ReorderMixin');
 var NewSection = require('./NewSection');
 var Section = require('./Section');
 var _ = require('lodash');
+var SectionActionCreators = require('../../actions/SectionActionCreators');
 
 var MenuSections = React.createClass({
   mixins: [ReorderMixin],
+
+  setDraggableData: function(sections) {
+    var categoryId = this.props.category.id;
+    SectionActionCreators.updateSections(categoryId, sections);
+  },
 
   render: function () {
     var category = this.props.category;

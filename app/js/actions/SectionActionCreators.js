@@ -36,12 +36,13 @@ module.exports = {
     Api.updateSection(categoryId, sectionId, data);
   },
 
-  updateSections: function(sections) {
+  updateSections: function(categoryId, sections) {
     AppDispatcher.dispatch({
       type: ActionTypes.UPDATE_SECTIONS,
+      category_id: categoryId,
       sections: sections
     });
-    Api.updateSections(sections);
+    Api.updateSections(categoryId, sections);
   }
 
 };

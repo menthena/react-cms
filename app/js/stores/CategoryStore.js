@@ -89,8 +89,14 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
           }
         });
       });
-    CategoryStore.emitChange();
-    break;
+      CategoryStore.emitChange();
+      break;
+
+    case SectionActionTypes.RECEIVE_UPDATED_SECTIONS:
+      category = _.find(_categories, { id: action.category_id });
+      category.sections = action.rawSections;
+      CategoryStore.emitChange();
+      break;
 
     default:
       //do nothing

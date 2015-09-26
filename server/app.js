@@ -90,11 +90,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use('/categories', ensureAuthenticated, categories);
-// app.use('/components', ensureAuthenticated, components);
-
-app.use('/categories', categories);
-app.use('/components', components);
+app.use('/categories', ensureAuthenticated, categories);
+app.use('/components', ensureAuthenticated, components);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 

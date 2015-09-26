@@ -51,7 +51,12 @@ var Api = {
   },
 
   createSection(categoryId, name) {
-    axios.post(baseApiUrl + 'categories/' + categoryId + '/sections', {title: name}).then(function(response) {
+    var order = 0;
+    var category = _.find(CategoryStore.getAll(), { id: categoryId });
+    if (category) {
+      order = category.sections.length;
+    }
+    axios.post(baseApiUrl + 'categories/' + categoryId + '/sections', {title: name, order: order}).then(function(response) {
       // TODO: Handle errors
       var sections = response.data.data.sections;
       ServerActionCreators.receiveCreatedSection(categoryId, sections);
@@ -65,6 +70,13 @@ var Api = {
       var category = response.data.data;
       var updatedSection = _.find(category.sections, { id: sectionId });
       ServerActionCreators.receiveUpdatedSection(updatedSection);
+    });
+  },
+
+  updateSections(categoryId, sections) {
+    axios.patch(baseApiUrl + 'categories/' + categoryId, { sections: sections }).then(function() {
+      // TODO: Handle errors
+      ServerActionCreators.receiveUpdatedSections(categoryId, sections);
     });
   },
 
