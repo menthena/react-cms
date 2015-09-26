@@ -9,17 +9,6 @@ var _ = require('lodash');
 var MenuSections = React.createClass({
   mixins: [ReorderMixin],
 
-  getInitialState() {
-    return {
-      isEditing: false,
-      title: '',
-      sectionID: null
-    };
-  },
-
-  setDraggableData: function(sections) {
-  },
-
   render: function () {
     var category = this.props.category;
     var isVisible = this.props.isVisible;

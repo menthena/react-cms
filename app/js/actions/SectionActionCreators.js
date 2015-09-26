@@ -26,13 +26,14 @@ module.exports = {
     Api.deleteSection(categoryId, sectionId);
   },
 
-  updateSection: function(id, data) {
+  updateSection: function(categoryId, sectionId, data) {
     AppDispatcher.dispatch({
       type: ActionTypes.UPDATE_SECTION,
-      id: id,
+      category_id: categoryId,
+      section_id: sectionId,
       data: data
     });
-    Api.updateSection(id, data);
+    Api.updateSection(categoryId, sectionId, data);
   },
 
   updateSections: function(sections) {

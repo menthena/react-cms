@@ -51,6 +51,13 @@ module.exports = {
     });
   },
 
+  receiveUpdatedSection: function(updatedSection) {
+    AppDispatcher.dispatch({
+      type: SectionActionTypes.RECEIVE_UPDATED_SECTION,
+      rawSection: updatedSection
+    });
+  },
+
   receiveDeletedSection: function(categoryId, sectionId) {
     AppDispatcher.dispatch({
       type: SectionActionTypes.RECEIVE_DELETED_SECTION,

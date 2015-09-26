@@ -10,7 +10,7 @@ var Section = React.createClass({
   getInitialState: function() {
     return {
       isEditing: false,
-      title: this.props.section.title
+      sectionName: this.props.section.title
     };
   },
 
@@ -32,7 +32,7 @@ var Section = React.createClass({
     }
   },
 
-  handleEditTitle() {
+  handleEditSectionName() {
     this.setState({
       isEditing: true
     }, function() {
@@ -42,8 +42,9 @@ var Section = React.createClass({
 
   update(event) {
     if (event.keyCode === 13) {
-      var sectionID = this.props.section.id;
-      var categoryID = this.props.categoryID;
+      var sectionId = this.props.section.id;
+      var categoryId = this.props.categoryId;
+      SectionActionCreators.updateSection(categoryId, sectionId, { title: this.state.sectionName });
       this.setState({
         isEditing: false
       });
@@ -52,7 +53,7 @@ var Section = React.createClass({
 
   handleInputChange(event) {
     this.setState({
-      title: event.target.value
+      sectionName: event.target.value
     });
   },
 
@@ -68,8 +69,8 @@ var Section = React.createClass({
           <div className="actions left">
             <i className="fa fa-remove" onClick={this.deleteSection}></i>
           </div>
-          <span style={titleStyle}>{section.title}<i className="fa fa-pencil" onClick={this.handleEditTitle}></i></span>
-          <input style={titleInputStyle} type="text" maxLength="20" ref="sectionInput" name="title" value={this.state.title} onChange={this.handleInputChange} onKeyDown={this.update} />
+          <span style={titleStyle}>{section.title}<i className="fa fa-pencil" onClick={this.handleEditSectionName}></i></span>
+          <input style={titleInputStyle} type="text" maxLength="20" ref="sectionInput" name="title" value={this.state.sectionName} onChange={this.handleInputChange} onKeyDown={this.update} />
         </div>
       );
   }

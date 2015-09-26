@@ -36,6 +36,7 @@ var CategoryStore = assign({}, EventEmitter.prototype, {
 });
 
 CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
+  var category;
   switch(action.type) {
 
     case ActionTypes.RECEIVE_RAW_CATEGORIES:
@@ -69,17 +70,27 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
       break;
 
     case SectionActionTypes.RECEIVE_CREATED_SECTION:
-      var category = _.find(_categories, { id: action.category_id });
+      category = _.find(_categories, { id: action.category_id });
       category.sections = action.sections;
       CategoryStore.emitChange();
       break;
 
     case SectionActionTypes.RECEIVE_DELETED_SECTION:
-      var category = _.find(_categories, { id: action.category_id });
+      category = _.find(_categories, { id: action.category_id });
       _.remove(category.sections, { id: action.section_id });
       CategoryStore.emitChange();
       break;
 
+    case SectionActionTypes.RECEIVE_UPDATED_SECTION:
+      _.each(_categories, function(category) {
+        _.find(category.sections, function(section, index) {
+          if (section.id === action.rawSection.id) {
+            category.sections[index] = action.rawSection;
+          }
+        });
+      });
+    CategoryStore.emitChange();
+    break;
 
     default:
       //do nothing
