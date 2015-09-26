@@ -66,10 +66,7 @@ var Api = {
   updateSection(categoryId, sectionId, data) {
     axios.patch(baseApiUrl + 'categories/' + categoryId + '/sections/' + sectionId, data).then(function(response) {
       // TODO: Handle errors
-      // TODO: Remove this if back-end sends the updated section
-      var category = response.data.data;
-      var updatedSection = _.find(category.sections, { id: sectionId });
-      ServerActionCreators.receiveUpdatedSection(updatedSection);
+      ServerActionCreators.receiveUpdatedSection(response.data.data);
     });
   },
 
