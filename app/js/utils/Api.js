@@ -26,8 +26,9 @@ var Api = {
   },
 
   deleteCategory(id) {
-    axios.delete(baseApiUrl + 'category/' + id).then(function(response) {
-      console.log(response);
+    axios.delete(baseApiUrl + 'categories/' + id).then(function(response) {
+      // TODO: Handle errors
+      ServerActionCreators.receiveDeletedCategory(id);
     });
   },
 

@@ -7,7 +7,8 @@ module.exports = {
     CREATE_SECTION: null,
     DELETE_SECTION: null,
     RECEIVE_UPDATED_SECTION: null,
-    RECEIVE_UPDATED_SECTIONS: null
+    RECEIVE_UPDATED_SECTIONS: null,
+    RECEIVE_DELETED_SECTION: null
   })
 
 };

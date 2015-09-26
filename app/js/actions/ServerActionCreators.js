@@ -2,8 +2,10 @@
 
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var CategoryConstants = require('../constants/CategoryConstants');
+var SectionConstants = require('../constants/SectionConstants');
 
 var ActionTypes = CategoryConstants.ActionTypes;
+var SectionActionTypes = SectionConstants.ActionTypes;
 
 module.exports = {
   receiveAll: function(rawCategories) {
@@ -34,9 +36,16 @@ module.exports = {
     });
   },
 
+  receiveDeletedCategory: function(categoryId) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.RECEIVE_DELETED_CATEGORY,
+      category_id: categoryId
+    });
+  },
+
   receiveCreatedSection: function(categoryId, sections) {
     AppDispatcher.dispatch({
-      type: ActionTypes.RECEIVE_CREATED_SECTION,
+      type: SectionActionTypes.RECEIVE_CREATED_SECTION,
       category_id: categoryId,
       sections: sections
     });
@@ -44,7 +53,7 @@ module.exports = {
 
   receiveDeletedSection: function(categoryId, sectionId) {
     AppDispatcher.dispatch({
-      type: ActionTypes.RECEIVE_DELETED_SECTION,
+      type: SectionActionTypes.RECEIVE_DELETED_SECTION,
       category_id: categoryId,
       section_id: sectionId
     });

@@ -3,10 +3,12 @@
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var CategoryConstants = require('../constants/CategoryConstants');
+var SectionConstants = require('../constants/SectionConstants');
 var assign = require('object-assign');
 var _ = require('lodash');
 
 var ActionTypes = CategoryConstants.ActionTypes;
+var SectionActionTypes = SectionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _categories = {};
@@ -56,22 +58,28 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
       CategoryStore.emitChange();
       break;
 
-      case ActionTypes.RECEIVE_UPDATED_CATEGORIES:
-        _categories = action.rawCategories;
-        CategoryStore.emitChange();
-        break;
+    case ActionTypes.RECEIVE_UPDATED_CATEGORIES:
+      _categories = action.rawCategories;
+      CategoryStore.emitChange();
+      break;
 
-      case ActionTypes.RECEIVE_CREATED_SECTION:
-        var category = _.find(_categories, { id: action.category_id });
-        category.sections = action.sections;
-        CategoryStore.emitChange();
-        break;
+    case ActionTypes.RECEIVE_DELETED_CATEGORY:
+      _.remove(_categories, { id: action.category_id });
+      CategoryStore.emitChange();
+      break;
 
-      case ActionTypes.RECEIVE_DELETED_SECTION:
-        var category = _.find(_categories, { _id: action.category_id });
-        _.remove(category.sections, { _id: action.section_id });
-        CategoryStore.emitChange();
-        break;
+    case SectionActionTypes.RECEIVE_CREATED_SECTION:
+      var category = _.find(_categories, { id: action.category_id });
+      category.sections = action.sections;
+      CategoryStore.emitChange();
+      break;
+
+    case SectionActionTypes.RECEIVE_DELETED_SECTION:
+      var category = _.find(_categories, { id: action.category_id });
+      _.remove(category.sections, { id: action.section_id });
+      CategoryStore.emitChange();
+      break;
+
 
     default:
       //do nothing
