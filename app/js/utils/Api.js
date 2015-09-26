@@ -58,8 +58,7 @@ var Api = {
     }
     axios.post(baseApiUrl + 'categories/' + categoryId + '/sections', {title: name, order: order}).then(function(response) {
       // TODO: Handle errors
-      var sections = response.data.data.sections;
-      ServerActionCreators.receiveCreatedSection(categoryId, sections);
+      ServerActionCreators.receiveCreatedSection(categoryId, response.data.data);
     });
   },
 

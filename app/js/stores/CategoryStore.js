@@ -11,7 +11,7 @@ var ActionTypes = CategoryConstants.ActionTypes;
 var SectionActionTypes = SectionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _categories = {};
+var _categories = [];
 
 function _addCategories(rawCategories) {
   _categories = rawCategories;
@@ -71,7 +71,8 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case SectionActionTypes.RECEIVE_CREATED_SECTION:
       category = _.find(_categories, { id: action.category_id });
-      category.sections = action.sections;
+      console.log('ax');
+      category.sections.push(action.section);
       CategoryStore.emitChange();
       break;
 

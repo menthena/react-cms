@@ -43,11 +43,11 @@ module.exports = {
     });
   },
 
-  receiveCreatedSection: function(categoryId, sections) {
+  receiveCreatedSection: function(categoryId, section) {
     AppDispatcher.dispatch({
       type: SectionActionTypes.RECEIVE_CREATED_SECTION,
       category_id: categoryId,
-      sections: sections
+      section: section
     });
   },
 

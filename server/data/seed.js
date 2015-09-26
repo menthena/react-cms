@@ -72,19 +72,19 @@ Object.keys(categories).forEach(function(category){
   db.categories.save(categories[category]);
 });
 
-// var components = {
-//   'home': {
-//     componentType: 'list',
-//     data: [],
-//     order: 1,
-//     sectionid: categories['home'].sections[0]._id,
-//     categoryid: categories['home']._id
-//   }
-// };
-//
-// Object.keys(components).forEach(function(component){
-//   db.components.save(components[component]);
-// });
+var components = {
+  'home': {
+    componentType: 'list',
+    data: [],
+    order: 1,
+    sectionid: categories['home'].sections[0]._id,
+    categoryid: categories['home']._id
+  }
+};
+
+Object.keys(components).forEach(function(component){
+  db.components.save(components[component]);
+});
 
 // var data = [{
 //  'title': 'IT Guide',
