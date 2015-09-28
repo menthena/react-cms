@@ -5,6 +5,7 @@ You will need the following:
 
 * NPM
 * MongoDB
+* ElasticSearch
 
 ###Getting set up
 Run the following commands:
@@ -19,3 +20,9 @@ Run the following commands:
     x> mongod & # runs in background, kill later with pkill mongod
     x> mongo tabhqreact /data/seed.js
     x> gulp dev
+
+To re-seed your database run:
+
+    x> mongo tabhqreact server/data/seed.js
+    x> node server/data/reindex_search.js
+    
