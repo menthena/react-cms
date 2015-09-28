@@ -1,20 +1,21 @@
 'use strict';
 
 var _ = require('lodash');
+var q = require('q');
 var should = require('should');
 var request = require('supertest');  
 var mongoose = require('mongoose');
-var mockgoose = require('mockgoose');
 var async = require('async');
 var ObjectId = require('mongoose').Types.ObjectId;
 var passportStub = require('passport-stub');
-
-mockgoose(mongoose); 
+var searchClient = require('../services/search_client');
 
 var app = require('../app');
 var Category = mongoose.model('Category');
 
 passportStub.install(app);
+
+var run = 0;
 
 
 describe('Routing', function() {
@@ -22,24 +23,41 @@ describe('Routing', function() {
   var categories;
  
   beforeEach(function(done) {
-    mockgoose.reset();
     passportStub.logout();
+    mongoose.connection.db.dropDatabase();
 
-  	async.timesSeries(5, function(n, next) {
-  		Category.create({
-          'title': 'test' + n, 
-          'order': n, 
-          '_id': new ObjectId(),
-          'sections': _.times(3, function(s) { 
-            return { 
-              '_id': new ObjectId(), 
-              'title': 'sect' + s + '_' + n, 
-              'order': s
-            } 
-          })
-        }, 
-  			function(err, c) { next(err, c); });
-  	}, function(err, createdCategories) { categories = createdCategories; done(); }); 
+    searchClient.deleteAllIndices().then(function() {     
+    	async.timesSeries(5, function(n, next) {
+    		Category.create({
+            'title': 'test' + n, 
+            'order': n, 
+            '_id': new ObjectId(),
+            'sections': _.times(3, function(s) { 
+              return { 
+                '_id': new ObjectId(), 
+                'title': 'sect' + s + '_' + n, 
+                'order': s
+              } 
+            })
+          }, 
+    			function(err, c) { next(err, c); });
+    	}, function(err, createdCategories) { 
+        categories = createdCategories;
+
+        var indexPromises = categories.map(function(category) {
+          return searchClient.createCategory(category.title, category.id)
+            .then(function(indexCategory) {
+              var sectionIndexPromises = (category.sections || []).map(function(section) {
+                return searchClient.createSection(section.title, category.id, section.id);
+              });
+
+              return q.all(sectionIndexPromises);
+            });
+        });
+
+        q.all(indexPromises).then(function() { done(); }); 
+      }); 
+    });
   });
 
   describe('Categories', function() {
@@ -242,7 +260,7 @@ describe('Routing', function() {
       .end(function(err, res) {
         should.not.exist(err);
         
-        var resultSection = _.find(res.body.data.sections, function(s) { return s.id === sectionId; });
+        var resultSection = res.body.data;
         resultSection.should.match(sectionUpdate);
 
         Category.findById(categoryId, function(err, category) { 
@@ -285,7 +303,7 @@ describe('Routing', function() {
       .expect(201)
       .end(function(err, res) {
         should.not.exist(err);
-        var resultSection = _.find(res.body.data.sections, function(s) { return s.order === 55; });
+        var resultSection = res.body.data;
         resultSection.should.match(newSection);
 
         Category.findById(categoryId, function(err, category) { 
