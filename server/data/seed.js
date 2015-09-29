@@ -76,6 +76,7 @@ var components = {
   'home': {
     componentType: 'ListComponent',
     data: [],
+    searchText: 'This is some basic search test which will be indexed, it also contains references to sections and Categories',
     order: 1,
     sectionid: categories['home'].sections[0]._id,
     categoryid: categories['home']._id

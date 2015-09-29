@@ -7,6 +7,7 @@ var findOrCreate = require('mongoose-findorcreate');
 var componentSchema = new Schema({
 	componentType: String,
 	data: {},
+  searchText: String,
 	order: Number,
 	sectionid: Schema.Types.ObjectId,
   categoryid: Schema.Types.ObjectId
