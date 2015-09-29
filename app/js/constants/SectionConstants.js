@@ -9,7 +9,9 @@ module.exports = {
     UPDATE_SECTION: null,
     RECEIVE_UPDATED_SECTION: null,
     RECEIVE_UPDATED_SECTIONS: null,
-    RECEIVE_DELETED_SECTION: null
+    RECEIVE_DELETED_SECTION: null,
+    SEARCH_SECTIONS: null,
+    RECEIVE_SEARCHED_SECTIONS: null
   })
 
 };

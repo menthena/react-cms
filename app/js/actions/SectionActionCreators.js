@@ -43,6 +43,14 @@ module.exports = {
       sections: sections
     });
     Api.updateSections(categoryId, sections);
+  },
+
+  searchSections(query) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.SEARCH_SECTIONS,
+      query: query
+    });
+    Api.searchSections(query);
   }
 
 };

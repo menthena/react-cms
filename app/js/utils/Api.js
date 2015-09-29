@@ -83,6 +83,14 @@ var Api = {
     });
   },
 
+  searchSections(query) {
+    axios.get(baseApiUrl + 'search?q=' + query).then(function(response) {
+      // TODO: Handle errors
+      console.log(response);
+      // ServerActionCreators.receiveSearchedSections(resp);
+    });
+  },
+
   getAllComponents(sectionId) {
     return axios.get(baseApiUrl + 'components?sectionid=' + sectionId).then(function(response) {
       // TODO: Handle errors

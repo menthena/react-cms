@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var SearchComponent = require('./content/SearchComponent');
 
 
 require('../../styles/Header.sass');
@@ -18,6 +19,7 @@ var Header = React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
+            <SearchComponent />
           </div>
         </header>
       );
