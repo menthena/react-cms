@@ -37,7 +37,7 @@ var Content = React.createClass({
       for (var key in categories[id].sections) {
         sections = categories[id].sections;
         keyId = id + key + sections[key].id;
-        contentSections.push(<ContentSection isAdmin={isAdmin} keyId={keyId} categoryID={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
+        contentSections.push(<ContentSection isAdmin={isAdmin} key={keyId} categoryId={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
       }
     }
 

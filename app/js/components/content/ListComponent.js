@@ -4,6 +4,8 @@ var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
 var ReorderMixin = require('../../mixins/ReorderMixin');
 var GoogleDriveMixin = require('../../mixins/GoogleDriveMixin');
+var PageComponentActions = require('./PageComponentActions');
+var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var update = React.addons.update;
 var _ = require('lodash');
 
@@ -13,12 +15,12 @@ var ListComponent = React.createClass({
 
   getInitialState: function() {
     return {
-      data: this.props.components
+      data: this.props.data
     };
   },
 
   setDraggableData: function(dragged, over) {
-    var sectionID = this.props.sectionID;
+    var sectionId = this.props.sectionId;
     var stateData = this.state.data;
     _.each(stateData, function(component) {
       if (component.id === dragged.id) {
@@ -67,9 +69,8 @@ var ListComponent = React.createClass({
   },
 
   updateComponents() {
-    var sectionID = this.props.sectionID;
-    var categoryID = this.props.categoryID;
     var data = this.removePlaceholders();
+    ComponentActionCreators.updateComponent(this.props.componentId, data);
   },
 
   removeLink(item) {
@@ -91,6 +92,7 @@ var ListComponent = React.createClass({
 
   render: function () {
     var data = this.state.data || [];
+    var component =  this.props.component;
     var isAdmin = this.props.isAdmin;
     var addLinkButton = '';
     var googleDriveButton = '';
@@ -103,16 +105,18 @@ var ListComponent = React.createClass({
     }
     this.loadDraggableData(this.state.data);
     return (
-        <div>
+        <div className="template" data-droppable="component" data-order={component.order} data-droppable="component" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} data-order={component.order} parent onMouseEnter={this.props.dragHover}>
           <div className="files" onDragOver={this.dragOver} onDrop={this.drop}>
             {data.map(function(item, i) {
               return (<ListItemComponent key={i} updateSingleComponent={this.updateSingleComponent} order={item.order} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, item)} isAdmin={isAdmin}></ListItemComponent>);
             }.bind(this))}
-
-            {addLinkButton}
-            {googleDriveButton}
+            <div className="downloadButtons">
+              {addLinkButton}
+              {googleDriveButton}
+            </div>
 
           </div>
+          <PageComponentActions componentId={this.props.componentId} />
         </div>
       );
   }

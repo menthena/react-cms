@@ -74,7 +74,7 @@ Object.keys(categories).forEach(function(category){
 
 var components = {
   'home': {
-    componentType: 'list',
+    componentType: 'ListComponent',
     data: [],
     order: 1,
     sectionid: categories['home'].sections[0]._id,

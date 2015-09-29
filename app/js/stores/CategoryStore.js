@@ -71,7 +71,6 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case SectionActionTypes.RECEIVE_CREATED_SECTION:
       category = _.find(_categories, { id: action.category_id });
-      console.log('ax');
       category.sections.push(action.section);
       CategoryStore.emitChange();
       break;

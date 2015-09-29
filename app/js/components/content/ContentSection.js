@@ -33,23 +33,17 @@ var ContentSection = React.createClass({
     }
   },
 
-  getInitialState: function() {
-    return {
-      template: this.props.template
-    };
-  },
-
   render: function () {
     var section = this.props.section;
-    var isAdmin = this.props.isAdmin;
-    var sectionID = section.id;
+    var sectionId = section.id;
 
     return (
-        <section ref={'section_' + sectionID}>
+        <section ref={'section_' + sectionId}>
           <div className='content-inner'>
             <header>
               <Editor tag="h1" text={section.title} onChange={this.handleContentChange} options={{toolbar: false, buttons: [], disableReturn: true}} />
             </header>
+            <PageComponent template={this.props.template} isAdmin={this.props.isAdmin} sectionId={sectionId} />
           </div>
         </section>
       );

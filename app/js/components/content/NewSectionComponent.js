@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 
 require('../../../styles/NewSectionComponent.sass');
 
@@ -20,11 +21,16 @@ var NewSectionComponent = React.createClass({
     });
   },
 
-  handleNewComponent(component) {
+  handleNewComponent(componentType) {
     this.setState({
       plusButtonVisible: true,
       sectionComponentSelectorVisible: false
     });
+    if (componentType === 'ListComponent') {
+      ComponentActionCreators.createComponent(this.props.sectionId, componentType, []);
+    } else {
+      ComponentActionCreators.createComponent(this.props.sectionId, componentType);
+    }
   },
 
   _onChange(type) {

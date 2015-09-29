@@ -14,19 +14,19 @@ var CategoryStore = require('./stores/CategoryStore');
 
 require('../styles/main.sass');
 
-function getCategoryState() {
+function getStateFromStores() {
   return {
-    allCategories: CategoryStore.getAll()
+    allCategories: CategoryStore.getAll(),
+    isAdmin: true
   };
 }
 
 var App = React.createClass({
 
   getInitialState: function() {
-    return getCategoryState();
+    return getStateFromStores();
     // return {
     //   isAdmin: true,
-    //   mobilePanelVisible: false
     // };
   },
 
@@ -41,7 +41,7 @@ var App = React.createClass({
   },
 
   _onChange() {
-    this.setState(getCategoryState());
+    this.setState(getStateFromStores());
   },
 
   toggleMobilePanel() {

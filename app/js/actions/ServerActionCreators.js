@@ -3,12 +3,14 @@
 var AppDispatcher = require('../dispatchers/AppDispatcher');
 var CategoryConstants = require('../constants/CategoryConstants');
 var SectionConstants = require('../constants/SectionConstants');
+var ComponentConstants = require('../constants/ComponentConstants');
 
 var ActionTypes = CategoryConstants.ActionTypes;
 var SectionActionTypes = SectionConstants.ActionTypes;
+var ComponentActionTypes = ComponentConstants.ActionTypes;
 
 module.exports = {
-  receiveAll: function(rawCategories) {
+  receiveAllCategories: function(rawCategories) {
     AppDispatcher.dispatch({
       type: ActionTypes.RECEIVE_RAW_CATEGORIES,
       rawCategories: rawCategories
@@ -71,6 +73,42 @@ module.exports = {
       type: SectionActionTypes.RECEIVE_DELETED_SECTION,
       category_id: categoryId,
       section_id: sectionId
+    });
+  },
+
+  receiveAllComponents: function(rawComponents) {
+    AppDispatcher.dispatch({
+      type: ComponentActionTypes.RECEIVE_RAW_COMPONENTS,
+      rawComponents: rawComponents
+    });
+  },
+
+  receiveCreatedComponent: function(rawComponent) {
+    AppDispatcher.dispatch({
+      type: ComponentActionTypes.RECEIVE_CREATED_COMPONENT,
+      rawComponent: rawComponent
+    });
+  },
+
+  receiveUpdatedComponent: function(componentId, data) {
+    AppDispatcher.dispatch({
+      type: ComponentActionTypes.RECEIVE_UPDATED_COMPONENT,
+      component_id: componentId,
+      data: data
+    });
+  },
+
+  receiveDeletedComponent: function(componentId) {
+    AppDispatcher.dispatch({
+      type: ComponentActionTypes.RECEIVE_DELETED_COMPONENT,
+      component_id: componentId
+    });
+  },
+
+  receiveUpdatedComponents: function(updatedComponents) {
+    AppDispatcher.dispatch({
+      type: ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS,
+      rawComponents: updatedComponents
     });
   }
 };

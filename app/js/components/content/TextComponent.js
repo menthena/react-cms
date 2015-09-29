@@ -2,29 +2,24 @@
 
 var React = require('react/addons');
 var Editor = require('react-medium-editor');
+var PageComponentActions = require('./PageComponentActions');
+var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 
 require('../../../styles/TextComponent.sass');
 
 var TextComponent = React.createClass({
 
   handleContentChange: function(content) {
-  },
-
-  getInitialState: function() {
-    return {
-      template: this.props.template,
-      hovered: false
-    };
+    ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
   render: function () {
+    var component = this.props.component;
+
     return (
-        <div className='template'>
-           <Editor className='editor' sectionID={this.props.sectionID} text={this.state.template} onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
-           <div className='actions'>
-             <a className='fa fa-trash-o fa-lg'></a>
-             <a className='fa fa-trash-o fa-lg'></a>
-           </div>
+        <div className='template' data-droppable="component" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} data-order={component.order} parent onMouseEnter={this.props.dragHover}>
+           <Editor className='editor' text={this.props.data} sectionId={this.props.sectionId} onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
+           <PageComponentActions components={this.props.components} componentId={this.props.componentId} />
         </div>
       );
   }

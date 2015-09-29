@@ -6,6 +6,7 @@ var baseApiUrl = 'http://localhost:3001/';
 var _ = require('lodash');
 var ServerActionCreators = require('../actions/ServerActionCreators');
 var CategoryStore = require('../stores/CategoryStore');
+var ComponentStore = require('../stores/ComponentStore');
 
 var Api = {
 
@@ -13,7 +14,7 @@ var Api = {
     return axios.get(baseApiUrl + 'categories?includes=sections').then(function(response) {
       // TODO: Handle errors
       var rawCategories = response.data.data;
-      ServerActionCreators.receiveAll(rawCategories);
+      ServerActionCreators.receiveAllCategories(rawCategories);
     });
   },
 
@@ -26,7 +27,7 @@ var Api = {
   },
 
   deleteCategory(id) {
-    axios.delete(baseApiUrl + 'categories/' + id).then(function(response) {
+    axios.delete(baseApiUrl + 'categories/' + id).then(function() {
       // TODO: Handle errors
       ServerActionCreators.receiveDeletedCategory(id);
     });
@@ -77,10 +78,50 @@ var Api = {
   },
 
   deleteSection(categoryId, sectionId) {
-    axios.delete(baseApiUrl + 'categories/' + categoryId + '/sections/' + sectionId).then(function(response) {
+    axios.delete(baseApiUrl + 'categories/' + categoryId + '/sections/' + sectionId).then(function() {
       ServerActionCreators.receiveDeletedSection(categoryId, sectionId);
     });
-  }
+  },
+
+  getAllComponents(sectionId) {
+    return axios.get(baseApiUrl + 'components?sectionid=' + sectionId).then(function(response) {
+      // TODO: Handle errors
+      var rawComponents = response.data.data;
+      ServerActionCreators.receiveAllComponents(rawComponents);
+    });
+  },
+
+  createComponent(sectionId, type, data) {
+    var order = ComponentStore.getAll().length;
+    axios.post(baseApiUrl + 'components', {sectionid: sectionId, componentType: type, order: order, data: data}).then(function(response) {
+      // TODO: Handle errors
+      ServerActionCreators.receiveCreatedComponent(response.data.data);
+    });
+  },
+
+  updateComponent(componentId, data) {
+    axios.patch(baseApiUrl + 'components/' + componentId, data).then(function() {
+      // TODO: Handle errors
+      ServerActionCreators.receiveUpdatedComponent(componentId, data);
+    });
+  },
+
+  deleteComponent(componentId) {
+    axios.delete(baseApiUrl + 'components/' + componentId).then(function() {
+      ServerActionCreators.receiveDeletedComponent(componentId);
+    });
+  },
+
+  updateComponents(components) {
+    var promises = [];
+    _.each(components, (component) => {
+      promises.push(axios.patch(baseApiUrl + 'components/' + component.id, { order: component.order }));
+      // TODO: Handle errors
+    });
+    return axios.all(promises).then(function() {
+      ServerActionCreators.receiveUpdatedComponents(components);
+    });
+  },
 
 };
 
