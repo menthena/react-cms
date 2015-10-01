@@ -63,8 +63,8 @@ var Section = React.createClass({
     var titleStyle = { display: !this.state.isEditing ? 'block' : 'none' };
     return (
         <div className="full-section" data-droppable="section" data-order={section.order}>
-          <div className="actions right" draggable="true" data-parent="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
-            <i className="fa fa-reorder ui-sortable-handle"></i>
+          <div className="actions right" draggable="true" data-parent="true" onMouseDown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
+            <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
           </div>
           <div className="actions left">
             <i className="fa fa-remove" onClick={this.deleteSection}></i>

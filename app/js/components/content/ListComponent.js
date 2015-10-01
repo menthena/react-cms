@@ -19,104 +19,84 @@ var ListComponent = React.createClass({
     };
   },
 
-  setDraggableData: function(dragged, over) {
-    var sectionId = this.props.sectionId;
-    var stateData = this.state.data;
-    _.each(stateData, function(component) {
-      if (component.id === dragged.id) {
-        component.order = dragged.order;
-      } else if (component.id === over.id) {
-        component.order = over.order;
-      }
-    });
-    this.updateComponents();
-  },
-
-  removePlaceholders() {
-    var data = [];
-    _.each(this.state.data, function(component) {
-      if (!component.data.placeholder) {
-        data.push(component);
-      }
-    });
-    this.setState({
-      data: data
-    });
-    return data;
-  },
-
-  addComponent(type, elem) {
-    this.state.data.push({
-      componentType: type,
-      order: this.state.data.length,
-      data: elem
-    });
-    this.setState({
-      data: this.state.data
-    });
-    if (!elem.placeholder) {
-      this.updateComponents();
-    }
-  },
-
-  addLinkPlaceholder: function() {
+  addLink: function() {
     var elem = {
       title: '',
       url: '',
-      placeholder: true
+      type: 'link'
     };
-    this.addComponent('link', elem);
+    var componentData = this.state.data;
+    componentData.links.push(elem);
+    this.updateComponent(componentData);
   },
 
-  updateComponents() {
-    var data = this.removePlaceholders();
-    ComponentActionCreators.updateComponent(this.props.componentId, data);
-  },
-
-  removeLink(item) {
-    this.setState({
-      data: _.remove(this.state.data, item)
-    });
+  setDraggableData: function(dragged, over) {
+    // var sectionId = this.props.sectionId;
+    // var stateData = this.state.data;
+    // _.each(stateData, function(component) {
+    //   if (component.id === dragged.id) {
+    //     component.order = dragged.order;
+    //   } else if (component.id === over.id) {
+    //     component.order = over.order;
+    //   }
+    // });
     this.updateComponents();
   },
 
-  updateSingleComponent(componentType, newComponentData) {
-    if (newComponentData.id) {
-      var component = _.find(this.state.data, { id: newComponentData.id });
-      component.data = newComponentData;
-      this.updateComponents();
-    } else {
-      this.addComponent(componentType, newComponentData);
-    }
+  updateComponent(componentData) {
+    ComponentActionCreators.updateComponent(this.props.componentId, {data: componentData});
+  },
+
+  removeLink(index) {
+    var componentData = this.state.data;
+    componentData.links.splice(index, 1);
+    this.updateComponent(componentData);
+  },
+
+  updateListItem(index, listItemData) {
+    var componentData = this.state.data;
+    var links = componentData.links;
+    var fieldToUpdate;
+    var dataToUpdate;
+    _.forOwn(listItemData, function(value, key) {
+      fieldToUpdate = key;
+      dataToUpdate = value;
+    });
+    _.each(links, function(link) {
+      links[index][fieldToUpdate] = dataToUpdate;
+    });
+    this.updateComponent(componentData);
   },
 
   render: function () {
-    var data = this.state.data || [];
+    var links = this.state.data.links;
     var component =  this.props.component;
     var isAdmin = this.props.isAdmin;
     var addLinkButton = '';
     var googleDriveButton = '';
 
-    data = _.sortBy(data, 'order');
-
     if (isAdmin) {
-      addLinkButton = <button className="btn btn-default" onClick={this.addLinkPlaceholder}>Add link</button>;
+      addLinkButton = <button className="btn btn-default" onClick={this.addLink}>Add link</button>;
       googleDriveButton = <button id="google-button" className="btn btn-default" onClick={this.addFilesFromGoogleDrive}>Add from Google Drive</button>;
     }
-    this.loadDraggableData(this.state.data);
+    this.loadDraggableData(links);
     return (
-        <div className="template" data-droppable="component" data-order={component.order} data-droppable="component" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} data-order={component.order} parent onMouseEnter={this.props.dragHover}>
-          <div className="files" onDragOver={this.dragOver} onDrop={this.drop}>
-            {data.map(function(item, i) {
-              return (<ListItemComponent key={i} updateSingleComponent={this.updateSingleComponent} order={item.order} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, item)} isAdmin={isAdmin}></ListItemComponent>);
-            }.bind(this))}
-            <div className="downloadButtons">
-              {addLinkButton}
-              {googleDriveButton}
+        <div className="template list" data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
+          <div onDrop={this.drop}>
+            <div className="files">
+              {links.map(function(item, index) {
+                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} order={item.order} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
+              }.bind(this))}
             </div>
-
+            <div className="text-center">
+              <p>Drop files here</p>
+              <div className="downloadButtons btn-group">
+                {addLinkButton}
+                {googleDriveButton}
+              </div>
+            </div>
           </div>
-          <PageComponentActions componentId={this.props.componentId} />
+          <PageComponentActions componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
       );
   }

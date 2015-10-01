@@ -55,10 +55,10 @@ var PageComponent = React.createClass({
     _.each(components, function(component) {
       switch (component.componentType) {
         case 'TextComponent':
-          sectionComponents.push(<TextComponent components={components} key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover}></TextComponent>);
+          sectionComponents.push(<TextComponent components={components} key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></TextComponent>);
           break;
         case 'ListComponent':
-          sectionComponents.push(<ListComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover}></ListComponent>);
+          sectionComponents.push(<ListComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></ListComponent>);
           break;
       }
     }.bind(this));

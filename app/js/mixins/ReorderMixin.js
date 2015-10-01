@@ -2,6 +2,23 @@
 
 require('../../styles/ReorderMixin.sass');
 var _ = require( 'lodash' );
+var canDrag = false;
+var getParent = function(element) {
+  var parent = element.parentNode;
+  var i = 0;
+  while (parent && i < 10) {
+    if (parent ) {
+      if (parent.dataset && parent.dataset.droppable) {
+        return parent;
+      }
+      if (parent.parentNode) {
+        parent = parent.parentNode;
+      }
+    }
+    i++;
+  }
+  return parent;
+};
 
 var ReorderMixin = {
 
@@ -15,10 +32,15 @@ var ReorderMixin = {
   },
 
   dragStart: function(e) {
-    console.log('drag start');
+    if (!canDrag) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
     this.dragged = e.currentTarget;
     if (this.dragged.dataset.parent) {
-      this.dragged = this.dragged.parentNode;
+      // this.dragged = this.dragged.parentNode; //
+      var parent = getParent(this.dragged);
+      this.dragged = parent;
       this.parent = true;
     }
     e.dataTransfer.effectAllowed = 'copy';
@@ -31,10 +53,9 @@ var ReorderMixin = {
   },
 
   drop: function(e){
-    console.log('drop');
     e.preventDefault();
     if (e.dataTransfer.effectAllowed !== 'copy') {
-      this.addLink({
+      this.addLinkPlaceholder({
         'title': 'IT Guide',
         'extensions': 'PDF',
         'url': 'http://google.com',
@@ -46,16 +67,14 @@ var ReorderMixin = {
   },
 
   mouseDown: function(e){
-    console.log('mouse down');
     var element = e.target;
-    if (element.className.indexOf('drag-controller') === -1) {
-      e.stopPropagation();
-      e.preventDefault();
+    canDrag = false;
+    if (element.className.indexOf('drag-controller') > -1) {
+      canDrag = true;
     }
   },
 
   dragEnd: function() {
-    console.log('drag end');
     if (this.over && this.dragged.dataset.droppable === this.over.dataset.droppable) {
       this.dragged.style.display = 'block';
       this.over.parentNode.removeChild(this.placeholder);
@@ -77,15 +96,12 @@ var ReorderMixin = {
   },
 
   dragOver: function(e) {
-    console.log('drag over');
     e.preventDefault();
     var target = e.target;
     if (this.parent) {
-      target = target.parentNode;
+      target = getParent(target);
     }
-    console.log(this.dragged);
-    if (this.dragged && this.dragged.dataset.droppable === target.dataset.droppable) {
-      console.log('true');
+    if (this.dragged && target.dataset && this.dragged.dataset.droppable === target.dataset.droppable) {
       this.over = target;
 
       this.dragged.style.display = 'none';

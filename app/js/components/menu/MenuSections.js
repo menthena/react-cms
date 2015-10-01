@@ -38,7 +38,7 @@ var MenuSections = React.createClass({
 
               return (
                 <li className="full-section" key={section.id} data-order={section.order} style={ currentSectionStyle }>
-                  <Section key={ category.title + section.title } section={section} categoryId={this.props.category.id} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
+                  <Section key={ category.title + section.title } section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
             }.bind(this))}
