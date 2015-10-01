@@ -32,6 +32,10 @@ var ListComponent = React.createClass({
     this.updateComponent(componentData);
   },
 
+  addImage: function() {
+    console.log('add');
+  },
+
   setDraggableData: function(links) {
     var data = {
       links: links
@@ -78,7 +82,7 @@ var ListComponent = React.createClass({
                 return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
-            <DropFileComponent isAdmin={isAdmin} addLink={this.addLink}></DropFileComponent>
+            <DropFileComponent type={'link'} isAdmin={isAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
           </div>
           <PageComponentActions componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
