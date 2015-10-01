@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
+var DropFileComponent = require('./DropFileComponent');
 var ReorderMixin = require('../../mixins/ReorderMixin');
 var GoogleDriveMixin = require('../../mixins/GoogleDriveMixin');
 var PageComponentActions = require('./PageComponentActions');
@@ -67,13 +68,7 @@ var ListComponent = React.createClass({
     var links = this.state.data.links;
     var component =  this.props.component;
     var isAdmin = this.props.isAdmin;
-    var addLinkButton = '';
-    var googleDriveButton = '';
 
-    if (isAdmin) {
-      addLinkButton = <button className="btn btn-default" onClick={this.addLink}>Add link</button>;
-      googleDriveButton = <button id="google-button" className="btn btn-default" onClick={this.addFilesFromGoogleDrive}>Add from Google Drive</button>;
-    }
     this.loadDraggableData(this.props.data.links);
     return (
         <div className="template list" data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
@@ -83,13 +78,7 @@ var ListComponent = React.createClass({
                 return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
-            <div className="text-center">
-              <p>Drop files here</p>
-              <div className="downloadButtons btn-group">
-                {addLinkButton}
-                {googleDriveButton}
-              </div>
-            </div>
+            <DropFileComponent isAdmin={isAdmin} addLink={this.addLink}></DropFileComponent>
           </div>
           <PageComponentActions componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
