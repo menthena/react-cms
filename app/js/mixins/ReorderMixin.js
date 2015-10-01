@@ -82,6 +82,7 @@ var ReorderMixin = {
       // Update state
       var from = Number(this.dragged.dataset.order);
       var to = Number(this.over.dataset.order);
+
       if (!isNaN(to) && !isNaN(from)) {
         this.draggableData.splice(to, 0, this.draggableData.splice(from, 1)[0]);
         _.each(this.draggableData, function(data, index) {

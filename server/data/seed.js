@@ -76,7 +76,12 @@ var components = {
   'home': {
     componentType: 'ListComponent',
     data: {
-      links: []
+      links: [{
+        title: "",
+        type: "link",
+        url: "",
+        order:0
+      }]
     },
     order: 1,
     sectionid: categories['home'].sections[0]._id,

@@ -23,24 +23,19 @@ var ListComponent = React.createClass({
     var elem = {
       title: '',
       url: '',
-      type: 'link'
+      type: 'link',
+      order: this.state.data.links.length
     };
     var componentData = this.state.data;
     componentData.links.push(elem);
     this.updateComponent(componentData);
   },
 
-  setDraggableData: function(dragged, over) {
-    // var sectionId = this.props.sectionId;
-    // var stateData = this.state.data;
-    // _.each(stateData, function(component) {
-    //   if (component.id === dragged.id) {
-    //     component.order = dragged.order;
-    //   } else if (component.id === over.id) {
-    //     component.order = over.order;
-    //   }
-    // });
-    this.updateComponents();
+  setDraggableData: function(links) {
+    var data = {
+      links: links
+    };
+    this.updateComponent(data);
   },
 
   updateComponent(componentData) {
@@ -79,13 +74,13 @@ var ListComponent = React.createClass({
       addLinkButton = <button className="btn btn-default" onClick={this.addLink}>Add link</button>;
       googleDriveButton = <button id="google-button" className="btn btn-default" onClick={this.addFilesFromGoogleDrive}>Add from Google Drive</button>;
     }
-    this.loadDraggableData(links);
+    this.loadDraggableData(this.props.data.links);
     return (
         <div className="template list" data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
           <div onDrop={this.drop}>
             <div className="files">
               {links.map(function(item, index) {
-                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} order={item.order} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
+                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
             <div className="text-center">
