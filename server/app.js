@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -13,6 +15,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var categories = require('./routes/categories');
 var components = require('./routes/components');
+var search = require('./routes/search');
 var User = require('./models/User')
 var port = process.env.PORT || '3000';
 var http = require('http');
@@ -90,8 +93,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/categories', ensureAuthenticated, categories);
-app.use('/components', ensureAuthenticated, components);
+app.use('/categories', ensureApiAuthenticated, categories);
+app.use('/components', ensureApiAuthenticated, components);
+
+app.use('/search', ensureApiAuthenticated, search);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -149,12 +154,13 @@ app.use(function(err, req, res, next) {
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
-function ensureAuthenticated(req, res, next) {
+function ensureApiAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
 
-  res.redirect('/login');
+  res.status(401);
+  res.send();
 }
 
 app.set('port', port);

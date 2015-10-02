@@ -5,6 +5,7 @@ You will need the following:
 
 * NPM
 * MongoDB
+* ElasticSearch
 * Gulp (`npm install gulp -g`)
 * Mocha (`npm install mocha -g`)
 
@@ -21,3 +22,9 @@ Run the following commands:
     x> mongod & # runs in background, kill later with pkill mongod
     x> mongo tabhqreact server/data/seed.js
     x> gulp dev
+
+To re-seed your database run:
+
+    x> mongo tabhqreact server/data/seed.js
+    x> node server/data/reindex_search.js
+    

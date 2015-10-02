@@ -1,19 +1,18 @@
 'use strict';
 
 var _ = require('lodash');
+var q = require('q');
 var should = require('should');
 var request = require('supertest');  
 var mongoose = require('mongoose');
-var mockgoose = require('mockgoose');
 var async = require('async');
 var ObjectId = require('mongoose').Types.ObjectId;
 var passportStub = require('passport-stub');
 
-mockgoose(mongoose); 
-
 var app = require('../app');
 var Category = mongoose.model('Category');
 var Component = mongoose.model('Component');
+var searchClient = require('../services/search_client');
 
 passportStub.install(app);
 
@@ -24,43 +23,57 @@ describe('Routing', function() {
  
   // todo: refactor this callback horror
   beforeEach(function(done) {
-    mockgoose.reset();
+    mongoose.connection.db.dropDatabase();
     components = [];
     passportStub.logout();
 
-    async.timesSeries(5, function(n, next) {
-      var category = {
-          'title': 'test' + n, 
-          'order': n, 
-          '_id': new ObjectId(),
-          'sections': _(3).times(function(s) { 
-            return { 
-              '_id': new ObjectId(), 
-              'title': 'sect' + s + '_' + n, 
-              'order': s
-            } 
-          })
-      };
+    searchClient.deleteAllIndices().then(function() {
+      async.timesSeries(5, function(n, next) {
+        var category = {
+            'title': 'test' + n, 
+            'order': n, 
+            '_id': new ObjectId(),
+            'sections': _.times(3, function(s) { 
+              return { 
+                '_id': new ObjectId(), 
+                'title': 'sect' + s + '_' + n, 
+                'order': s
+              } 
+            })
+        };
 
-      Category.create(category, function(err, c) { 
-        if (!err && c) {
-          Component.create({
-            componentType: 'text',
-            order: 1,
-            data: {foo: 'bar'},
-            sectionid: c.sections[0]._id,
-            categoryid: c._id
-          }, function(err, component) { 
-            components.push(component);
+        Category.create(category, function(err, c) { 
+          if (!err && c) {
+            Component.create({
+              componentType: 'text',
+              order: 1,
+              data: {foo: 'bar'},
+              sectionid: c.sections[0]._id,
+              categoryid: c._id
+            }, function(err, component) { 
+              components.push(component);
+              next(err, c); 
+            })
+          } else {
             next(err, c); 
-          })
-        } else {
-          next(err, c); 
-        }
+          }
+        });
+      }, function(err, createdCategories) { 
+        categories = createdCategories;
+
+        var indexPromises = categories.map(function(category) {
+          return searchClient.createCategory(category.title, category.id)
+            .then(function(indexCategory) {
+              var sectionIndexPromises = (category.sections || []).map(function(section) {
+                return searchClient.createSection(section.title, category.id, section.id);
+              });
+
+              return q.all(sectionIndexPromises);
+            });
+        });
+
+        q.all(indexPromises).then(function() { done(); }); 
       });
-    }, function(err, createdCategories) { 
-      categories = createdCategories; 
-      done();
     }); 
   });
 
