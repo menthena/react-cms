@@ -13,15 +13,11 @@
   position: absolute
   transition: transform 500ms ease 0s
   z-index: 1001
-  -webkit-transform: translate3d(-100%, 0, 0)
-  -moz-transform: translate3d(-100%, 0, 0)
-  -ms-transform: translate(-100%, 0)
-  -o-transform: translate3d(-100%, 0, 0)
-  transform: translate3d(-100%, 0, 0)
   left: 0
   top: 0
   width: 240px
   border-right  : 1px solid $grey
+  z-index: 10000
 
   ul
     overflow : hidden
@@ -99,4 +95,8 @@
 #menu-inner
   position : fixed
   top : 0
-  width : 100%
+  width : 240px
+
+@media screen and (max-width: 767px)
+  #menu
+    left: -240px

@@ -4,7 +4,6 @@ var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
 var DropFileComponent = require('./DropFileComponent');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-var GoogleDriveMixin = require('../../mixins/GoogleDriveMixin');
 var PageComponentActions = require('./PageComponentActions');
 var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var update = React.addons.update;
@@ -12,7 +11,7 @@ var _ = require('lodash');
 
 require('../../../styles/ListComponent.sass');
 var ListComponent = React.createClass({
-  mixins: [ReorderMixin, GoogleDriveMixin],
+  mixins: [ReorderMixin],
 
   getInitialState: function() {
     return {
