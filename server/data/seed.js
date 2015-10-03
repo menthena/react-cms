@@ -75,7 +75,14 @@ Object.keys(categories).forEach(function(category){
 var components = {
   'home': {
     componentType: 'ListComponent',
-    data: [],
+    data: {
+      links: [{
+        title: "",
+        type: "link",
+        url: "",
+        order:0
+      }]
+    },
     searchText: 'This is some basic search test which will be indexed, it also contains references to sections and Categories',
     order: 1,
     sectionid: categories['home'].sections[0]._id,

@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var TextComponent = require('./TextComponent');
 var ListComponent = require('./ListComponent');
+var ImageComponent = require('./ImageComponent');
 var NewSectionComponent = require('./NewSectionComponent');
 var Api = require('../../utils/Api');
 var ComponentStore = require('../../stores/ComponentStore');
@@ -55,10 +56,13 @@ var PageComponent = React.createClass({
     _.each(components, function(component) {
       switch (component.componentType) {
         case 'TextComponent':
-          sectionComponents.push(<TextComponent components={components} key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover}></TextComponent>);
+          sectionComponents.push(<TextComponent components={components} key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></TextComponent>);
           break;
         case 'ListComponent':
-          sectionComponents.push(<ListComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} dragHover={this.dragHover}></ListComponent>);
+          sectionComponents.push(<ListComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></ListComponent>);
+          break;
+        case 'ImageComponent':
+          sectionComponents.push(<ImageComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} isAdmin={isAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></ImageComponent>)
           break;
       }
     }.bind(this));

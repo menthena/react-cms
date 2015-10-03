@@ -27,7 +27,7 @@ var NewSectionComponent = React.createClass({
       sectionComponentSelectorVisible: false
     });
     if (componentType === 'ListComponent') {
-      ComponentActionCreators.createComponent(this.props.sectionId, componentType, []);
+      ComponentActionCreators.createComponent(this.props.sectionId, componentType, {links: []});
     } else {
       ComponentActionCreators.createComponent(this.props.sectionId, componentType);
     }

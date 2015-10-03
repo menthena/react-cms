@@ -100,7 +100,12 @@ var Api = {
   },
 
   createComponent(sectionId, type, data) {
-    var order = ComponentStore.getAll().length;
+    var components = ComponentStore.getAll();
+    var order = 0;
+    var component = _.filter(components, { sectionid: sectionId });
+    if (component) {
+      order = component.length;
+    }
     axios.post(baseApiUrl + 'components', {sectionid: sectionId, componentType: type, order: order, data: data}).then(function(response) {
       // TODO: Handle errors
       ServerActionCreators.receiveCreatedComponent(response.data.data);

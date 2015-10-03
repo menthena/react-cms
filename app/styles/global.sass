@@ -46,4 +46,14 @@ hr
     min-height : 100%
 
     > .inner-wrap
-      transform : translateX(240px)
+      // transform : translateX(240px)
+      padding-left : 240px
+
+    &.move-right
+        > .inner-wrap
+          transform: none
+
+@media screen and (max-width: 767px)
+  .off-canvas-wrap
+    > .inner-wrap
+      padding : 0

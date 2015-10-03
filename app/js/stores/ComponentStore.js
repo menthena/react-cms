@@ -44,23 +44,26 @@ ComponentStore.dispatchToken = AppDispatcher.register(function(action) {
       _addComponents(action.rawComponents);
       ComponentStore.emitChange();
       break;
+
     case ComponentActionTypes.RECEIVE_CREATED_COMPONENT:
       _components.push(action.rawComponent);
       ComponentStore.emitChange();
       break;
+
     case ComponentActionTypes.RECEIVE_DELETED_COMPONENT:
       _.remove(_components, { id: action.component_id });
       ComponentStore.emitChange();
       break;
+
     case ComponentActionTypes.RECEIVE_UPDATED_COMPONENT:
-      // _addComponents(action.rawComponents);
-      _.each(_components, function(component) {
+      _.find(_components, function(component) {
         if (component.id === action.component_id) {
-          component.data.push(action.data);
+          component.data = action.data.data;
         }
       });
       ComponentStore.emitChange();
       break;
+      
     case ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS:
       _components = action.rawComponents;
       ComponentStore.emitChange();
