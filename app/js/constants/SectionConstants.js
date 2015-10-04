@@ -11,7 +11,8 @@ module.exports = {
     RECEIVE_UPDATED_SECTIONS: null,
     RECEIVE_DELETED_SECTION: null,
     SEARCH_SECTIONS: null,
-    RECEIVE_SEARCHED_SECTIONS: null
+    RECEIVE_SEARCHED_SECTIONS: null,
+    CLOSE_SEARCH_VIEW: null
   })
 
 };

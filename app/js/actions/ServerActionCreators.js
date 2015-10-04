@@ -105,6 +105,13 @@ module.exports = {
     });
   },
 
+  receiveSearchedSections: function(searchResults) {
+    AppDispatcher.dispatch({
+      type: SectionActionTypes.RECEIVE_SEARCHED_SECTIONS,
+      searchResults: searchResults
+    });
+  },
+
   receiveUpdatedComponents: function(updatedComponents) {
     AppDispatcher.dispatch({
       type: ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS,

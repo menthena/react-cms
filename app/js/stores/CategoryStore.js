@@ -12,6 +12,9 @@ var SectionActionTypes = SectionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _categories = [];
+var isSearchInProgress = false;
+var searchQuery = '';
+var searchResults = [];
 
 function _addCategories(rawCategories) {
   _categories = rawCategories;
@@ -28,6 +31,18 @@ var CategoryStore = assign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  isSearchInProgress() {
+    return isSearchInProgress;
+  },
+
+  getSearchResults() {
+    return searchResults;
+  },
+
+  getSearchQuery() {
+    return searchQuery;
   },
 
   getAll: function() {
@@ -78,6 +93,22 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
     case SectionActionTypes.RECEIVE_DELETED_SECTION:
       category = _.find(_categories, { id: action.category_id });
       _.remove(category.sections, { id: action.section_id });
+      CategoryStore.emitChange();
+      break;
+
+    case SectionActionTypes.SEARCH_SECTIONS:
+      isSearchInProgress = true;
+      searchQuery = action.query;
+      CategoryStore.emitChange();
+      break;
+
+    case SectionActionTypes.RECEIVE_SEARCHED_SECTIONS:
+      searchResults = action.searchResults;
+      CategoryStore.emitChange();
+      break;
+
+    case SectionActionTypes.CLOSE_SEARCH_VIEW:
+      isSearchInProgress = false;
       CategoryStore.emitChange();
       break;
 

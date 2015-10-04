@@ -51,6 +51,12 @@ module.exports = {
       query: query
     });
     Api.searchSections(query);
+  },
+
+  closeSearchView() {
+    AppDispatcher.dispatch({
+      type: ActionTypes.CLOSE_SEARCH_VIEW
+    });
   }
 
 };

@@ -84,10 +84,9 @@ var Api = {
   },
 
   searchSections(query) {
-    axios.get(baseApiUrl + 'search?q=' + query).then(function(response) {
+    axios.get(baseApiUrl + 'search?q=' + query).then(function() {
       // TODO: Handle errors
-      console.log(response);
-      // ServerActionCreators.receiveSearchedSections(resp);
+      ServerActionCreators.receiveSearchedSections(['Mocking search result 1', 'Mocking search result 2', 'Mocking search result 3']);
     });
   },
 
