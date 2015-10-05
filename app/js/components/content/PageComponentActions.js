@@ -3,9 +3,10 @@
 var React = require('react/addons');
 var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var ReorderMixin = require('../../mixins/ReorderMixin');
-var DeletePrompt = require('../DeletePrompt');
+var ModalMixin = require('../../mixins/ModalMixin');
 
 var PageComponentActions = React.createClass({
+  mixins: [ModalMixin],
 
   delete() {
     var categoryId = this.props.componentId;
@@ -13,9 +14,11 @@ var PageComponentActions = React.createClass({
   },
 
   deleteComponent() {
-    var wrapper = document.body.appendChild(document.createElement('div'));
-    var props = {actions: this.delete, text: 'You are about to delete "' + this.props.type + '"'};
-    React.render(React.createElement(DeletePrompt, props), wrapper);
+    var props = {
+      actions: this.delete,
+      text: 'You are about to delete "' + this.props.type + '"'
+    };
+    ModalMixin.appendModalToBody(props);
   },
 
   render: function () {

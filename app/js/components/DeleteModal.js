@@ -4,9 +4,9 @@ var React = require('react/addons');
 var Modal = require('react-bootstrap').Modal;
 var OverlayTrigger = require('react-bootstrap').OverlayTrigger;
 
-require('../../styles/DeletePrompt.sass');
+require('../../styles/Modal.sass');
 
-var DeletePrompt = React.createClass({
+var DeleteModal = React.createClass({
 
   getInitialState() {
     return {
@@ -30,12 +30,8 @@ var DeletePrompt = React.createClass({
     this.open();
   },
 
-  deleteAction() {
+  clickHandler() {
     this.props.actions();
-    this.close();
-  },
-
-  componentWillUnmount() {
     this.close();
   },
 
@@ -46,12 +42,14 @@ var DeletePrompt = React.createClass({
         <Modal bsSize="medium" show={this.state.showModal} onHide={this.close}>
           <Modal.Body className="text-center">
             <h4>{this.props.text}</h4>
-            <p>This change cannot be undone</p>
+            <p>Click delete to continue</p>
           </Modal.Body>
           <Modal.Footer>
             <div className="text-center">
               <button className="btn btn-default" onClick={this.close}>Cancel</button>
-              <button className="btn btn-danger" onClick={this.deleteAction}>Delete</button>
+              <button className="btn btn-danger" onClick={this.clickHandler}>
+                <span className="glyphicon glyphicon-trash"></span> Delete
+              </button>
             </div>
           </Modal.Footer>
         </Modal>
@@ -60,4 +58,4 @@ var DeletePrompt = React.createClass({
   }
 });
 
-module.exports = DeletePrompt;
+module.exports = DeleteModal;

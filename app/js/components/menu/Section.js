@@ -2,11 +2,12 @@
 
 var React = require('react/addons');
 var SectionActionCreators = require('../../actions/SectionActionCreators');
-var DeletePrompt = require('../DeletePrompt');
+var ModalMixin = require('../../mixins/ModalMixin');
 
 require('../../../styles/section.sass');
 
 var Section = React.createClass({
+  mixins: [ModalMixin],
 
   getInitialState: function() {
     return {
@@ -22,9 +23,11 @@ var Section = React.createClass({
   },
 
   deleteSection() {
-    var wrapper = document.body.appendChild(document.createElement('div'));
-    var props = {actions: this.delete, text: 'You are about to delete "' + this.state.sectionName + '"'};
-    React.render(React.createElement(DeletePrompt, props), wrapper);
+    var props = {
+      actions: this.delete,
+      text: 'You are about to delete "' + this.state.sectionName + '"'
+    };
+    ModalMixin.appendModalToBody(props);
   },
 
   handleClick: function() {

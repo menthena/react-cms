@@ -144,7 +144,7 @@ var ListItemComponent = React.createClass({
 
     var icon = (<div className="item-icon pdf">{item.extension}</div>),
         info = 'PDF - 498.2 KB',
-        image = <img alt="Download" src="images/download.gif" />,
+        image = <i className="fa fa-arrow-right"></i>,
         type = item.type,
         lastUpdated = '(' + item.updated_at + ')',
         url = (<span className="item-type">
@@ -152,8 +152,8 @@ var ListItemComponent = React.createClass({
               </span>);
 
     if (item.type === 'link') {
-      icon = <img src="images/icon-browser.gif" />;
-      image = <img alt="Download" src="images/url.gif" />;
+      icon = <i className="fa fa-link fa-3x"></i>;
+      image = <i className="fa fa-arrow-right"></i>,
       info = item.url;
       type = item.type;
       lastUpdated = '';

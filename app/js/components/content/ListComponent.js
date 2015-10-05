@@ -4,15 +4,15 @@ var React = require('react/addons');
 var ListItemComponent = require('./ListItemComponent');
 var DropFileComponent = require('./DropFileComponent');
 var ReorderMixin = require('../../mixins/ReorderMixin');
+var ModalMixin = require('../../mixins/ModalMixin');
 var PageComponentActions = require('./PageComponentActions');
 var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var update = React.addons.update;
 var _ = require('lodash');
-var DeletePrompt = require('../DeletePrompt');
 
 require('../../../styles/ListComponent.sass');
 var ListComponent = React.createClass({
-  mixins: [ReorderMixin],
+  mixins: [ReorderMixin, ModalMixin],
 
   getInitialState: function() {
     return {
@@ -54,9 +54,11 @@ var ListComponent = React.createClass({
   },
 
   removeLink(index, item) {
-    var wrapper = document.body.appendChild(document.createElement('div'));
-    var props = {actions: this.delete, text: 'You are about to delete "' + item.title + '"'};
-    React.render(React.createElement(DeletePrompt, props), wrapper);
+    var props = {
+      actions: this.delete,
+      text: 'You are about to delete "' + item.title + '"'
+    };
+    ModalMixin.appendModalToBody(props);
   },
 
   updateListItem(index, listItemData) {
