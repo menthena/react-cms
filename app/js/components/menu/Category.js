@@ -4,6 +4,7 @@ var React = require('react/addons');
 var MenuSections = require('./MenuSections');
 var classNames = require('classnames');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
+var DeletePrompt = require('../DeletePrompt');
 
 var Category = React.createClass({
 
@@ -15,9 +16,15 @@ var Category = React.createClass({
     };
   },
 
-  deleteCategory() {
+  delete() {
     var categoryId = this.props.category.id;
     CategoryActionCreators.deleteCategory(categoryId);
+  },
+
+  deleteCategory() {
+    var wrapper = document.body.appendChild(document.createElement('div'));
+    var props = {actions: this.delete, text: 'You are about to delete "' + this.state.categoryName + '"'};
+    React.render(React.createElement(DeletePrompt, props), wrapper);
   },
 
   updateCategory() {

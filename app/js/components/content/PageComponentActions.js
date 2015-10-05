@@ -13,10 +13,13 @@ var PageComponentActions = React.createClass({
   },
 
   deleteComponent() {
-    React.render(<DeletePrompt deleteAction={this.delete} />, document.getElementById('modal-container'));
+    var wrapper = document.body.appendChild(document.createElement('div'));
+    var props = {actions: this.delete, text: 'You are about to delete "' + this.props.type + '"'};
+    React.render(React.createElement(DeletePrompt, props), wrapper);
   },
 
   render: function () {
+
     return (
       <div className='actions' data-parent="true" draggable="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>
         <a className='fa fa-arrows fa-lg drag-controller'></a>

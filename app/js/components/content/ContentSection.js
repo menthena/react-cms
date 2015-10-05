@@ -4,6 +4,7 @@ var React = require('react/addons');
 var PageComponent = require('./PageComponent');
 var Editor = require('react-medium-editor');
 var SectionActionCreators = require('../../actions/SectionActionCreators');
+var DeletePrompt = require('../DeletePrompt');
 
 require('../../../styles/ContentSection.sass');
 
@@ -50,10 +51,16 @@ var ContentSection = React.createClass({
     });
   },
 
-  deleteSection() {
+  delete() {
     var sectionId = this.props.section.id;
     var categoryId = this.props.categoryId;
     SectionActionCreators.deleteSection(categoryId, sectionId);
+  },
+
+  deleteSection() {
+    var wrapper = document.body.appendChild(document.createElement('div'));
+    var props = {actions: this.delete, text: 'You are about to delete "' + this.state.sectionName + '"'};
+    React.render(React.createElement(DeletePrompt, props), wrapper);
   },
 
   render: function () {

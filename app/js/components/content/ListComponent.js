@@ -8,6 +8,7 @@ var PageComponentActions = require('./PageComponentActions');
 var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var update = React.addons.update;
 var _ = require('lodash');
+var DeletePrompt = require('../DeletePrompt');
 
 require('../../../styles/ListComponent.sass');
 var ListComponent = React.createClass({
@@ -46,10 +47,16 @@ var ListComponent = React.createClass({
     ComponentActionCreators.updateComponent(this.props.componentId, {data: componentData});
   },
 
-  removeLink(index) {
+  delete(index) {
     var componentData = this.state.data;
     componentData.links.splice(index, 1);
     this.updateComponent(componentData);
+  },
+
+  removeLink(index, item) {
+    var wrapper = document.body.appendChild(document.createElement('div'));
+    var props = {actions: this.delete, text: 'You are about to delete "' + item.title + '"'};
+    React.render(React.createElement(DeletePrompt, props), wrapper);
   },
 
   updateListItem(index, listItemData) {
@@ -78,12 +85,12 @@ var ListComponent = React.createClass({
           <div onDrop={this.drop}>
             <div className="files">
               {links.map(function(item, index) {
-                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index)} isAdmin={isAdmin}></ListItemComponent>);
+                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} isAdmin={isAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
             <DropFileComponent type={'link'} isAdmin={isAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
           </div>
-          <PageComponentActions componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
+          <PageComponentActions type={component.componentType} componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
       );
   }

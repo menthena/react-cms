@@ -31,7 +31,7 @@ var DeletePrompt = React.createClass({
   },
 
   deleteAction() {
-    this.props.deleteAction();
+    this.props.actions();
     this.close();
   },
 
@@ -45,13 +45,13 @@ var DeletePrompt = React.createClass({
       <div>
         <Modal bsSize="medium" show={this.state.showModal} onHide={this.close}>
           <Modal.Body className="text-center">
-            <h4>Are you sure you want to delete this?</h4>
+            <h4>{this.props.text}</h4>
             <p>This change cannot be undone</p>
           </Modal.Body>
           <Modal.Footer>
             <div className="text-center">
               <button className="btn btn-default" onClick={this.close}>Cancel</button>
-              <button className="btn btn-danger" onClick={this.deleteAction}>Continue</button>
+              <button className="btn btn-danger" onClick={this.deleteAction}>Delete</button>
             </div>
           </Modal.Footer>
         </Modal>
