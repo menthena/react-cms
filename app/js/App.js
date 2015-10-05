@@ -85,6 +85,7 @@ var App = React.createClass({
           <Menu categories={this.state.allCategories} currentSection={this.state.currentSection} />
           <Content isAdmin={this.state.isAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
         </div>
+        <div id="modal-container"></div>
       </div>
     );
   }

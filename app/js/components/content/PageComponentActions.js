@@ -3,12 +3,17 @@
 var React = require('react/addons');
 var ComponentActionCreators = require('../../actions/ComponentActionCreators');
 var ReorderMixin = require('../../mixins/ReorderMixin');
+var DeletePrompt = require('../DeletePrompt');
 
 var PageComponentActions = React.createClass({
 
-  deleteComponent() {
+  delete() {
     var categoryId = this.props.componentId;
     ComponentActionCreators.deleteComponent(this.props.componentId);
+  },
+
+  deleteComponent() {
+    React.render(<DeletePrompt deleteAction={this.delete} />, document.getElementById('modal-container'));
   },
 
   render: function () {
