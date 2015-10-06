@@ -2,10 +2,12 @@
 
 var React = require('react/addons');
 var SectionActionCreators = require('../../actions/SectionActionCreators');
+var ModalMixin = require('../../mixins/ModalMixin');
 
 require('../../../styles/section.sass');
 
 var Section = React.createClass({
+  mixins: [ModalMixin],
 
   getInitialState: function() {
     return {
@@ -14,10 +16,18 @@ var Section = React.createClass({
     };
   },
 
-  deleteSection() {
+  delete() {
     var sectionId = this.props.section.id;
     var categoryId = this.props.categoryId;
     SectionActionCreators.deleteSection(categoryId, sectionId);
+  },
+
+  deleteSection() {
+    var props = {
+      actions: this.delete,
+      text: 'You are about to delete "' + this.state.sectionName + '"'
+    };
+    ModalMixin.appendModalToBody(props);
   },
 
   handleClick: function() {

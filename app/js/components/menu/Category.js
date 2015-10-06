@@ -4,8 +4,10 @@ var React = require('react/addons');
 var MenuSections = require('./MenuSections');
 var classNames = require('classnames');
 var CategoryActionCreators = require('../../actions/CategoryActionCreators');
+var ModalMixin = require('../../mixins/ModalMixin');
 
 var Category = React.createClass({
+  mixins: [ModalMixin],
 
   getInitialState: function() {
     return {
@@ -15,9 +17,17 @@ var Category = React.createClass({
     };
   },
 
-  deleteCategory() {
+  delete() {
     var categoryId = this.props.category.id;
     CategoryActionCreators.deleteCategory(categoryId);
+  },
+
+  deleteCategory() {
+    var props = {
+      actions: this.delete,
+      text: 'You are about to delete "' + this.state.categoryName + '"'
+    };
+    ModalMixin.appendModalToBody(props);
   },
 
   updateCategory() {
