@@ -19,6 +19,11 @@ var Header = React.createClass({
               <span className="icon-bar"></span>
             </button>
           </div>
+          <ul className="nav navbar-bar navbar-right">
+            <li>
+              <button className="pull-right" onClick={this.props.toggleAdminMode}>toggle admin mode</button>
+            </li>
+          </ul>
         </header>
       );
   }

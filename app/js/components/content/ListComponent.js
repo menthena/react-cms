@@ -79,20 +79,25 @@ var ListComponent = React.createClass({
   render: function () {
     var links = this.state.data.links;
     var component =  this.props.component;
-    var isAdmin = this.props.isAdmin;
+    var userIsAdmin = this.props.userIsAdmin;
+    var classes = "list";
+
+    if (userIsAdmin) {
+      classes += " template";
+    }
 
     this.loadDraggableData(this.props.data.links);
     return (
-        <div className="template list" data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
+        <div className={classes} data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
           <div onDrop={this.drop}>
             <div className="files">
               {links.map(function(item, index) {
-                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} isAdmin={isAdmin}></ListItemComponent>);
+                return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} userIsAdmin={userIsAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
-            <DropFileComponent type={'link'} isAdmin={isAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
+            <DropFileComponent type={'link'} userIsAdmin={userIsAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
           </div>
-          <PageComponentActions type={component.componentType} componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
+          <PageComponentActions userIsAdmin={userIsAdmin} type={component.componentType} componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
       );
   }

@@ -16,11 +16,23 @@ var TextComponent = React.createClass({
 
   render: function () {
     var component = this.props.component;
+    var userIsAdmin = this.props.userIsAdmin;
+    var classes;
+
+    if (userIsAdmin) {
+      classes = 'template';
+    }
 
     return (
-        <div className='template' data-droppable="component" data-order={component.order}>
-           <Editor className='editor' text={this.props.data} sectionId={this.props.sectionId} onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
-           <PageComponentActions type={component.componentType} components={this.props.components} componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
+      <div className={classes} data-droppable="component" data-order={component.order}>
+        <div className="editor">
+          { userIsAdmin ?
+            <Editor text={this.props.data} sectionId={this.props.sectionId}
+              onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>
+          : <div dangerouslySetInnerHTML={{__html: this.props.data}}></div> }
+          </div>
+          <PageComponentActions type={component.componentType} userIsAdmin={this.props.userIsAdmin} components={this.props.components}
+            componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>
       );
   }

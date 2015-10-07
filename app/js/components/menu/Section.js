@@ -69,18 +69,34 @@ var Section = React.createClass({
 
   render: function () {
     var section = this.props.section;
+    var userIsAdmin = this.props.userIsAdmin;
     var titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
-    var titleStyle = { display: !this.state.isEditing ? 'block' : 'none' };
+    var titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
+    var deleteAction;
+    var actions;
+
+    var sectionName = <div>
+      <span style={titleStyle}>{section.title}</span>
+    </div>;
+
+    if (userIsAdmin) {
+      deleteAction = <div className="actions left">
+        <i className="fa fa-remove" onClick={this.deleteSection}></i>
+      </div>;
+      actions = <div className="actions right" draggable="true" data-parent="true" onMousedown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
+        <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
+      </div>;
+      sectionName = <div>
+        <input style={titleInputStyle} type="text" maxLength="20" ref="sectionInput" name="title" value={this.state.sectionName} onChange={this.handleInputChange} onKeyDown={this.update} />
+        <span style={titleStyle}>{section.title}<i className="fa fa-pencil" onClick={this.handleEditSectionName}></i></span>
+      </div>;
+    }
+
     return (
         <div className="full-section" data-droppable="section" data-order={section.order}>
-          <div className="actions right" draggable="true" data-parent="true" onMouseDown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
-            <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
-          </div>
-          <div className="actions left">
-            <i className="fa fa-remove" onClick={this.deleteSection}></i>
-          </div>
-          <span style={titleStyle}>{section.title}<i className="fa fa-pencil" onClick={this.handleEditSectionName}></i></span>
-          <input style={titleInputStyle} type="text" maxLength="20" ref="sectionInput" name="title" value={this.state.sectionName} onChange={this.handleInputChange} onKeyDown={this.update} />
+          {deleteAction}
+          {actions}
+          {sectionName}
         </div>
       );
   }

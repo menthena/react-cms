@@ -70,7 +70,11 @@ var Category = React.createClass({
   render: function () {
     var category = this.props.category;
     var isVisible = this.state.isVisible;
+    var userIsAdmin = this.props.userIsAdmin;
     var currentSection = this.props.currentSection;
+    var deleteAction;
+    var arrows;
+
     var classes = classNames(
       {'has-sections' : true },
       {'open' : isVisible}
@@ -79,22 +83,46 @@ var Category = React.createClass({
       {'fa fa-caret-down' : isVisible},
       {'fa fa-caret-right' : !isVisible}
     );
+
     var titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
-    var titleStyle = { display: !this.state.isEditing ? 'block' : 'none' };
+    var titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
+
+    if (category.sections.length) {
+      arrows = <i className={ toggleClasses }></i>;
+    }
+
+    var actions = <div className="category-actions actions right">
+      { arrows }
+    </div>;
+
+    var categoryName = <div>
+      <span style={titleStyle}>{category.title}</span>
+    </div>;
+
+    if (userIsAdmin) {
+      deleteAction = <div className="actions left">
+        <i className="fa fa-remove" onClick={this.deleteCategory}></i>
+      </div>;
+      actions = <div className="category-actions actions right" draggable="true" data-parent="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>
+        <i className={ toggleClasses }></i>
+        <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
+      </div>;
+      categoryName = <div>
+        <input style={titleInputStyle} type="text" maxLength="20" ref="theInput" name="title" value={this.state.categoryName} onChange={this.handleInputChange} onKeyDown={this.updateCategory} />
+        <span style={titleStyle}>{category.title}
+          <i className="fa fa-pencil" onClick={this.handleEditTitle}></i>
+        </span>
+      </div>
+    }
+
     return (
         <div data-order={category.order} data-droppable="category" style={{pointerEvents: 'all'}}>
-          <div className="actions left">
-            <i className="fa fa-remove" onClick={this.deleteCategory}></i>
-          </div>
-          <div className="actions right" draggable="true" data-parent="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>
-            <i className={ toggleClasses }></i>
-            <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
-          </div>
+          {deleteAction}
+          {actions}
           <h3 className={ classes } onClick={this.handleClick}>
-            <input style={titleInputStyle} type="text" maxLength="20" ref="theInput" name="title" value={this.state.categoryName} onChange={this.handleInputChange} onKeyDown={this.updateCategory} />
-            <span style={titleStyle}>{category.title}<i className="fa fa-pencil" onClick={this.handleEditTitle}></i></span>
+            {categoryName}
           </h3>
-          <MenuSections category={category} isVisible={this.state.isVisible} currentSection={currentSection} />
+          <MenuSections userIsAdmin={userIsAdmin} category={category} isVisible={this.state.isVisible} currentSection={currentSection} />
         </div>
       );
   }

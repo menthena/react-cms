@@ -16,8 +16,7 @@ require('../styles/main.sass');
 
 function getStateFromStores() {
   return {
-    allCategories: CategoryStore.getAll(),
-    isAdmin: true
+    allCategories: CategoryStore.getAll()
   };
 }
 
@@ -25,14 +24,13 @@ var App = React.createClass({
 
   getInitialState: function() {
     return getStateFromStores();
-    // return {
-    //   isAdmin: true,
-    // };
   },
 
-  // contextTypes: {
-  //   router: React.PropTypes.func
-  // },
+  toggleAdminMode() {
+    this.setState({
+      userIsAdmin: this.state.userIsAdmin ? false : true
+    });
+  },
 
   handleSectionScroll: function(sectionTitle) {
     this.setState({
@@ -71,6 +69,7 @@ var App = React.createClass({
     var MobilePanelVisible = this.state.mobilePanelVisible;
     var logged = true;
     var classes = 'off-canvas-wrap';
+    var userIsAdmin = this.state.userIsAdmin;
     if (!logged) {
       this.context.router.transitionTo('login');
     }
@@ -81,9 +80,9 @@ var App = React.createClass({
     return (
       <div className={classes}>
         <div className='inner-wrap'>
-          <Header toggleMobilePanel={this.toggleMobilePanel} />
-          <Menu categories={this.state.allCategories} currentSection={this.state.currentSection} />
-          <Content isAdmin={this.state.isAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
+          <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
+          <Menu userIsAdmin={userIsAdmin} categories={this.state.allCategories} currentSection={this.state.currentSection} />
+          <Content userIsAdmin={userIsAdmin} isAdmin={this.state.isAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
         </div>
       </div>
     );

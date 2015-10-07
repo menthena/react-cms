@@ -19,6 +19,7 @@ var MenuSections = React.createClass({
     var category = this.props.category;
     var isVisible = this.props.isVisible;
     var currentSection = this.props.currentSection;
+    var userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.category.sections);
 
@@ -38,18 +39,18 @@ var MenuSections = React.createClass({
 
               return (
                 <li className="full-section" key={section.id} data-order={section.order} style={ currentSectionStyle }>
-                  <Section key={ category.title + section.title } section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
+                  <Section key={ category.title + section.title } userIsAdmin={userIsAdmin} section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
             }.bind(this))}
           </ul>
-          <NewSection sections={category.sections} categoryId={category.id} />
+          <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />
         </div>
       );
     } else {
       var placeholder;
       if (isVisible) {
-        placeholder = <NewSection sections={category.sections} categoryId={category.id} />;
+        placeholder = <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />;
       }
       return (
         <div>

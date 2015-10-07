@@ -38,18 +38,19 @@ var Accordion = React.createClass({
     var categories = [];
     var items = this.props.categories;
     var currentSection = this.props.currentSection;
+    var userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.categories);
 
     items = _.sortBy(items, 'order');
     items.map(function(item) {
-      categories.push(<Category key={item.id} category={item} currentSection={currentSection} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
+      categories.push(<Category key={item.id} userIsAdmin={userIsAdmin} category={item} currentSection={currentSection} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
     }.bind(this));
 
     return (
         <div id="categories" className="Accordion" onDragOver={this.dragOver}>
           {categories}
-          <NewCategory />
+          <NewCategory userIsAdmin={userIsAdmin} />
         </div>
       );
   }

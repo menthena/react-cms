@@ -31,16 +31,20 @@ var NewCategory = React.createClass({
   },
 
   render: function () {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <h3 className="new-category">
-          <div className="actions right">
-            <i className="fa fa-plus"></i>
-          </div>
-          <input type="text" onChange={this.handleChange} placeholder="Add new category" maxLength="20" name="title" value={this.state.categoryName} />
-        </h3>
-      </form>
-    );
+    if (this.props.userIsAdmin) {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <h3 className="new-category">
+            <div className="actions right">
+              <i className="fa fa-plus"></i>
+            </div>
+            <input type="text" onChange={this.handleChange} placeholder="Add new category" maxLength="20" name="title" value={this.state.categoryName} />
+          </h3>
+        </form>
+      );
+    } else {
+      return null;
+    }
   }
 });
 

@@ -30,16 +30,20 @@ var NewSection = React.createClass({
   },
 
   render: function () {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <h3 className="new-category">
-          <div className="actions right">
-            <i className="fa fa-plus"></i>
-          </div>
-          <input type="text" onChange={this.handleChange} placeholder="Add new section" maxLength="20" name="title" value={this.state.sectionName} />
-        </h3>
-      </form>
-    );
+    if (this.props.userIsAdmin) {
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <h3 className="new-category">
+            <div className="actions right">
+              <i className="fa fa-plus"></i>
+            </div>
+            <input type="text" onChange={this.handleChange} placeholder="Add new section" maxLength="20" name="title" value={this.state.sectionName} />
+          </h3>
+        </form>
+      );
+    } else {
+      return null;
+    }
   }
 });
 

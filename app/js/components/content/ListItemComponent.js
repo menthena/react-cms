@@ -122,15 +122,12 @@ var ListItemComponent = React.createClass({
     return urlError;
   },
 
-  componentDidMount() {
-    // this.state.isEditingTitle = true;
-  },
-
   render: function () {
     var item = this.props.item;
+    var userIsAdmin = this.props.userIsAdmin;
 
     var titleInputStyle = { display: this.state.isEditingTitle ? 'block' : 'none' };
-    var titleStyle = { display: !this.state.isEditingTitle ? 'block' : 'none' };
+    var titleStyle = { display: !(this.state.isEditingTitle && userIsAdmin) ? 'block' : 'none' };
 
     var urlInputStyle = {
       display: this.state.isEditingUrl ? 'inline-block' : 'none',
@@ -139,8 +136,6 @@ var ListItemComponent = React.createClass({
     var urlStyle = {
       display: !this.state.isEditingUrl ? 'inline-block' : 'none'
     };
-
-    // Rect.findDOMNode(this.refs.listItemInput)
 
     var icon = (<div className="item-icon pdf">{item.extension}</div>),
         info = 'PDF - 498.2 KB',
@@ -158,16 +153,27 @@ var ListItemComponent = React.createClass({
       type = item.type;
       lastUpdated = '';
       url = (<span className="item-type">
-              <input style={urlInputStyle} placeholder="Enter a URL" type="text" maxLength="20" ref="listItemUrlInput" name="url" value={this.state.url} onChange={this.handleUrlInputChange} onBlur={this.updateUrl} onKeyDown={this.updateUrl} />
-              <span style={urlStyle}>{item.url}<i className="fa fa-pencil" onClick={this.handleEditUrl}></i></span>
+              { userIsAdmin ?
+                <input style={urlInputStyle} placeholder="Enter a URL" type="text"
+                maxLength="20" ref="listItemUrlInput" name="url" value={this.state.url}
+                onChange={this.handleUrlInputChange} onBlur={this.updateUrl} onKeyDown={this.updateUrl} />
+              : null }
+              <span style={urlStyle}>
+                {item.url}
+                { userIsAdmin ?
+                  <i className="fa fa-pencil" onClick={this.handleEditUrl}></i>
+                : null }
+              </span>
             </span>);
     }
 
     return (
       <div data-order={item.order} className="list-item" data-droppable="item">
-        <div className="remove pull-left" onClick={this.props.onClick.bind(null, item)}>
-          <i className="fa fa-remove fa-lg"></i>
-        </div>
+        { userIsAdmin ?
+          <div className="remove pull-left" onClick={this.props.onClick.bind(null, item)}>
+            <i className="fa fa-remove fa-lg"></i>
+          </div>
+        : null }
         <div className="icon page pull-left">
           {icon}
         </div>
@@ -175,8 +181,17 @@ var ListItemComponent = React.createClass({
           <div>
             <form>
               <h3>
-                <input style={titleInputStyle} placeholder="Enter a title" type="text" maxLength="20" ref="listItemInput" name="title" value={this.state.title} onChange={this.handleTitleInputChange} onBlur={this.updateTitle} onKeyDown={this.updateTitle} />
-                <span style={titleStyle}>{item.title}<i className="fa fa-pencil" onClick={this.handleEditTitle}></i></span>
+                { userIsAdmin ?
+                  <input style={titleInputStyle} placeholder="Enter a title" type="text"
+                  maxLength="20" ref="listItemInput" name="title" value={this.state.title}
+                  onChange={this.handleTitleInputChange} onBlur={this.updateTitle} onKeyDown={this.updateTitle} />
+                : null }
+                <span style={titleStyle}>
+                  {item.title}
+                  { userIsAdmin ?
+                    <i className="fa fa-pencil" onClick={this.handleEditTitle}></i>
+                  : null }
+                </span>
               </h3>
             </form>
             <p>
@@ -191,9 +206,12 @@ var ListItemComponent = React.createClass({
               {image}
             </a>
           </div>
-          <div className="pull-left re-order" data-parent="true" draggable="true" onMouseDown={this.props.mouseDown} onDragEnd={this.props.dragEnd} onDragStart={this.props.dragStart}>
-            <i className="fa fa-reorder fa-lg drag-controller"></i>
-          </div>
+          { userIsAdmin ?
+            <div className="pull-left re-order" data-parent="true" draggable="true"
+            onMouseDown={this.props.mouseDown} onDragEnd={this.props.dragEnd} onDragStart={this.props.dragStart}>
+              <i className="fa fa-reorder fa-lg drag-controller"></i>
+            </div>
+          : null }
         </div>
       </div>
     );

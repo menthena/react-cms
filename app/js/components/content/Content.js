@@ -28,7 +28,7 @@ var Content = React.createClass({
 
     var contentSections = [];
     var categories = _.sortBy(this.props.categories, 'order');
-    var isAdmin = this.props.isAdmin;
+    var userIsAdmin = this.props.userIsAdmin;
     var sections;
     var keyId;
 
@@ -37,7 +37,7 @@ var Content = React.createClass({
       for (var key in categories[id].sections) {
         sections = categories[id].sections;
         keyId = id + key + sections[key].id;
-        contentSections.push(<ContentSection isAdmin={isAdmin} key={keyId} categoryId={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
+        contentSections.push(<ContentSection userIsAdmin={userIsAdmin} key={keyId} categoryId={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
       }
     }
 
