@@ -15,6 +15,10 @@ var Api = {
       // TODO: Handle errors
       var rawCategories = response.data.data;
       ServerActionCreators.receiveAllCategories(rawCategories);
+    }, function(err) {
+      if (err.status === 401) {
+        ServerActionCreators.receiveUnauthorizedUser();
+      }
     });
   },
 

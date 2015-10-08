@@ -11,6 +11,7 @@ var Header = require('./components/Header');
 var ReactTransitionGroup = React.addons.TransitionGroup;
 var Api = require('./utils/Api');
 var CategoryStore = require('./stores/CategoryStore');
+var AppStore = require('./stores/AppStore');
 
 require('../styles/main.sass');
 
@@ -21,6 +22,7 @@ function getStateFromStores() {
 }
 
 var App = React.createClass({
+  mixins: [ Router.History ],
 
   getInitialState: function() {
     return getStateFromStores();
@@ -40,6 +42,9 @@ var App = React.createClass({
 
   _onChange() {
     this.setState(getStateFromStores());
+    if (AppStore.getUnauthorized()) {
+      this.history.pushState(null, '/login');
+    }
   },
 
   toggleMobilePanel() {
@@ -54,6 +59,7 @@ var App = React.createClass({
 
   componentDidMount() {
     CategoryStore.addChangeListener(this._onChange);
+    AppStore.addChangeListener(this._onChange);
 
     if (ExecutionEnvironment.canUseDOM) {
       document.addEventListener('scroll', this.handleScroll);
@@ -62,6 +68,7 @@ var App = React.createClass({
 
   componentWillUnmount() {
     CategoryStore.removeChangeListener(this._onChange);
+    AppStore.removeChangeListener(this._onChange);
     document.removeEventListener('scroll', this.handleScroll);
   },
 

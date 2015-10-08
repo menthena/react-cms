@@ -1,11 +1,13 @@
 'use strict';
 
 var AppDispatcher = require('../dispatchers/AppDispatcher');
+var AppConstants = require('../constants/AppConstants');
 var CategoryConstants = require('../constants/CategoryConstants');
 var SectionConstants = require('../constants/SectionConstants');
 var ComponentConstants = require('../constants/ComponentConstants');
 
 var ActionTypes = CategoryConstants.ActionTypes;
+var AppActionTypes = AppConstants.ActionTypes;
 var SectionActionTypes = SectionConstants.ActionTypes;
 var ComponentActionTypes = ComponentConstants.ActionTypes;
 
@@ -109,6 +111,12 @@ module.exports = {
     AppDispatcher.dispatch({
       type: ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS,
       rawComponents: updatedComponents
+    });
+  },
+
+  receiveUnauthorizedUser: function() {
+    AppDispatcher.dispatch({
+      type: AppActionTypes.RECEIVE_UNAUTHORIZED_USER
     });
   }
 };
