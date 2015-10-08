@@ -12,12 +12,15 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 var Api = require('./utils/Api');
 var CategoryStore = require('./stores/CategoryStore');
 var AppStore = require('./stores/AppStore');
+var SearchView = require('./components/search/SearchView');
 
 require('../styles/main.sass');
 
 function getStateFromStores() {
   return {
-    allCategories: CategoryStore.getAll()
+    allCategories: CategoryStore.getAll(),
+    isSearchInProgress: AppStore.isSearchInProgress(),
+    isAdmin: true
   };
 }
 
@@ -74,9 +77,12 @@ var App = React.createClass({
 
   render: function() {
     var MobilePanelVisible = this.state.mobilePanelVisible;
+    var isSearchInProgress = this.state.isSearchInProgress;
     var logged = true;
     var classes = 'off-canvas-wrap';
     var userIsAdmin = this.state.userIsAdmin;
+    var searchViewPlaceholder;
+
     if (!logged) {
       this.context.router.transitionTo('login');
     }
@@ -84,12 +90,20 @@ var App = React.createClass({
       classes += ' move-right';
     }
 
+    if (isSearchInProgress) {
+      classes += ' search-in-progress';
+      searchViewPlaceholder = <SearchView />;
+    }
+
     return (
-      <div className={classes}>
-        <div className='inner-wrap'>
-          <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
-          <Menu userIsAdmin={userIsAdmin} categories={this.state.allCategories} currentSection={this.state.currentSection} />
-          <Content userIsAdmin={userIsAdmin} isAdmin={this.state.isAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
+      <div>
+        {searchViewPlaceholder}
+        <div className={classes}>
+          <div className='inner-wrap'>
+            <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
+            <Menu userIsAdmin={userIsAdmin} categories={this.state.allCategories} currentSection={this.state.currentSection} />
+            <Content userIsAdmin={userIsAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
+          </div>
         </div>
       </div>
     );

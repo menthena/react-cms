@@ -8,37 +8,19 @@ var ActionTypes = AppConstants.ActionTypes;
 
 module.exports = {
 
-  createCategory: function(name) {
+  search: function(query) {
     AppDispatcher.dispatch({
-      type: ActionTypes.CREATE_CATEGORY,
-      name: name
+      type: ActionTypes.SEARCH,
+      query: query
     });
-    Api.createCategory(name);
+    Api.search(query);
   },
 
-  deleteCategory: function(id) {
+  closeSearchView() {
     AppDispatcher.dispatch({
-      type: ActionTypes.DELETE_CATEGORY,
-      id: id
+      type: ActionTypes.CLOSE_SEARCH_VIEW
     });
-    Api.deleteCategory(id);
-  },
-
-  updateCategory: function(id, data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_CATEGORY,
-      id: id,
-      data: data
-    });
-    Api.updateCategory(id, data);
-  },
-
-  updateCategories: function(categories) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_CATEGORIES,
-      categories: categories
-    });
-    Api.updateCategories(categories);
   }
+
 
 };

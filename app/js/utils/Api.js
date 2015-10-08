@@ -87,6 +87,14 @@ var Api = {
     });
   },
 
+  search(query) {
+    axios.get(baseApiUrl + 'search?q=' + query).then(function(response) {
+      ServerActionCreators.receiveSearchResults(response.data.data);
+      // TODO: Handle errors
+      // ServerActionCreators.receiveSearchedSections(['Mocking search result 1', 'Mocking search result 2', 'Mocking search result 3']);
+    });
+  },
+
   getAllComponents(sectionId) {
     return axios.get(baseApiUrl + 'components?sectionid=' + sectionId).then(function(response) {
       // TODO: Handle errors

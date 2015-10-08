@@ -32,7 +32,6 @@ var Content = React.createClass({
     var sections;
     var keyId;
 
-
     for (var id in categories) {
       for (var key in categories[id].sections) {
         sections = categories[id].sections;

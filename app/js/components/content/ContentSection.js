@@ -18,10 +18,6 @@ var ContentSection = React.createClass({
     };
   },
 
-  propTypes: {
-    section: React.PropTypes.object.isRequired
-  },
-
   getOffsetTop: function() {
     var domNode = this.refs['section_' + this.props.section.id].getDOMNode();
     return domNode.getBoundingClientRect().top;

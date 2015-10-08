@@ -107,6 +107,13 @@ module.exports = {
     });
   },
 
+  receiveSearchResults: function(searchResults) {
+    AppDispatcher.dispatch({
+      type: AppActionTypes.RECEIVE_SEARCH_RESULTS,
+      searchResults: searchResults
+    });
+  },
+
   receiveUpdatedComponents: function(updatedComponents) {
     AppDispatcher.dispatch({
       type: ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS,

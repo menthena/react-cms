@@ -1,0 +1,45 @@
+.search-view
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  z-index: 999
+  animation-name: search-animation
+  animation-duration: 1s
+  animation-fill-mode: forwards
+  -webkit-animation-name: search-animation
+  -webkit-animation-duration: 1s
+  -webkit-animation-fill-mode: forwards
+
+  .inner-wrap
+    width: 600px
+    margin: auto
+
+  .search-component
+    width: 100%
+    margin: 0 0 0 0
+
+  input
+    width: 100%
+    font-size: 32px
+    margin-left: 0
+    padding-bottom: 30px
+
+  i.fa-search
+    display: none
+
+  .title
+    color: #999
+
+.close-icon
+  right: 20px
+  top: 20px
+  position: absolute
+  i
+    font-size: 32px!important
+
+@keyframes search-animation
+    0%
+      top: 0
+    100%
+      top: 100px

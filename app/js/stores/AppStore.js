@@ -8,6 +8,9 @@ var assign = require('object-assign');
 var ActionTypes = AppConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 var _unAuth = false;
+var searchResults = [];
+var isSearchInProgress = false;
+var searchQuery;
 
 var AppStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -20,6 +23,18 @@ var AppStore = assign({}, EventEmitter.prototype, {
 
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  isSearchInProgress() {
+    return isSearchInProgress;
+  },
+
+  getSearchResults() {
+    return searchResults;
+  },
+
+  getSearchQuery() {
+    return searchQuery;
   },
 
   getUnauthorized() {
@@ -35,6 +50,22 @@ AppStore.dispatchToken = AppDispatcher.register(function(action) {
 
     case ActionTypes.RECEIVE_UNAUTHORIZED_USER:
       AppStore.setUnauthorized(true);
+      AppStore.emitChange();
+      break;
+
+    case ActionTypes.RECEIVE_SEARCH_RESULTS:
+      searchResults = action.searchResults;
+      AppStore.emitChange();
+      break;
+
+    case ActionTypes.SEARCH:
+      isSearchInProgress = true;
+      searchQuery = action.query;
+      AppStore.emitChange();
+      break;
+
+    case ActionTypes.CLOSE_SEARCH_VIEW:
+      isSearchInProgress = false;
       AppStore.emitChange();
       break;
 

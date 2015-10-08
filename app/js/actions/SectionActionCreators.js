@@ -44,5 +44,4 @@ module.exports = {
     });
     Api.updateSections(categoryId, sections);
   }
-
 };
