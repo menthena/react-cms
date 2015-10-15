@@ -12,9 +12,6 @@ var SectionActionTypes = SectionConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
 var _categories = [];
-var isSearchInProgress = false;
-var searchQuery = '';
-var searchResults = [];
 
 function _addCategories(rawCategories) {
   _categories = rawCategories;
