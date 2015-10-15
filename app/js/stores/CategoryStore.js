@@ -53,7 +53,7 @@ CategoryStore.dispatchToken = AppDispatcher.register(function(action) {
     case ActionTypes.RECEIVE_UPDATED_CATEGORY:
       _.each(_categories, (category, index) => {
         if (category.id === action.rawCategory.id) {
-          _categories[index] = action.rawCategory;
+          _categories[index].title = action.rawCategory.title;
         }
       });
       CategoryStore.emitChange();

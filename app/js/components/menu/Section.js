@@ -83,7 +83,7 @@ var Section = React.createClass({
       deleteAction = <div className="actions left">
         <i className="fa fa-remove" onClick={this.deleteSection}></i>
       </div>;
-      actions = <div className="actions right" draggable="true" data-parent="true" onMousedown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
+      actions = <div className="actions right" draggable="true" data-parent="true" onMouseDown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
         <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
       </div>;
       sectionName = <div>
