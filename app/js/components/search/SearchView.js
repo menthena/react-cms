@@ -36,10 +36,17 @@ var SearchView = React.createClass({
   },
 
   render: function () {
+    var query = AppStore.getSearchQuery();
     var sectionPlaceholder = 'Loading...';
 
-    if (this.state.searchResults.length > 0) {
-      sectionPlaceholder = <SearchListComponent sections={this.state.searchResults} />;
+    if (query.length > 1) {
+      if (this.state.searchResults.length > 0) {
+        sectionPlaceholder = <SearchListComponent results={this.state.searchResults} />;
+      } else if (this.state.searchResults.length === 0) {
+        sectionPlaceholder = <div>Not found</div>;
+      }
+    } else {
+      sectionPlaceholder = 'Min 2 characters...';
     }
 
     return (
