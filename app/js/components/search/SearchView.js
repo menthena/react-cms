@@ -6,16 +6,19 @@ var ReorderMixin = require('../../mixins/ReorderMixin');
 var SearchInputComponent = require('./SearchInputComponent');
 var AppStore = require('../../stores/AppStore');
 var SearchListComponent = require('./SearchListComponent');
+var store = require('../../stores/store.js');
 var AppActionCreators = require('../../actions/AppActionCreators');
+var Reflux = require('reflux');
 
 require('../../../styles/SearchView.sass');
 function getStateFromStores() {
   return {
-    searchResults: AppStore.getSearchResults()
+    searchResults: store.getSearchResults()
   };
 }
 
 var SearchView = React.createClass({
+  mixins: [Reflux.listenTo(store, '_onChange')],
 
   getInitialState: getStateFromStores,
 
@@ -25,14 +28,6 @@ var SearchView = React.createClass({
 
   handleClose() {
     AppActionCreators.closeSearchView();
-  },
-
-  componentDidMount() {
-    AppStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount() {
-    AppStore.removeChangeListener(this._onChange);
   },
 
   render: function () {

@@ -7,8 +7,9 @@ var _ = require('lodash');
 var ServerActionCreators = require('../actions/ServerActionCreators');
 var CategoryStore = require('../stores/CategoryStore');
 var ComponentStore = require('../stores/ComponentStore');
+var AppActions = require('../actions/AppActionCreators');
 
-var Api = {
+const Api = {
 
   getAllCategories() {
     return axios.get(baseApiUrl + 'categories?includes=sections').then(function(response) {
@@ -89,7 +90,7 @@ var Api = {
 
   search(query) {
     axios.get(baseApiUrl + 'search?q=' + query).then(function(response) {
-      ServerActionCreators.receiveSearchResults(response.data.data);
+      AppActions.receiveSearchResults(response.data.data);
       // TODO: Handle errors
       // ServerActionCreators.receiveSearchedSections(['Mocking search result 1', 'Mocking search result 2', 'Mocking search result 3']);
     });
@@ -142,4 +143,4 @@ var Api = {
 
 };
 
-module.exports = Api;
+export default Api;

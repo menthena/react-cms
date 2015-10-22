@@ -1,26 +1,16 @@
 'use strict';
 
-var AppDispatcher = require('../dispatchers/AppDispatcher');
-var AppConstants = require('../constants/AppConstants');
-var Api = require('../utils/Api');
+import Api from '../utils/Api';
+import Reflux from 'reflux';
 
-var ActionTypes = AppConstants.ActionTypes;
+var AppActions = Reflux.createActions([
+  'search',
+  'closeSearchView',
+  'receiveSearchResults'
+]);
 
-module.exports = {
+AppActions.search.listen(function(query) {
+  Api.search(query);
+});
 
-  search: function(query) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.SEARCH,
-      query: query
-    });
-    Api.search(query);
-  },
-
-  closeSearchView() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.CLOSE_SEARCH_VIEW
-    });
-  }
-
-
-};
+export default AppActions;

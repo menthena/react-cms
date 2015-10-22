@@ -13,19 +13,21 @@ var Api = require('./utils/Api');
 var CategoryStore = require('./stores/CategoryStore');
 var AppStore = require('./stores/AppStore');
 var SearchView = require('./components/search/SearchView');
+var store = require('./stores/store');
+var Reflux = require('reflux');
 
 require('../styles/main.sass');
 
 function getStateFromStores() {
   return {
     allCategories: CategoryStore.getAll(),
-    isSearchInProgress: AppStore.isSearchInProgress(),
+    isSearchInProgress: store.isSearchInProgress(),
     isAdmin: true
   };
 }
 
 var App = React.createClass({
-  mixins: [ Router.History ],
+  mixins: [ Router.History, Reflux.listenTo(store, '_onChange') ],
 
   getInitialState: function() {
     return getStateFromStores();

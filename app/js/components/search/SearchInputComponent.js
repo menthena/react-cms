@@ -1,18 +1,21 @@
 'use strict';
 
 var React = require('react/addons');
-var AppActionCreators = require('../../actions/AppActionCreators');
 var AppStore = require('../../stores/AppStore');
+var store = require('../../stores/store.js');
+var AppActionCreators = require('../../actions/AppActionCreators');
+var Reflux = require('reflux');
 
 require('../../../styles/SearchComponent.sass');
 
 function getStateFromStores() {
   return {
-    searchQuery: AppStore.getSearchQuery()
+    searchQuery: store.query
   };
 }
 
 var SearchComponent = React.createClass({
+  mixins: [Reflux.listenTo(store, '_onChange')],
 
   getInitialState: getStateFromStores,
 
@@ -30,11 +33,6 @@ var SearchComponent = React.createClass({
       React.findDOMNode(this.refs.searchInput).focus();
       React.findDOMNode(this.refs.searchInput).setSelectionRange(AppStore.getSearchQuery().length, 1);
     }
-    AppStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount() {
-    AppStore.removeChangeListener(this._onChange);
   },
 
   render: function () {
