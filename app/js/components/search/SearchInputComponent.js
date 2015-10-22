@@ -28,6 +28,7 @@ var SearchComponent = React.createClass({
   componentDidMount() {
     if (this.props.focusOnLoad) {
       React.findDOMNode(this.refs.searchInput).focus();
+      React.findDOMNode(this.refs.searchInput).setSelectionRange(AppStore.getSearchQuery().length, 1);
     }
     AppStore.addChangeListener(this._onChange);
   },

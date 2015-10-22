@@ -82,6 +82,7 @@ var App = React.createClass({
     var classes = 'off-canvas-wrap';
     var userIsAdmin = this.state.userIsAdmin;
     var searchViewPlaceholder;
+    var params = this.props.params;
 
     if (!logged) {
       this.context.router.transitionTo('login');
@@ -102,7 +103,7 @@ var App = React.createClass({
           <div className='inner-wrap'>
             <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
             <Menu userIsAdmin={userIsAdmin} categories={this.state.allCategories} currentSection={this.state.currentSection} />
-            <Content userIsAdmin={userIsAdmin} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
+            <Content userIsAdmin={userIsAdmin} params={params} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
           </div>
         </div>
       </div>
