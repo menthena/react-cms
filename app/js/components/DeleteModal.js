@@ -6,7 +6,7 @@ let OverlayTrigger = require('react-bootstrap').OverlayTrigger;
 
 require('../../styles/Modal.sass');
 
-let DeleteModal = React.createClass({
+const DeleteModal = React.createClass({
 
   getInitialState() {
     return {

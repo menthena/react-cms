@@ -4,7 +4,7 @@ import React from 'react/addons';
 
 require('../../../styles/Login.sass');
 
-let Login = React.createClass({
+const Login = React.createClass({
 
   render() {
     return (

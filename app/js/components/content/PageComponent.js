@@ -20,7 +20,7 @@ function getStateFromStores(sectionId) {
   };
 }
 
-let PageComponent = React.createClass({
+const PageComponent = React.createClass({
   mixins: [ReorderMixin, Reflux.listenTo(ComponentStore, '_onChange')],
 
   getInitialState() {

@@ -76,7 +76,7 @@ const App = React.createClass({
     let logged = true;
     let classes = 'off-canvas-wrap';
     let userIsAdmin = this.state.userIsAdmin;
-    var searchViewPlaceholder;
+    let searchViewPlaceholder;
     let params = this.props.params;
 
     if (!logged) {

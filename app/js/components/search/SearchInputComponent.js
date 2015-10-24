@@ -13,7 +13,7 @@ function getStateFromStores() {
   };
 }
 
-let SearchComponent = React.createClass({
+const SearchComponent = React.createClass({
   mixins: [Reflux.listenTo(AppStore, '_onChange')],
 
   getInitialState: getStateFromStores,

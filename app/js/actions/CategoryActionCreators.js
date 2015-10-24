@@ -3,7 +3,7 @@
 import Api from '../utils/Api';
 import Reflux from 'reflux';
 
-let CategoryActionCreator = Reflux.createActions([
+const CategoryActionCreator = Reflux.createActions([
   'createCategory',
   'deleteCategory',
   'updateCategory',

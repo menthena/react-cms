@@ -5,7 +5,7 @@ import ComponentActionCreators from '../../actions/ComponentActionCreators';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import ModalMixin from '../../mixins/ModalMixin';
 
-let PageComponentActions = React.createClass({
+const PageComponentActions = React.createClass({
   mixins: [ModalMixin],
 
   delete() {

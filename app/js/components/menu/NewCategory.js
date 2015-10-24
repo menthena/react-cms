@@ -5,7 +5,7 @@ import CategoryActionCreators from '../../actions/CategoryActionCreators';
 
 require('../../../styles/NewCategory.sass');
 
-let NewCategory = React.createClass({
+const NewCategory = React.createClass({
 
   getInitialState() {
     return {

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import CategoryActionCreators from '../../actions/CategoryActionCreators';
 import ModalMixin from '../../mixins/ModalMixin';
 
-let Category = React.createClass({
+const Category = React.createClass({
   mixins: [ModalMixin],
 
   getInitialState() {
@@ -72,8 +72,8 @@ let Category = React.createClass({
     let isVisible = this.state.isVisible;
     let userIsAdmin = this.props.userIsAdmin;
     let currentSection = this.props.currentSection;
-    var deleteAction;
-    var arrows;
+    let deleteAction;
+    let arrows;
 
     let classes = classNames(
       {'has-sections': true },

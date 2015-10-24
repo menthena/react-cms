@@ -6,7 +6,7 @@ import PageComponentActions from './PageComponentActions';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
-let ImageComponent = React.createClass({
+const ImageComponent = React.createClass({
 
   handleContentChange(content) {
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
@@ -14,7 +14,7 @@ let ImageComponent = React.createClass({
 
   render() {
     let component = this.props.component;
-    var classes;
+    let classes;
     let userIsAdmin = this.props.userIsAdmin;
 
     if (userIsAdmin) {

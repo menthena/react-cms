@@ -3,7 +3,7 @@
 import Api from '../utils/Api';
 import Reflux from 'reflux';
 
-let SectionActionCreator = Reflux.createActions([
+const SectionActionCreator = Reflux.createActions([
   'createSection',
   'deleteSection',
   'updateSection',

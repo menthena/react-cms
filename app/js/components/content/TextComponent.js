@@ -8,7 +8,7 @@ import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 require('../../../styles/TextComponent.sass');
 
-let TextComponent = React.createClass({
+const TextComponent = React.createClass({
 
   handleContentChange(content) {
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
@@ -17,7 +17,7 @@ let TextComponent = React.createClass({
   render() {
     let component = this.props.component;
     let userIsAdmin = this.props.userIsAdmin;
-    var classes;
+    let classes;
 
     if (userIsAdmin) {
       classes = 'template';

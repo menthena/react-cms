@@ -8,7 +8,7 @@ import SearchInputComponent from './SearchInputComponent';
 
 require('../../../styles/SearchListComponent.sass');
 
-let SearchListComponent = React.createClass({
+const SearchListComponent = React.createClass({
 
   render() {
     let results = this.props.results || [];

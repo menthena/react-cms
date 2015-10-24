@@ -5,9 +5,9 @@ let SCOPES = ['https://www.googleapis.com/auth/drive'];
 let developerKey = 'AIzaSyDRZpwa2jwiNNVqrDLID7sI0WiJrt-byaU';
 
 let pickerApiLoaded = false;
-var oauthToken;
+let oauthToken;
 
-let GoogleDriveMixin = {
+const GoogleDriveMixin = {
 
   auth() {
     if (oauthToken === undefined) {

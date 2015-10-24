@@ -5,7 +5,7 @@ import TimerMixin from 'react-timer-mixin';
 
 require('../../../styles/ListItemComponent.sass');
 
-let ListItemComponent = React.createClass({
+const ListItemComponent = React.createClass({
   mixins: [TimerMixin],
 
   getInitialState() {

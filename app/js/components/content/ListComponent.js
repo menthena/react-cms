@@ -11,7 +11,7 @@ let update = React.addons.update;
 import _ from 'lodash';
 
 require('../../../styles/ListComponent.sass');
-let ListComponent = React.createClass({
+const ListComponent = React.createClass({
   mixins: [ReorderMixin, ModalMixin],
 
   getInitialState() {
@@ -64,8 +64,8 @@ let ListComponent = React.createClass({
   updateListItem(index, listItemData) {
     let componentData = this.state.data;
     let links = componentData.links;
-    var fieldToUpdate;
-    var dataToUpdate;
+    let fieldToUpdate;
+    let dataToUpdate;
     _.forOwn(listItemData, (value, key) => {
       fieldToUpdate = key;
       dataToUpdate = value;

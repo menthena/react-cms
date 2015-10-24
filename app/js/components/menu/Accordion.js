@@ -7,7 +7,7 @@ import NewCategory from './NewCategory';
 import CategoryActionCreators from '../../actions/CategoryActionCreators';
 import _ from 'lodash';
 
-let Accordion = React.createClass({
+const Accordion = React.createClass({
   mixins: [ReorderMixin],
 
   getInitialState() {

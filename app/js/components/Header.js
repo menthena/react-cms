@@ -5,7 +5,7 @@ import SearchInputComponent from './search/SearchInputComponent';
 
 require('../../styles/Header.sass');
 
-let Header = React.createClass({
+const Header = React.createClass({
 
   render() {
 

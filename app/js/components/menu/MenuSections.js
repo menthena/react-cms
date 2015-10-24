@@ -7,7 +7,7 @@ import Section from './Section';
 import _ from 'lodash';
 import SectionActionCreators from '../../actions/SectionActionCreators';
 
-let MenuSections = React.createClass({
+const MenuSections = React.createClass({
   mixins: [ReorderMixin],
 
   setDraggableData(sections) {
@@ -48,7 +48,7 @@ let MenuSections = React.createClass({
         </div>
       );
     } else {
-      var placeholder;
+      let placeholder;
       if (isVisible) {
         placeholder = <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />;
       }

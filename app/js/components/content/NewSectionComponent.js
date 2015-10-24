@@ -5,7 +5,7 @@ import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 require('../../../styles/NewSectionComponent.sass');
 
-let NewSectionComponent = React.createClass({
+const NewSectionComponent = React.createClass({
 
   getInitialState() {
     return {
@@ -41,7 +41,7 @@ let NewSectionComponent = React.createClass({
 
   render() {
     let sectionComponentSelectorVisible = this.state.sectionComponentSelectorVisible;
-    var template;
+    let template;
     let style = { display: this.state.plusButtonVisible ? 'block' : 'none'};
 
     if (this.props.userIsAdmin) {

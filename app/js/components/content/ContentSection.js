@@ -8,7 +8,7 @@ import ModalMixin from '../../mixins/ModalMixin';
 
 require('../../../styles/ContentSection.sass');
 
-let ContentSection = React.createClass({
+const ContentSection = React.createClass({
   mixins: [ModalMixin],
 
   getInitialState() {
@@ -69,7 +69,7 @@ let ContentSection = React.createClass({
 
     let titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
     let titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
-    var sectionActions;
+    let sectionActions;
 
     let sectionHeading = <div>
       <span style={titleStyle}>{section.title}</span>

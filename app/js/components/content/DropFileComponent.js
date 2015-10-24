@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import GoogleDriveMixin from '../../mixins/GoogleDriveMixin';
 
-let DropFileComponent = React.createClass({
+const DropFileComponent = React.createClass({
   mixins: [GoogleDriveMixin],
 
   uploadFile(e) {

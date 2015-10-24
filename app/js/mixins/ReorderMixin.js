@@ -20,7 +20,7 @@ let getParent = (element) => {
   return parent;
 };
 
-let ReorderMixin = {
+const ReorderMixin = {
 
   componentWillMount() {
     this.draggableData = [];

@@ -5,7 +5,7 @@ import Accordion from './Accordion';
 
 require('../../../styles/Menu.sass');
 
-let Menu = React.createClass({
+const Menu = React.createClass({
 
   render() {
     let categories = this.props.categories;

@@ -6,11 +6,11 @@ import _ from 'lodash';
 
 require('../../../styles/Content.sass');
 
-let Content = React.createClass({
+const Content = React.createClass({
 
   onScroll() {
     let scrollTop = window.scrollY;
-    var closestSection;
+    let closestSection;
 
     for (var contentsection in this.refs) {
       if (scrollTop >= this.refs[contentsection].getOffsetTop()) {
@@ -28,8 +28,8 @@ let Content = React.createClass({
     let contentSections = [];
     let categories = _.sortBy(this.props.categories, 'order');
     let userIsAdmin = this.props.userIsAdmin;
-    var sections;
-    var keyId;
+    let sections;
+    let keyId;
     let params = this.props.params;
 
     for (var id in categories) {

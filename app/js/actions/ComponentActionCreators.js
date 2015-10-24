@@ -3,7 +3,7 @@
 import Api from '../utils/Api';
 import Reflux from 'reflux';
 
-let ComponentActionCreator = Reflux.createActions([
+const ComponentActionCreator = Reflux.createActions([
   'createComponent',
   'deleteComponent',
   'updateComponent',

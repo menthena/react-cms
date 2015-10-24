@@ -2,7 +2,7 @@
 
 import Reflux from 'reflux';
 
-let ServerActions = Reflux.createActions([
+const ServerActions = Reflux.createActions([
   'receiveAllCategories',
   'receiveCreatedCategory',
   'receiveUpdatedCategory',

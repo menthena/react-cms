@@ -3,7 +3,7 @@
 import React from 'react/addons';
 import SectionActionCreators from '../../actions/SectionActionCreators';
 
-let NewSection = React.createClass({
+const NewSection = React.createClass({
 
   getInitialState() {
     return {

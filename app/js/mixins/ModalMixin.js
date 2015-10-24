@@ -3,7 +3,7 @@
 import React from 'react';
 import DeleteModal from '../components/DeleteModal';
 
-let ModalMixin = {
+const ModalMixin = {
 
   appendModalToBody(props) {
     let wrapper = document.body.appendChild(document.createElement('div'));
