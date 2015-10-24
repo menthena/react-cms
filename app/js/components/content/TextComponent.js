@@ -14,7 +14,7 @@ var TextComponent = React.createClass({
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
-  render: function () {
+  render: function() {
     var component = this.props.component;
     var userIsAdmin = this.props.userIsAdmin;
     var classes;

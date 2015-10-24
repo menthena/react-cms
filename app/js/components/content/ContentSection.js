@@ -62,7 +62,7 @@ var ContentSection = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
-  render: function () {
+  render: function() {
     var section = this.props.section;
     var sectionId = section.id;
     var userIsAdmin = this.props.userIsAdmin;

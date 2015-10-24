@@ -12,13 +12,13 @@ var ImageComponent = React.createClass({
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
-  render: function () {
+  render: function() {
     var component = this.props.component;
     var classes;
     var userIsAdmin = this.props.userIsAdmin;
 
     if (userIsAdmin) {
-      classes = "template";
+      classes = 'template';
     }
 
     return (

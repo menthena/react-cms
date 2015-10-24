@@ -21,7 +21,7 @@ var PageComponentActions = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
-  render: function () {
+  render: function() {
     if (this.props.userIsAdmin) {
       return (
         <div className='actions' data-parent="true" draggable="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>

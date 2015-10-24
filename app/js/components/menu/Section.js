@@ -67,7 +67,7 @@ var Section = React.createClass({
     });
   },
 
-  render: function () {
+  render: function() {
     var section = this.props.section;
     var userIsAdmin = this.props.userIsAdmin;
     var titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };

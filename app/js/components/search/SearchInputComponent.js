@@ -2,7 +2,6 @@
 
 var React = require('react/addons');
 var AppStore = require('../../stores/AppStore');
-var store = require('../../stores/store.js');
 var AppActionCreators = require('../../actions/AppActionCreators');
 var Reflux = require('reflux');
 
@@ -10,12 +9,12 @@ require('../../../styles/SearchComponent.sass');
 
 function getStateFromStores() {
   return {
-    searchQuery: store.query
+    searchQuery: AppStore.query
   };
 }
 
 var SearchComponent = React.createClass({
-  mixins: [Reflux.listenTo(store, '_onChange')],
+  mixins: [Reflux.listenTo(AppStore, '_onChange')],
 
   getInitialState: getStateFromStores,
 
@@ -35,7 +34,7 @@ var SearchComponent = React.createClass({
     }
   },
 
-  render: function () {
+  render: function() {
     return (
       <div className="search-component">
         <i className="fa fa-search"></i>

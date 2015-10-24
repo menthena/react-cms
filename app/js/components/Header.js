@@ -3,12 +3,11 @@
 var React = require('react/addons');
 var SearchInputComponent = require('./search/SearchInputComponent');
 
-
 require('../../styles/Header.sass');
 
 var Header = React.createClass({
 
-  render: function () {
+  render: function() {
 
     return (
         <header className="navbar navbar-fixed-top">

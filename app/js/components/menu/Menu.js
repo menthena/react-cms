@@ -7,7 +7,7 @@ require('../../../styles/Menu.sass');
 
 var Menu = React.createClass({
 
-  render: function () {
+  render: function() {
     var categories = this.props.categories;
     var currentSection = this.props.currentSection;
 

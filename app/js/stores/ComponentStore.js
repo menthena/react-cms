@@ -38,7 +38,7 @@ var ComponentStore = assign({}, EventEmitter.prototype, {
 });
 
 ComponentStore.dispatchToken = AppDispatcher.register(function(action) {
-  switch(action.type) {
+  switch (action.type) {
 
     case ComponentActionTypes.RECEIVE_RAW_COMPONENTS:
       _addComponents(action.rawComponents);
@@ -63,14 +63,14 @@ ComponentStore.dispatchToken = AppDispatcher.register(function(action) {
       });
       ComponentStore.emitChange();
       break;
-      
+
     case ComponentActionTypes.RECEIVE_UPDATED_COMPONENTS:
       _components = action.rawComponents;
       ComponentStore.emitChange();
       break;
 
     default:
-      //do nothing
+    //do nothing
   }
 });
 

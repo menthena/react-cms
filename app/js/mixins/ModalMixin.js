@@ -11,5 +11,4 @@ var ModalMixin = {
   }
 };
 
-
 module.exports = ModalMixin;

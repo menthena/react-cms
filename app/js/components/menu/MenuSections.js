@@ -15,7 +15,7 @@ var MenuSections = React.createClass({
     SectionActionCreators.updateSections(categoryId, sections);
   },
 
-  render: function () {
+  render: function() {
     var category = this.props.category;
     var isVisible = this.props.isVisible;
     var currentSection = this.props.currentSection;

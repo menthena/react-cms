@@ -6,7 +6,8 @@ import Reflux from 'reflux';
 var AppActions = Reflux.createActions([
   'search',
   'closeSearchView',
-  'receiveSearchResults'
+  'receiveSearchResults',
+  'receiveUnauthorizedUser'
 ]);
 
 AppActions.search.listen(function(query) {

@@ -122,7 +122,7 @@ var ListItemComponent = React.createClass({
     return urlError;
   },
 
-  render: function () {
+  render: function() {
     var item = this.props.item;
     var userIsAdmin = this.props.userIsAdmin;
 

@@ -11,16 +11,16 @@ var GoogleDriveMixin = {
 
   auth() {
     if (oauthToken === undefined) {
-      gapi.load('auth', {'callback': this.onAuthAPILoaded});
+      gapi.load('auth', {callback: this.onAuthAPILoaded});
     }
   },
 
   onAuthAPILoaded() {
     window.gapi.auth.authorize(
     {
-      'client_id': CLIENT_ID,
-      'scope': SCOPES,
-      'immediate': false
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      immediate: false
     },
     this.handleAuthResult);
   },
@@ -33,7 +33,7 @@ var GoogleDriveMixin = {
   },
 
   loadPicker() {
-    gapi.load('picker', {'callback': function onPickerApiLoad() {
+    gapi.load('picker', {callback: function onPickerApiLoad() {
       pickerApiLoaded = true;
       this.createPicker();
     }.bind(this)});
@@ -75,6 +75,5 @@ var GoogleDriveMixin = {
   }
 
 };
-
 
 module.exports = GoogleDriveMixin;

@@ -10,14 +10,14 @@ var DropFileComponent = React.createClass({
     console.log(e);
   },
 
-  render: function () {
+  render: function() {
     var addLinkButton = '';
     var googleDriveButton = '';
-    var classes = "downloadButtons";
+    var classes = 'downloadButtons';
 
     if (this.props.type === 'link') {
       addLinkButton = <button className="btn btn-default" onClick={this.props.addLink}>Add link</button>;
-      classes += " btn-group";
+      classes += ' btn-group';
     }
     googleDriveButton = <button id="google-button" className="btn btn-default" onClick={this.addFilesFromGoogleDrive}>Add from Google Drive</button>;
 

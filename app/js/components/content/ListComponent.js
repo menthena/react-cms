@@ -76,14 +76,14 @@ var ListComponent = React.createClass({
     this.updateComponent(componentData);
   },
 
-  render: function () {
+  render: function() {
     var links = this.state.data.links;
     var component =  this.props.component;
     var userIsAdmin = this.props.userIsAdmin;
-    var classes = "list";
+    var classes = 'list';
 
     if (userIsAdmin) {
-      classes += " template";
+      classes += ' template';
     }
 
     this.loadDraggableData(this.props.data.links);

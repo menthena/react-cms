@@ -1,13 +1,13 @@
 'use strict';
 
-var axios = require('axios');
-// var ServerActions = require('../actions/ServerActions');
-var baseApiUrl = 'http://localhost:3001/';
-var _ = require('lodash');
-var ServerActionCreators = require('../actions/ServerActionCreators');
-var CategoryStore = require('../stores/CategoryStore');
-var ComponentStore = require('../stores/ComponentStore');
-var AppActions = require('../actions/AppActionCreators');
+import axios from 'axios';
+import _ from 'lodash';
+import ServerActionCreators from '../actions/ServerActionCreators';
+import CategoryStore from '../stores/CategoryStore';
+import ComponentStore from '../stores/ComponentStore';
+import AppActions from '../actions/AppActionCreators';
+
+const baseApiUrl = 'http://localhost:3001/';
 
 const Api = {
 
@@ -18,7 +18,8 @@ const Api = {
       ServerActionCreators.receiveAllCategories(rawCategories);
     }, function(err) {
       if (err.status === 401) {
-        ServerActionCreators.receiveUnauthorizedUser();
+        // ServerActionCreators.receiveUnauthorizedUser();
+        AppActions.receiveUnauthorizedUser();
       }
     });
   },
@@ -139,7 +140,7 @@ const Api = {
     return axios.all(promises).then(function() {
       ServerActionCreators.receiveUpdatedComponents(components);
     });
-  },
+  }
 
 };
 

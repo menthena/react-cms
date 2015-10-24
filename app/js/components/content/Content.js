@@ -12,7 +12,7 @@ var Content = React.createClass({
     var scrollTop = window.scrollY;
     var closestSection;
 
-    for (var contentsection in this.refs ) {
+    for (var contentsection in this.refs) {
       if (scrollTop >= this.refs[contentsection].getOffsetTop()) {
         closestSection = this.refs[contentsection];
       }
@@ -24,7 +24,7 @@ var Content = React.createClass({
 
   },
 
-  render: function () {
+  render: function() {
     var contentSections = [];
     var categories = _.sortBy(this.props.categories, 'order');
     var userIsAdmin = this.props.userIsAdmin;

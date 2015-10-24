@@ -33,7 +33,7 @@ var Accordion = React.createClass({
     }
   },
 
-  render: function () {
+  render: function() {
 
     var categories = [];
     var items = this.props.categories;

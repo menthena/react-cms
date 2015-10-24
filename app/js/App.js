@@ -1,35 +1,33 @@
 'use strict';
 
-require('react-fastclick');
-var _ = require('lodash');
-var React = require('react/addons');
-var ExecutionEnvironment = require('react/lib/ExecutionEnvironment');
-var Router = require('react-router');
-var Menu = require('./components/menu/Menu');
-var Content = require('./components/content/Content');
-var Header = require('./components/Header');
-var ReactTransitionGroup = React.addons.TransitionGroup;
-var Api = require('./utils/Api');
-var CategoryStore = require('./stores/CategoryStore');
-var AppStore = require('./stores/AppStore');
-var SearchView = require('./components/search/SearchView');
-var store = require('./stores/store');
-var Reflux = require('reflux');
+import React  from 'react/addons';
+import Router from 'react-router';
+import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+import Reflux from 'reflux';
+import _ from 'lodash';
+import Api from './utils/Api';
+import CategoryStore from './stores/CategoryStore';
+import AppStore from './stores/AppStore';
+import SearchView from './components/search/SearchView';
+import Menu from './components/menu/Menu';
+import Content from './components/content/Content';
+import Header from './components/Header';
 
+require('react-fastclick');
 require('../styles/main.sass');
 
 function getStateFromStores() {
   return {
-    allCategories: CategoryStore.getAll(),
-    isSearchInProgress: store.isSearchInProgress(),
+    allCategories: CategoryStore.getCategories(),
+    isSearchInProgress: AppStore.isSearchInProgress(),
     isAdmin: true
   };
 }
 
-var App = React.createClass({
-  mixins: [ Router.History, Reflux.listenTo(store, '_onChange') ],
+const App = React.createClass({
+  mixins: [Router.History, Reflux.listenTo(AppStore, '_onChange')],
 
-  getInitialState: function() {
+  getInitialState() {
     return getStateFromStores();
   },
 
@@ -39,7 +37,7 @@ var App = React.createClass({
     });
   },
 
-  handleSectionScroll: function(sectionTitle) {
+  handleSectionScroll(sectionTitle) {
     this.setState({
       currentSection: sectionTitle
     });
@@ -47,14 +45,14 @@ var App = React.createClass({
 
   _onChange() {
     this.setState(getStateFromStores());
-    if (AppStore.getUnauthorized()) {
+    if (AppStore.userIsUnauthorized()) {
       this.history.pushState(null, '/login');
     }
   },
 
   toggleMobilePanel() {
     this.setState({
-      mobilePanelVisible : this.state.mobilePanelVisible ? false : true
+      mobilePanelVisible: this.state.mobilePanelVisible ? false : true
     });
   },
 
@@ -63,21 +61,16 @@ var App = React.createClass({
   },
 
   componentDidMount() {
-    CategoryStore.addChangeListener(this._onChange);
-    AppStore.addChangeListener(this._onChange);
-
     if (ExecutionEnvironment.canUseDOM) {
       document.addEventListener('scroll', this.handleScroll);
     }
   },
 
   componentWillUnmount() {
-    CategoryStore.removeChangeListener(this._onChange);
-    AppStore.removeChangeListener(this._onChange);
     document.removeEventListener('scroll', this.handleScroll);
   },
 
-  render: function() {
+  render() {
     var MobilePanelVisible = this.state.mobilePanelVisible;
     var isSearchInProgress = this.state.isSearchInProgress;
     var logged = true;
@@ -113,4 +106,4 @@ var App = React.createClass({
   }
 });
 
-module.exports = App;
+export default App;

@@ -67,7 +67,7 @@ var Category = React.createClass({
     });
   },
 
-  render: function () {
+  render: function() {
     var category = this.props.category;
     var isVisible = this.state.isVisible;
     var userIsAdmin = this.props.userIsAdmin;

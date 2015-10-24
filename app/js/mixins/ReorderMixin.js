@@ -1,13 +1,13 @@
 'use strict';
 
 require('../../styles/ReorderMixin.sass');
-var _ = require( 'lodash' );
+var _ = require('lodash');
 var canDrag = false;
 var getParent = function(element) {
   var parent = element.parentNode;
   var i = 0;
   while (parent && i < 10) {
-    if (parent ) {
+    if (parent) {
       if (parent.dataset && parent.dataset.droppable) {
         return parent;
       }
@@ -44,29 +44,29 @@ var ReorderMixin = {
       this.parent = true;
     }
     e.dataTransfer.effectAllowed = 'copy';
-    this.placeholder = document.createElement("div");
-    this.placeholder.className = "placeholder";
+    this.placeholder = document.createElement('div');
+    this.placeholder.className = 'placeholder';
 
     // // Firefox requires calling dataTransfer.setData
     // // for the drag to properly work
     e.dataTransfer.setData('text/html', e.currentTarget);
   },
 
-  drop: function(e){
+  drop: function(e) {
     e.preventDefault();
     if (e.dataTransfer.effectAllowed !== 'copy') {
       this.addLinkPlaceholder({
-        'title': 'IT Guide',
-        'extensions': 'PDF',
-        'url': 'http://google.com',
-        'size': 2077912,
-        'updated_at': '2014-12-10T13:48:35.808Z',
-        'order': this.draggableData.length - 1
+        title: 'IT Guide',
+        extensions: 'PDF',
+        url: 'http://google.com',
+        size: 2077912,
+        updated_at: '2014-12-10T13:48:35.808Z',
+        order: this.draggableData.length - 1
       });
     }
   },
 
-  mouseDown: function(e){
+  mouseDown: function(e) {
     var element = e.target;
     canDrag = false;
     if (element.className.indexOf('drag-controller') > -1) {
@@ -116,6 +116,5 @@ var ReorderMixin = {
   }
 
 };
-
 
 module.exports = ReorderMixin;

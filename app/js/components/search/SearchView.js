@@ -6,19 +6,19 @@ var ReorderMixin = require('../../mixins/ReorderMixin');
 var SearchInputComponent = require('./SearchInputComponent');
 var AppStore = require('../../stores/AppStore');
 var SearchListComponent = require('./SearchListComponent');
-var store = require('../../stores/store.js');
 var AppActionCreators = require('../../actions/AppActionCreators');
+var ExecutionEnvironment = require('react/lib/ExecutionEnvironment');
 var Reflux = require('reflux');
 
 require('../../../styles/SearchView.sass');
 function getStateFromStores() {
   return {
-    searchResults: store.getSearchResults()
+    searchResults: AppStore.getSearchResults()
   };
 }
 
 var SearchView = React.createClass({
-  mixins: [Reflux.listenTo(store, '_onChange')],
+  mixins: [Reflux.listenTo(AppStore, '_onChange')],
 
   getInitialState: getStateFromStores,
 
@@ -30,7 +30,23 @@ var SearchView = React.createClass({
     AppActionCreators.closeSearchView();
   },
 
-  render: function () {
+  handleKeyPress(event) {
+    if (event.keyCode === 27) {
+      this.handleClose();
+    }
+  },
+
+  componentDidMount() {
+    if (ExecutionEnvironment.canUseDOM) {
+      document.addEventListener('keyup', this.handleKeyPress);
+    }
+  },
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.handleKeyPress);
+  },
+
+  render: function() {
     var query = AppStore.getSearchQuery();
     var sectionPlaceholder = 'Loading...';
 

@@ -45,7 +45,7 @@ var PageComponent = React.createClass({
     ComponentStore.removeChangeListener(this._onChange);
   },
 
-  render: function () {
+  render: function() {
     var template = this.props.template;
     var components = this.state.allComponents;
     var userIsAdmin = this.props.userIsAdmin;

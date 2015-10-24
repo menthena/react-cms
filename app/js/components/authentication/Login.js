@@ -2,12 +2,11 @@
 
 var React = require('react/addons');
 
-
 require('../../../styles/Login.sass');
 
 var Login = React.createClass({
 
-  render: function () {
+  render: function() {
     return (
       <div id="auth">
         <div className="container container-narrow">
