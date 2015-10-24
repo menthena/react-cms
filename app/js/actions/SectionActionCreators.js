@@ -1,47 +1,29 @@
 'use strict';
 
-var AppDispatcher = require('../dispatchers/AppDispatcher');
-var SectionConstants = require('../constants/SectionConstants');
-var Api = require('../utils/Api');
+import Api from '../utils/Api';
+import Reflux from 'reflux';
 
-var ActionTypes = SectionConstants.ActionTypes;
+let SectionActionCreator = Reflux.createActions([
+  'createSection',
+  'deleteSection',
+  'updateSection',
+  'updateSections'
+]);
 
-module.exports = {
+SectionActionCreator.createSection.listen(function(categoryId, name) {
+  Api.createSection(categoryId, name);
+});
 
-  createSection: function(categoryId, name) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.CREATE_SECTION,
-      category_id: categoryId,
-      name: name
-    });
-    Api.createSection(categoryId, name);
-  },
+SectionActionCreator.deleteSection.listen(function(categoryId, sectionId) {
+  Api.deleteSection(categoryId, sectionId);
+});
 
-  deleteSection: function(categoryId, sectionId) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.DELETE_SECTION,
-      category_id: categoryId,
-      section_id: sectionId
-    });
-    Api.deleteSection(categoryId, sectionId);
-  },
+SectionActionCreator.updateSection.listen(function(categoryId, sectionId, data) {
+  Api.updateSection(categoryId, sectionId, data);
+});
 
-  updateSection: function(categoryId, sectionId, data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_SECTION,
-      category_id: categoryId,
-      section_id: sectionId,
-      data: data
-    });
-    Api.updateSection(categoryId, sectionId, data);
-  },
+SectionActionCreator.updateSections.listen(function(categoryId, sections) {
+  Api.updateSections(categoryId, sections);
+});
 
-  updateSections: function(categoryId, sections) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_SECTIONS,
-      category_id: categoryId,
-      sections: sections
-    });
-    Api.updateSections(categoryId, sections);
-  }
-};
+export default SectionActionCreator;

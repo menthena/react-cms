@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react/addons');
-var Category = require('./Category');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var NewCategory = require('./NewCategory');
-var CategoryActionCreators = require('../../actions/CategoryActionCreators');
-var _ = require('lodash');
+import React from 'react/addons';
+import Category from './Category';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import NewCategory from './NewCategory';
+import CategoryActionCreators from '../../actions/CategoryActionCreators';
+import _ from 'lodash';
 
-var Accordion = React.createClass({
+let Accordion = React.createClass({
   mixins: [ReorderMixin],
 
   getInitialState: function() {
@@ -35,10 +35,10 @@ var Accordion = React.createClass({
 
   render: function() {
 
-    var categories = [];
-    var items = this.props.categories;
-    var currentSection = this.props.currentSection;
-    var userIsAdmin = this.props.userIsAdmin;
+    let categories = [];
+    let items = this.props.categories;
+    let currentSection = this.props.currentSection;
+    let userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.categories);
 
@@ -48,7 +48,7 @@ var Accordion = React.createClass({
     }.bind(this));
 
     return (
-        <div id="categories" className="Accordion" onDragOver={this.dragOver}>
+        <div id='categories' className='Accordion' onDragOver={this.dragOver}>
           {categories}
           <NewCategory userIsAdmin={userIsAdmin} />
         </div>

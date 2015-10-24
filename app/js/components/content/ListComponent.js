@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react/addons');
-var ListItemComponent = require('./ListItemComponent');
-var DropFileComponent = require('./DropFileComponent');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var ModalMixin = require('../../mixins/ModalMixin');
-var PageComponentActions = require('./PageComponentActions');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
-var update = React.addons.update;
-var _ = require('lodash');
+import React from 'react/addons';
+import ListItemComponent from './ListItemComponent';
+import DropFileComponent from './DropFileComponent';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import ModalMixin from '../../mixins/ModalMixin';
+import PageComponentActions from './PageComponentActions';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
+let update = React.addons.update;
+import _ from 'lodash';
 
 require('../../../styles/ListComponent.sass');
-var ListComponent = React.createClass({
+let ListComponent = React.createClass({
   mixins: [ReorderMixin, ModalMixin],
 
   getInitialState: function() {
@@ -21,13 +21,13 @@ var ListComponent = React.createClass({
   },
 
   addLink: function() {
-    var elem = {
+    let elem = {
       title: '',
       url: '',
       type: 'link',
       order: this.state.data.links.length
     };
-    var componentData = this.state.data;
+    let componentData = this.state.data;
     componentData.links.push(elem);
     this.updateComponent(componentData);
   },
@@ -37,7 +37,7 @@ var ListComponent = React.createClass({
   },
 
   setDraggableData: function(links) {
-    var data = {
+    let data = {
       links: links
     };
     this.updateComponent(data);
@@ -48,13 +48,13 @@ var ListComponent = React.createClass({
   },
 
   delete(index) {
-    var componentData = this.state.data;
+    let componentData = this.state.data;
     componentData.links.splice(index, 1);
     this.updateComponent(componentData);
   },
 
   removeLink(index, item) {
-    var props = {
+    let props = {
       actions: this.delete,
       text: 'You are about to delete "' + item.title + '"'
     };
@@ -62,8 +62,8 @@ var ListComponent = React.createClass({
   },
 
   updateListItem(index, listItemData) {
-    var componentData = this.state.data;
-    var links = componentData.links;
+    let componentData = this.state.data;
+    let links = componentData.links;
     var fieldToUpdate;
     var dataToUpdate;
     _.forOwn(listItemData, function(value, key) {
@@ -77,10 +77,10 @@ var ListComponent = React.createClass({
   },
 
   render: function() {
-    var links = this.state.data.links;
-    var component =  this.props.component;
-    var userIsAdmin = this.props.userIsAdmin;
-    var classes = 'list';
+    let links = this.state.data.links;
+    let component =  this.props.component;
+    let userIsAdmin = this.props.userIsAdmin;
+    let classes = 'list';
 
     if (userIsAdmin) {
       classes += ' template';
@@ -88,9 +88,9 @@ var ListComponent = React.createClass({
 
     this.loadDraggableData(this.props.data.links);
     return (
-        <div className={classes} data-droppable="component" data-order={component.order} onDragOver={this.dragOver}>
+        <div className={classes} data-droppable='component' data-order={component.order} onDragOver={this.dragOver}>
           <div onDrop={this.drop}>
-            <div className="files">
+            <div className='files'>
               {links.map(function(item, index) {
                 return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} userIsAdmin={userIsAdmin}></ListItemComponent>);
               }.bind(this))}

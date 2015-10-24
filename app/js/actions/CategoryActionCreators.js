@@ -1,44 +1,29 @@
 'use strict';
 
-var AppDispatcher = require('../dispatchers/AppDispatcher');
-var CategoryConstants = require('../constants/CategoryConstants');
-var Api = require('../utils/Api');
+import Api from '../utils/Api';
+import Reflux from 'reflux';
 
-var ActionTypes = CategoryConstants.ActionTypes;
+let CategoryActionCreator = Reflux.createActions([
+  'createCategory',
+  'deleteCategory',
+  'updateCategory',
+  'updateCategories'
+]);
 
-module.exports = {
+CategoryActionCreator.createCategory.listen(function(name) {
+  Api.createCategory(name);
+});
 
-  createCategory: function(name) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.CREATE_CATEGORY,
-      name: name
-    });
-    Api.createCategory(name);
-  },
+CategoryActionCreator.deleteCategory.listen(function(id) {
+  Api.deleteCategory(id);
+});
 
-  deleteCategory: function(id) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.DELETE_CATEGORY,
-      id: id
-    });
-    Api.deleteCategory(id);
-  },
+CategoryActionCreator.updateCategory.listen(function(id, data) {
+  Api.updateCategory(id, data);
+});
 
-  updateCategory: function(id, data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_CATEGORY,
-      id: id,
-      data: data
-    });
-    Api.updateCategory(id, data);
-  },
+CategoryActionCreator.updateCategories.listen(function(categories) {
+  Api.updateCategories(categories);
+});
 
-  updateCategories: function(categories) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_CATEGORIES,
-      categories: categories
-    });
-    Api.updateCategories(categories);
-  }
-
-};
+export default CategoryActionCreator;

@@ -3,7 +3,7 @@
 import Api from '../utils/Api';
 import Reflux from 'reflux';
 
-var AppActions = Reflux.createActions([
+let AppActions = Reflux.createActions([
   'search',
   'closeSearchView',
   'receiveSearchResults',

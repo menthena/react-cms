@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react/addons');
-var CategoryActionCreators = require('../../actions/CategoryActionCreators');
+import React from 'react/addons';
+import CategoryActionCreators from '../../actions/CategoryActionCreators';
 
 require('../../../styles/NewCategory.sass');
 
-var NewCategory = React.createClass({
+let NewCategory = React.createClass({
 
   getInitialState() {
     return {
@@ -15,7 +15,7 @@ var NewCategory = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    var categoryName = this.state.categoryName;
+    let categoryName = this.state.categoryName;
     if (categoryName) {
       CategoryActionCreators.createCategory(categoryName);
       this.setState({
@@ -34,11 +34,11 @@ var NewCategory = React.createClass({
     if (this.props.userIsAdmin) {
       return (
         <form onSubmit={this.handleSubmit}>
-          <h3 className="new-category">
-            <div className="actions right">
-              <i className="fa fa-plus"></i>
+          <h3 className='new-category'>
+            <div className='actions right'>
+              <i className='fa fa-plus'></i>
             </div>
-            <input type="text" onChange={this.handleChange} placeholder="Add new category" maxLength="20" name="title" value={this.state.categoryName} />
+            <input type='text' onChange={this.handleChange} placeholder='Add new category' maxLength='20' name='title' value={this.state.categoryName} />
           </h3>
         </form>
       );

@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react/addons');
-var Modal = require('react-bootstrap').Modal;
-var OverlayTrigger = require('react-bootstrap').OverlayTrigger;
+import React from 'react/addons';
+let Modal = require('react-bootstrap').Modal;
+let OverlayTrigger = require('react-bootstrap').OverlayTrigger;
 
 require('../../styles/Modal.sass');
 
-var DeleteModal = React.createClass({
+let DeleteModal = React.createClass({
 
   getInitialState() {
     return {
@@ -39,16 +39,16 @@ var DeleteModal = React.createClass({
 
     return (
       <div>
-        <Modal bsSize="medium" show={this.state.showModal} onHide={this.close}>
-          <Modal.Body className="text-center">
+        <Modal bsSize='medium' show={this.state.showModal} onHide={this.close}>
+          <Modal.Body className='text-center'>
             <h4>{this.props.text}</h4>
             <p>Click delete to continue</p>
           </Modal.Body>
           <Modal.Footer>
-            <div className="text-center">
-              <button className="btn btn-default" onClick={this.close}>Cancel</button>
-              <button className="btn btn-danger" onClick={this.clickHandler}>
-                <span className="glyphicon glyphicon-trash"></span> Delete
+            <div className='text-center'>
+              <button className='btn btn-default' onClick={this.close}>Cancel</button>
+              <button className='btn btn-danger' onClick={this.clickHandler}>
+                <span className='glyphicon glyphicon-trash'></span> Delete
               </button>
             </div>
           </Modal.Footer>

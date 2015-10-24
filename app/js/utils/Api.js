@@ -14,7 +14,7 @@ const Api = {
   getAllCategories() {
     return axios.get(baseApiUrl + 'categories?includes=sections').then(function(response) {
       // TODO: Handle errors
-      var rawCategories = response.data.data;
+      let rawCategories = response.data.data;
       ServerActionCreators.receiveAllCategories(rawCategories);
     }, function(err) {
       if (err.status === 401) {
@@ -25,7 +25,7 @@ const Api = {
   },
 
   createCategory(name) {
-    var order = CategoryStore.getAll().length;
+    let order = CategoryStore.getAll().length;
     axios.post(baseApiUrl + 'categories', {title: name, order: order}).then(function(response) {
       // TODO: Handle errors
       ServerActionCreators.receiveCreatedCategory(response.data.data);
@@ -47,7 +47,7 @@ const Api = {
   },
 
   updateCategories(categories) {
-    var promises = [];
+    let promises = [];
     _.each(categories, (category) => {
       promises.push(axios.patch(baseApiUrl + 'categories/' + category.id, { order: category.order }));
       // TODO: Handle errors
@@ -58,8 +58,8 @@ const Api = {
   },
 
   createSection(categoryId, name) {
-    var order = 0;
-    var category = _.find(CategoryStore.getAll(), { id: categoryId });
+    let order = 0;
+    let category = _.find(CategoryStore.getAll(), { id: categoryId });
     if (category) {
       order = category.sections.length;
     }
@@ -100,15 +100,15 @@ const Api = {
   getAllComponents(sectionId) {
     return axios.get(baseApiUrl + 'components?sectionid=' + sectionId).then(function(response) {
       // TODO: Handle errors
-      var rawComponents = response.data.data;
+      let rawComponents = response.data.data;
       ServerActionCreators.receiveAllComponents(rawComponents);
     });
   },
 
   createComponent(sectionId, type, data) {
-    var components = ComponentStore.getAll();
-    var order = 0;
-    var component = _.filter(components, { sectionid: sectionId });
+    let components = ComponentStore.getAll();
+    let order = 0;
+    let component = _.filter(components, { sectionid: sectionId });
     if (component) {
       order = component.length;
     }
@@ -132,7 +132,7 @@ const Api = {
   },
 
   updateComponents(components) {
-    var promises = [];
+    let promises = [];
     _.each(components, (component) => {
       promises.push(axios.patch(baseApiUrl + 'components/' + component.id, { order: component.order }));
       // TODO: Handle errors

@@ -1,20 +1,19 @@
 'use strict';
 
-var React = require('react/addons');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var ModalMixin = require('../../mixins/ModalMixin');
+import React from 'react/addons';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import ModalMixin from '../../mixins/ModalMixin';
 
-var PageComponentActions = React.createClass({
+let PageComponentActions = React.createClass({
   mixins: [ModalMixin],
 
   delete() {
-    var categoryId = this.props.componentId;
     ComponentActionCreators.deleteComponent(this.props.componentId);
   },
 
   deleteComponent() {
-    var props = {
+    let props = {
       actions: this.delete,
       text: 'You are about to delete "' + this.props.type + '"'
     };
@@ -24,7 +23,7 @@ var PageComponentActions = React.createClass({
   render: function() {
     if (this.props.userIsAdmin) {
       return (
-        <div className='actions' data-parent="true" draggable="true" onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>
+        <div className='actions' data-parent='true' draggable='true' onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd} onMouseDown={this.props.mouseDown}>
           <a className='fa fa-arrows fa-lg drag-controller'></a>
           <a className='fa fa-trash-o fa-lg' onClick={this.deleteComponent}></a>
         </div>

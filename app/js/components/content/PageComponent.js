@@ -1,15 +1,16 @@
 'use strict';
 
-var React = require('react/addons');
-var TextComponent = require('./TextComponent');
-var ListComponent = require('./ListComponent');
-var ImageComponent = require('./ImageComponent');
-var NewSectionComponent = require('./NewSectionComponent');
-var Api = require('../../utils/Api');
-var ComponentStore = require('../../stores/ComponentStore');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var _ = require('lodash');
+import React from 'react/addons';
+import TextComponent from './TextComponent';
+import ListComponent from './ListComponent';
+import ImageComponent from './ImageComponent';
+import NewSectionComponent from './NewSectionComponent';
+import Api from '../../utils/Api';
+import ComponentStore from '../../stores/ComponentStore';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import _ from 'lodash';
+import Reflux from 'reflux';
 
 require('../../../styles/PageComponent.sass');
 
@@ -19,8 +20,8 @@ function getStateFromStores(sectionId) {
   };
 }
 
-var PageComponent = React.createClass({
-  mixins: [ReorderMixin],
+let PageComponent = React.createClass({
+  mixins: [ReorderMixin, Reflux.listenTo(ComponentStore, '_onChange')],
 
   getInitialState: function() {
     return {
@@ -38,18 +39,13 @@ var PageComponent = React.createClass({
 
   componentDidMount() {
     Api.getAllComponents(this.props.sectionId);
-    ComponentStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount() {
-    ComponentStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
-    var template = this.props.template;
-    var components = this.state.allComponents;
-    var userIsAdmin = this.props.userIsAdmin;
-    var sectionComponents = [];
+    let template = this.props.template;
+    let components = this.state.allComponents;
+    let userIsAdmin = this.props.userIsAdmin;
+    let sectionComponents = [];
 
     this.loadDraggableData(components);
 
