@@ -39,7 +39,7 @@ let NewSectionComponent = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     let sectionComponentSelectorVisible = this.state.sectionComponentSelectorVisible;
     var template;
     let style = { display: this.state.plusButtonVisible ? 'block' : 'none'};

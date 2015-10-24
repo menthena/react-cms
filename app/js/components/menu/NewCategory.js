@@ -30,7 +30,7 @@ let NewCategory = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     if (this.props.userIsAdmin) {
       return (
         <form onSubmit={this.handleSubmit}>

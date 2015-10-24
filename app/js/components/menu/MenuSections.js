@@ -10,12 +10,12 @@ import SectionActionCreators from '../../actions/SectionActionCreators';
 let MenuSections = React.createClass({
   mixins: [ReorderMixin],
 
-  setDraggableData: function(sections) {
+  setDraggableData(sections) {
     let categoryId = this.props.category.id;
     SectionActionCreators.updateSections(categoryId, sections);
   },
 
-  render: function() {
+  render() {
     let category = this.props.category;
     let isVisible = this.props.isVisible;
     let currentSection = this.props.currentSection;
@@ -32,7 +32,7 @@ let MenuSections = React.createClass({
       return (
         <div onDragOver={this.dragOver} style={ inlineStyles }>
           <ul>
-            {category.sections.map(function(section, index) {
+            {category.sections.map((section, index) => {
               let currentSectionStyle = {
                 fontWeight: currentSection === section.title ? 'bold' : 'normal'
               };
@@ -42,7 +42,7 @@ let MenuSections = React.createClass({
                   <Section key={ category.title + section.title } userIsAdmin={userIsAdmin} section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
-            }.bind(this))}
+            })}
           </ul>
           <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />
         </div>

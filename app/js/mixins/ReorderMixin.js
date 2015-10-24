@@ -3,7 +3,7 @@
 require('../../styles/ReorderMixin.sass');
 import _ from 'lodash';
 let canDrag = false;
-let getParent = function(element) {
+let getParent = (element) => {
   let parent = element.parentNode;
   let i = 0;
   while (parent && i < 10) {
@@ -27,11 +27,11 @@ let ReorderMixin = {
     this.parent = false;
   },
 
-  loadDraggableData: function(data) {
+  loadDraggableData(data) {
     this.draggableData = data;
   },
 
-  dragStart: function(e) {
+  dragStart(e) {
     if (!canDrag) {
       e.stopPropagation();
       e.preventDefault();
@@ -52,7 +52,7 @@ let ReorderMixin = {
     e.dataTransfer.setData('text/html', e.currentTarget);
   },
 
-  drop: function(e) {
+  drop(e) {
     e.preventDefault();
     if (e.dataTransfer.effectAllowed !== 'copy') {
       this.addLinkPlaceholder({
@@ -66,7 +66,7 @@ let ReorderMixin = {
     }
   },
 
-  mouseDown: function(e) {
+  mouseDown(e) {
     let element = e.target;
     canDrag = false;
     if (element.className.indexOf('drag-controller') > -1) {
@@ -74,7 +74,7 @@ let ReorderMixin = {
     }
   },
 
-  dragEnd: function() {
+  dragEnd() {
     if (this.over && this.dragged.dataset.droppable === this.over.dataset.droppable) {
       this.dragged.style.display = 'block';
       this.over.parentNode.removeChild(this.placeholder);
@@ -85,7 +85,7 @@ let ReorderMixin = {
 
       if (!isNaN(to) && !isNaN(from)) {
         this.draggableData.splice(to, 0, this.draggableData.splice(from, 1)[0]);
-        _.each(this.draggableData, function(data, index) {
+        _.each(this.draggableData, (data, index) => {
           data.order = index;
         });
         this.setDraggableData(this.draggableData);
@@ -96,7 +96,7 @@ let ReorderMixin = {
     }
   },
 
-  dragOver: function(e) {
+  dragOver(e) {
     e.preventDefault();
     let target = e.target;
     if (this.parent) {

@@ -10,19 +10,19 @@ let CategoryActionCreator = Reflux.createActions([
   'updateCategories'
 ]);
 
-CategoryActionCreator.createCategory.listen(function(name) {
+CategoryActionCreator.createCategory.listen((name) => {
   Api.createCategory(name);
 });
 
-CategoryActionCreator.deleteCategory.listen(function(id) {
+CategoryActionCreator.deleteCategory.listen((id) => {
   Api.deleteCategory(id);
 });
 
-CategoryActionCreator.updateCategory.listen(function(id, data) {
+CategoryActionCreator.updateCategory.listen((id, data) => {
   Api.updateCategory(id, data);
 });
 
-CategoryActionCreator.updateCategories.listen(function(categories) {
+CategoryActionCreator.updateCategories.listen((categories) => {
   Api.updateCategories(categories);
 });
 

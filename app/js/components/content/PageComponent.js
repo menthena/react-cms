@@ -23,13 +23,13 @@ function getStateFromStores(sectionId) {
 let PageComponent = React.createClass({
   mixins: [ReorderMixin, Reflux.listenTo(ComponentStore, '_onChange')],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       allComponents: getStateFromStores(this.props.sectionId)
     };
   },
 
-  setDraggableData: function(components) {
+  setDraggableData(components) {
     ComponentActionCreators.updateComponents(components);
   },
 
@@ -41,7 +41,7 @@ let PageComponent = React.createClass({
     Api.getAllComponents(this.props.sectionId);
   },
 
-  render: function() {
+  render() {
     let template = this.props.template;
     let components = this.state.allComponents;
     let userIsAdmin = this.props.userIsAdmin;
@@ -49,7 +49,7 @@ let PageComponent = React.createClass({
 
     this.loadDraggableData(components);
 
-    _.each(components, function(component) {
+    _.each(components, ((component) => {
       switch (component.componentType) {
         case 'TextComponent':
           sectionComponents.push(<TextComponent components={components} key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} userIsAdmin={userIsAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></TextComponent>);
@@ -61,7 +61,7 @@ let PageComponent = React.createClass({
           sectionComponents.push(<ImageComponent key={component.id} component={component} data={component.data} sectionId={this.props.sectionId} userIsAdmin={userIsAdmin} componentId={component.id} dragEnd={this.dragEnd} dragStart={this.dragStart} mouseDown={this.mouseDown}></ImageComponent>)
           break;
       }
-    }.bind(this));
+    }));
 
     return (
         <div>

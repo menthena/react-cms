@@ -34,7 +34,7 @@ let SearchComponent = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
     return (
       <div className='search-component'>
         <i className='fa fa-search'></i>

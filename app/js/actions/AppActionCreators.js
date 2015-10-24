@@ -10,7 +10,7 @@ let AppActions = Reflux.createActions([
   'receiveUnauthorizedUser'
 ]);
 
-AppActions.search.listen(function(query) {
+AppActions.search.listen((query) => {
   Api.search(query);
 });
 

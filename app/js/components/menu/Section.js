@@ -9,7 +9,7 @@ require('../../../styles/section.sass');
 let Section = React.createClass({
   mixins: [ModalMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       isEditing: false,
       sectionName: this.props.section.title
@@ -30,7 +30,7 @@ let Section = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
-  handleClick: function() {
+  handleClick() {
     if (!this.state.isVisible) {
       this.setState({
         isVisible: true
@@ -45,7 +45,7 @@ let Section = React.createClass({
   handleEditSectionName() {
     this.setState({
       isEditing: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.sectionInput).focus();
     });
   },
@@ -67,7 +67,7 @@ let Section = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     let section = this.props.section;
     let userIsAdmin = this.props.userIsAdmin;
     let titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };

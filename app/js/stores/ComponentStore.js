@@ -14,7 +14,7 @@ function _addComponents(rawComponents) {
 const ComponentStore = Reflux.createStore({
   listenables: [ComponentActions, ServerActions],
 
-  onReceiveComponents(rawComponents) {
+  onReceiveAllComponents(rawComponents) {
     _addComponents(rawComponents);
     this.trigger();
   },
@@ -47,7 +47,7 @@ const ComponentStore = Reflux.createStore({
     return _.where(_components, { sectionid: sectionId });
   },
 
-  getAll: function() {
+  getAll() {
     return _components;
   }
 });

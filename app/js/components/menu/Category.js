@@ -9,7 +9,7 @@ import ModalMixin from '../../mixins/ModalMixin';
 let Category = React.createClass({
   mixins: [ModalMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       isVisible: false,
       isEditing: false,
@@ -41,7 +41,7 @@ let Category = React.createClass({
     }
   },
 
-  handleClick: function() {
+  handleClick() {
     if (!this.state.isVisible) {
       this.setState({
         isVisible: true
@@ -56,7 +56,7 @@ let Category = React.createClass({
   handleEditTitle() {
     this.setState({
       isEditing: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.theInput).focus();
     });
   },
@@ -67,7 +67,7 @@ let Category = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     let category = this.props.category;
     let isVisible = this.state.isVisible;
     let userIsAdmin = this.props.userIsAdmin;

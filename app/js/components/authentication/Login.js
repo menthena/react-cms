@@ -6,7 +6,7 @@ require('../../../styles/Login.sass');
 
 let Login = React.createClass({
 
-  render: function() {
+  render() {
     return (
       <div id='auth'>
         <div className='container container-narrow'>

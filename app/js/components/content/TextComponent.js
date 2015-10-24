@@ -10,11 +10,11 @@ require('../../../styles/TextComponent.sass');
 
 let TextComponent = React.createClass({
 
-  handleContentChange: function(content) {
+  handleContentChange(content) {
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
-  render: function() {
+  render() {
     let component = this.props.component;
     let userIsAdmin = this.props.userIsAdmin;
     var classes;

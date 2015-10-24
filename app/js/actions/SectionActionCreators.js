@@ -10,19 +10,19 @@ let SectionActionCreator = Reflux.createActions([
   'updateSections'
 ]);
 
-SectionActionCreator.createSection.listen(function(categoryId, name) {
+SectionActionCreator.createSection.listen((categoryId, name) => {
   Api.createSection(categoryId, name);
 });
 
-SectionActionCreator.deleteSection.listen(function(categoryId, sectionId) {
+SectionActionCreator.deleteSection.listen((categoryId, sectionId) => {
   Api.deleteSection(categoryId, sectionId);
 });
 
-SectionActionCreator.updateSection.listen(function(categoryId, sectionId, data) {
+SectionActionCreator.updateSection.listen((categoryId, sectionId, data) => {
   Api.updateSection(categoryId, sectionId, data);
 });
 
-SectionActionCreator.updateSections.listen(function(categoryId, sections) {
+SectionActionCreator.updateSections.listen((categoryId, sections) => {
   Api.updateSections(categoryId, sections);
 });
 

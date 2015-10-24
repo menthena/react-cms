@@ -2,6 +2,7 @@
 
 import CategoryActions from '../actions/CategoryActionCreators';
 import ServerActions from '../actions/ServerActionCreators';
+import SectionActions from '../actions/SectionActionCreators';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
@@ -9,7 +10,7 @@ let category;
 let _categories = [];
 
 const CategoryStore = Reflux.createStore({
-  listenables: [CategoryActions, ServerActions],
+  listenables: [CategoryActions, SectionActions, ServerActions],
 
   onReceiveAllCategories(rawCategories) {
     _categories = rawCategories;
@@ -52,9 +53,9 @@ const CategoryStore = Reflux.createStore({
     this.trigger();
   },
 
-  onReceiveUpdateSection(rawSection) {
-    _.each(_categories, function(category) {
-      _.find(category.sections, function(section, index) {
+  onReceiveUpdatedSection(rawSection) {
+    _.each(_categories, (category) => {
+      _.find(category.sections, (section, index) => {
         if (section.id === rawSection.id) {
           category.sections[index] = rawSection;
         }
@@ -70,6 +71,10 @@ const CategoryStore = Reflux.createStore({
   },
 
   getCategories() {
+    return _categories;
+  },
+
+  getAll() {
     return _categories;
   }
 });

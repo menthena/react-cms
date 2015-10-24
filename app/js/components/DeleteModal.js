@@ -35,7 +35,7 @@ let DeleteModal = React.createClass({
     this.close();
   },
 
-  render: function() {
+  render() {
 
     return (
       <div>

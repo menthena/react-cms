@@ -70,7 +70,7 @@ let GoogleDriveMixin = {
     this.loadPicker();
   },
 
-  add: function(link) {
+  add(link) {
     this.addComponent('link', link);
   }
 

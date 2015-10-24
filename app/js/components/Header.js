@@ -7,7 +7,7 @@ require('../../styles/Header.sass');
 
 let Header = React.createClass({
 
-  render: function() {
+  render() {
 
     return (
         <header className='navbar navbar-fixed-top'>

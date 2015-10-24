@@ -8,7 +8,7 @@ require('../../../styles/ListItemComponent.sass');
 let ListItemComponent = React.createClass({
   mixins: [TimerMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       title: this.props.item.title,
       url: this.props.item.url,
@@ -88,7 +88,7 @@ let ListItemComponent = React.createClass({
   handleEditUrl() {
     this.setState({
       isEditingUrl: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.listItemUrlInput).focus();
     });
   },
@@ -96,7 +96,7 @@ let ListItemComponent = React.createClass({
   handleEditTitle() {
     this.setState({
       isEditingTitle: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.listItemInput).focus();
     });
   },
@@ -121,7 +121,7 @@ let ListItemComponent = React.createClass({
     return urlError;
   },
 
-  render: function() {
+  render() {
     let item = this.props.item;
     let userIsAdmin = this.props.userIsAdmin;
 

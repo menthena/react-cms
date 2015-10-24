@@ -8,11 +8,11 @@ import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 let ImageComponent = React.createClass({
 
-  handleContentChange: function(content) {
+  handleContentChange(content) {
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
-  render: function() {
+  render() {
     let component = this.props.component;
     var classes;
     let userIsAdmin = this.props.userIsAdmin;

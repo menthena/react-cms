@@ -8,7 +8,7 @@ require('../../../styles/Content.sass');
 
 let Content = React.createClass({
 
-  onScroll: function() {
+  onScroll() {
     let scrollTop = window.scrollY;
     var closestSection;
 
@@ -24,7 +24,7 @@ let Content = React.createClass({
 
   },
 
-  render: function() {
+  render() {
     let contentSections = [];
     let categories = _.sortBy(this.props.categories, 'order');
     let userIsAdmin = this.props.userIsAdmin;

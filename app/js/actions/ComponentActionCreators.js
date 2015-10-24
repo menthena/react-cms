@@ -10,19 +10,19 @@ let ComponentActionCreator = Reflux.createActions([
   'updateComponents'
 ]);
 
-ComponentActionCreator.createComponent.listen(function(sectionId, type, data) {
+ComponentActionCreator.createComponent.listen((sectionId, type, data) => {
   Api.createComponent(sectionId, type, data);
 });
 
-ComponentActionCreator.deleteComponent.listen(function(id) {
+ComponentActionCreator.deleteComponent.listen((id) => {
   Api.deleteComponent(id);
 });
 
-ComponentActionCreator.updateComponent.listen(function(id, data) {
+ComponentActionCreator.updateComponent.listen((id, data) => {
   Api.updateComponent(id, data);
 });
 
-ComponentActionCreator.updateComponents.listen(function(components) {
+ComponentActionCreator.updateComponents.listen((components) => {
   Api.updateComponents(components);
 });
 

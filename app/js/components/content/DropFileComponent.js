@@ -10,7 +10,7 @@ let DropFileComponent = React.createClass({
     console.log(e);
   },
 
-  render: function() {
+  render() {
     let addLinkButton = '';
     let googleDriveButton = '';
     let classes = 'downloadButtons';

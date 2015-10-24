@@ -11,14 +11,14 @@ require('../../../styles/ContentSection.sass');
 let ContentSection = React.createClass({
   mixins: [ModalMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       isEditing: false,
       sectionName: this.props.section.title
     };
   },
 
-  getOffsetTop: function() {
+  getOffsetTop() {
     let domNode = this.refs['section_' + this.props.section.id].getDOMNode();
     return domNode.getBoundingClientRect().top;
   },
@@ -26,7 +26,7 @@ let ContentSection = React.createClass({
   handleEditSectionName() {
     this.setState({
       isEditing: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.sectionInput).focus();
     });
   },
@@ -62,7 +62,7 @@ let ContentSection = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
-  render: function() {
+  render() {
     let section = this.props.section;
     let sectionId = section.id;
     let userIsAdmin = this.props.userIsAdmin;

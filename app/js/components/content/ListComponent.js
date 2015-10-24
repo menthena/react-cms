@@ -14,13 +14,13 @@ require('../../../styles/ListComponent.sass');
 let ListComponent = React.createClass({
   mixins: [ReorderMixin, ModalMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       data: this.props.data
     };
   },
 
-  addLink: function() {
+  addLink() {
     let elem = {
       title: '',
       url: '',
@@ -32,11 +32,11 @@ let ListComponent = React.createClass({
     this.updateComponent(componentData);
   },
 
-  addImage: function() {
+  addImage() {
     console.log('add');
   },
 
-  setDraggableData: function(links) {
+  setDraggableData(links) {
     let data = {
       links: links
     };
@@ -66,17 +66,17 @@ let ListComponent = React.createClass({
     let links = componentData.links;
     var fieldToUpdate;
     var dataToUpdate;
-    _.forOwn(listItemData, function(value, key) {
+    _.forOwn(listItemData, (value, key) => {
       fieldToUpdate = key;
       dataToUpdate = value;
     });
-    _.each(links, function(link) {
+    _.each(links, (link) => {
       links[index][fieldToUpdate] = dataToUpdate;
     });
     this.updateComponent(componentData);
   },
 
-  render: function() {
+  render() {
     let links = this.state.data.links;
     let component =  this.props.component;
     let userIsAdmin = this.props.userIsAdmin;
@@ -91,7 +91,7 @@ let ListComponent = React.createClass({
         <div className={classes} data-droppable='component' data-order={component.order} onDragOver={this.dragOver}>
           <div onDrop={this.drop}>
             <div className='files'>
-              {links.map(function(item, index) {
+              {links.map((item, index) => {
                 return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} userIsAdmin={userIsAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>

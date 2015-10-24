@@ -10,7 +10,7 @@ require('../../../styles/SearchListComponent.sass');
 
 let SearchListComponent = React.createClass({
 
-  render: function() {
+  render() {
     let results = this.props.results || [];
     let groupedResults = [];
     let templates = [];

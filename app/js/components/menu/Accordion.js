@@ -10,18 +10,18 @@ import _ from 'lodash';
 let Accordion = React.createClass({
   mixins: [ReorderMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       visibleCategory: null,
       activeMenuSection: {}
     };
   },
 
-  setDraggableData: function(categories) {
+  setDraggableData(categories) {
     CategoryActionCreators.updateCategories(categories);
   },
 
-  handleClick: function(category) {
+  handleClick(category) {
     if (this.state.visibleCategory !== category) {
       this.setState({
         visibleCategory: category
@@ -33,7 +33,7 @@ let Accordion = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
 
     let categories = [];
     let items = this.props.categories;
@@ -43,9 +43,9 @@ let Accordion = React.createClass({
     this.loadDraggableData(this.props.categories);
 
     items = _.sortBy(items, 'order');
-    items.map(function(item) {
+    items.map((item) => {
       categories.push(<Category key={item.id} userIsAdmin={userIsAdmin} category={item} currentSection={currentSection} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
-    }.bind(this));
+    });
 
     return (
         <div id='categories' className='Accordion' onDragOver={this.dragOver}>

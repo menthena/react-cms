@@ -46,7 +46,7 @@ let SearchView = React.createClass({
     document.removeEventListener('keyup', this.handleKeyPress);
   },
 
-  render: function() {
+  render() {
     let query = AppStore.getSearchQuery();
     let sectionPlaceholder = 'Loading...';
 
