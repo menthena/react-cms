@@ -1,6 +1,8 @@
 'use strict';
 
 import CategoryActions from '../actions/CategoryActionCreators';
+import ServerActions from '../actions/ServerActionCreators';
+import SectionActions from '../actions/SectionActionCreators';
 import Reflux from 'reflux';
 import _ from 'lodash';
 
@@ -8,9 +10,9 @@ let category;
 let _categories = [];
 
 const CategoryStore = Reflux.createStore({
-  listenables: [CategoryActions],
+  listenables: [CategoryActions, SectionActions, ServerActions],
 
-  onReceiveCategories(rawCategories) {
+  onReceiveAllCategories(rawCategories) {
     _categories = rawCategories;
     this.trigger();
   },
@@ -39,36 +41,40 @@ const CategoryStore = Reflux.createStore({
     this.trigger();
   },
 
-  onReceiveCreatedSection(params) {
-    category = _.find(_categories, { id: params.category_id });
-    category.sections.push(params.section);
+  onReceiveCreatedSection(categoryId, section) {
+    category = _.find(_categories, { id: categoryId });
+    category.sections.push(section);
     this.trigger();
   },
 
-  onReceiveDeletedSection(params) {
-    category = _.find(_categories, { id: params.category_id });
-    _.remove(category.sections, { id: params.section_id });
+  onReceiveDeletedSection(categoryId, sectionId) {
+    category = _.find(_categories, { id: categoryId });
+    _.remove(category.sections, { id: sectionId });
     this.trigger();
   },
 
-  onReceiveUpdateSection(rawSection) {
-    _.each(_categories, function(category) {
-      _.find(category.sections, function(section, index) {
+  onReceiveUpdatedSection(rawSection) {
+    _.each(_categories, (category) => {
+      _.find(category.sections, (section, index) => {
         if (section.id === rawSection.id) {
-          category.sections[index] = action.rawSection;
+          category.sections[index] = rawSection;
         }
       });
     });
     this.trigger();
   },
 
-  onReceiveUpdatedSections(params) {
-    category = _.find(_categories, { id: params.category_id });
-    category.sections = params.rawSections;
+  onReceiveUpdatedSections(categoryId, rawSections) {
+    category = _.find(_categories, { id: categoryId });
+    category.sections = rawSections;
     this.trigger();
   },
 
   getCategories() {
+    return _categories;
+  },
+
+  getAll() {
     return _categories;
   }
 });

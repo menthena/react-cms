@@ -1,13 +1,13 @@
 'use strict';
 
-var CLIENT_ID = '129240546275-as9foc1e3ioosvgqgif02l8gtok6d67l.apps.googleusercontent.com';
-var SCOPES = ['https://www.googleapis.com/auth/drive'];
-var developerKey = 'AIzaSyDRZpwa2jwiNNVqrDLID7sI0WiJrt-byaU';
+let CLIENT_ID = '129240546275-as9foc1e3ioosvgqgif02l8gtok6d67l.apps.googleusercontent.com';
+let SCOPES = ['https://www.googleapis.com/auth/drive'];
+let developerKey = 'AIzaSyDRZpwa2jwiNNVqrDLID7sI0WiJrt-byaU';
 
-var pickerApiLoaded = false;
-var oauthToken;
+let pickerApiLoaded = false;
+let oauthToken;
 
-var GoogleDriveMixin = {
+const GoogleDriveMixin = {
 
   auth() {
     if (oauthToken === undefined) {
@@ -41,7 +41,7 @@ var GoogleDriveMixin = {
 
   createPicker() {
     if (pickerApiLoaded && oauthToken) {
-      var picker = new google.picker.PickerBuilder().
+      let picker = new google.picker.PickerBuilder().
           addView(google.picker.ViewId.DOCS).
           setOAuthToken(oauthToken).
           setDeveloperKey(developerKey).
@@ -55,8 +55,8 @@ var GoogleDriveMixin = {
 
   pickerCallback(data) {
     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
-      var doc = data[google.picker.Response.DOCUMENTS][0];
-      var url = doc[google.picker.Document.URL];
+      let doc = data[google.picker.Response.DOCUMENTS][0];
+      let url = doc[google.picker.Document.URL];
       this.add({
           title: doc.name,
           url: url,
@@ -70,7 +70,7 @@ var GoogleDriveMixin = {
     this.loadPicker();
   },
 
-  add: function(link) {
+  add(link) {
     this.addComponent('link', link);
   }
 

@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react/addons');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
+import React from 'react/addons';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 require('../../../styles/NewSectionComponent.sass');
 
-var NewSectionComponent = React.createClass({
+const NewSectionComponent = React.createClass({
 
   getInitialState() {
     return {
@@ -39,31 +39,31 @@ var NewSectionComponent = React.createClass({
     });
   },
 
-  render: function() {
-    var sectionComponentSelectorVisible = this.state.sectionComponentSelectorVisible;
-    var template;
-    var style = { display : this.state.plusButtonVisible ? 'block' : 'none'};
+  render() {
+    let sectionComponentSelectorVisible = this.state.sectionComponentSelectorVisible;
+    let template;
+    let style = { display: this.state.plusButtonVisible ? 'block' : 'none'};
 
     if (this.props.userIsAdmin) {
       if (sectionComponentSelectorVisible) {
-        template = <div className="row new-section-component-selector">
-          <div className="col-md-6 col-md-offset-3 text-center">
-            <div className="row">
-              <div className="col-xs-4">
+        template = <div className='row new-section-component-selector'>
+          <div className='col-md-6 col-md-offset-3 text-center'>
+            <div className='row'>
+              <div className='col-xs-4'>
                 <a onClick={this.handleNewComponent.bind(null, 'TextComponent')}>
-                  <i className="glyphicon glyphicon-pencil"></i>
+                  <i className='glyphicon glyphicon-pencil'></i>
                   <h3>Text</h3>
                 </a>
               </div>
-              <div className="col-xs-4">
+              <div className='col-xs-4'>
                 <a onClick={this.handleNewComponent.bind(null, 'ListComponent')}>
-                  <i className="glyphicon glyphicon-list"></i>
+                  <i className='glyphicon glyphicon-list'></i>
                   <h3>List</h3>
                 </a>
               </div>
-              <div className="col-xs-4">
+              <div className='col-xs-4'>
                 <a onClick={this.handleNewComponent.bind(null, 'ImageComponent')}>
-                  <i className="glyphicon glyphicon-picture"></i>
+                  <i className='glyphicon glyphicon-picture'></i>
                   <h3>Image</h3>
                 </a>
               </div>
@@ -72,10 +72,10 @@ var NewSectionComponent = React.createClass({
         </div>;
       }
       return (
-          <div className="new-section-component">
+          <div className='new-section-component'>
             {template}
-            <a onClick={this.handleClick} style={style} className="add-new-section-component text-center">
-              <i className="glyphicon glyphicon-plus"></i>
+            <a onClick={this.handleClick} style={style} className='add-new-section-component text-center'>
+              <i className='glyphicon glyphicon-plus'></i>
             </a>
           </div>
         );

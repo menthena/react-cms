@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react/addons');
-var AppStore = require('../../stores/AppStore');
-var AppActionCreators = require('../../actions/AppActionCreators');
-var Reflux = require('reflux');
+import React from 'react/addons';
+import AppStore from '../../stores/AppStore';
+import AppActionCreators from '../../actions/AppActionCreators';
+import Reflux from 'reflux';
 
 require('../../../styles/SearchComponent.sass');
 
@@ -13,13 +13,13 @@ function getStateFromStores() {
   };
 }
 
-var SearchComponent = React.createClass({
+const SearchComponent = React.createClass({
   mixins: [Reflux.listenTo(AppStore, '_onChange')],
 
   getInitialState: getStateFromStores,
 
   handleChange(e) {
-    var value = e.target.value;
+    let value = e.target.value;
     AppActionCreators.search(value);
   },
 
@@ -34,11 +34,11 @@ var SearchComponent = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
     return (
-      <div className="search-component">
-        <i className="fa fa-search"></i>
-        <input value={this.state.searchQuery} onChange={this.handleChange} ref="searchInput" placeholder="Search..." />
+      <div className='search-component'>
+        <i className='fa fa-search'></i>
+        <input value={this.state.searchQuery} onChange={this.handleChange} ref='searchInput' placeholder='Search...' />
       </div>
     );
   }

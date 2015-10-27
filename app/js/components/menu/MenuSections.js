@@ -1,30 +1,30 @@
 'use strict';
 
-var React = require('react/addons');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var NewSection = require('./NewSection');
-var Section = require('./Section');
-var _ = require('lodash');
-var SectionActionCreators = require('../../actions/SectionActionCreators');
+import React from 'react/addons';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import NewSection from './NewSection';
+import Section from './Section';
+import _ from 'lodash';
+import SectionActionCreators from '../../actions/SectionActionCreators';
 
-var MenuSections = React.createClass({
+const MenuSections = React.createClass({
   mixins: [ReorderMixin],
 
-  setDraggableData: function(sections) {
-    var categoryId = this.props.category.id;
+  setDraggableData(sections) {
+    let categoryId = this.props.category.id;
     SectionActionCreators.updateSections(categoryId, sections);
   },
 
-  render: function() {
-    var category = this.props.category;
-    var isVisible = this.props.isVisible;
-    var currentSection = this.props.currentSection;
-    var userIsAdmin = this.props.userIsAdmin;
+  render() {
+    let category = this.props.category;
+    let isVisible = this.props.isVisible;
+    let currentSection = this.props.currentSection;
+    let userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.category.sections);
 
-    var inlineStyles = {
-      display : isVisible ? 'block' : 'none'
+    let inlineStyles = {
+      display: isVisible ? 'block' : 'none'
     };
 
     if (category.sections.length) {
@@ -32,23 +32,23 @@ var MenuSections = React.createClass({
       return (
         <div onDragOver={this.dragOver} style={ inlineStyles }>
           <ul>
-            {category.sections.map(function(section, index) {
-              var currentSectionStyle = {
-                fontWeight : currentSection === section.title ? 'bold' : 'normal'
+            {category.sections.map((section, index) => {
+              let currentSectionStyle = {
+                fontWeight: currentSection === section.title ? 'bold' : 'normal'
               };
 
               return (
-                <li className="full-section" key={section.id} data-order={section.order} style={ currentSectionStyle }>
+                <li className='full-section' key={section.id} data-order={section.order} style={ currentSectionStyle }>
                   <Section key={ category.title + section.title } userIsAdmin={userIsAdmin} section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
-            }.bind(this))}
+            })}
           </ul>
           <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />
         </div>
       );
     } else {
-      var placeholder;
+      let placeholder;
       if (isVisible) {
         placeholder = <NewSection userIsAdmin={userIsAdmin} sections={category.sections} categoryId={category.id} />;
       }

@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react/addons');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var SearchInputComponent = require('./SearchInputComponent');
-var AppStore = require('../../stores/AppStore');
-var SearchListComponent = require('./SearchListComponent');
-var AppActionCreators = require('../../actions/AppActionCreators');
-var ExecutionEnvironment = require('react/lib/ExecutionEnvironment');
-var Reflux = require('reflux');
+import React from 'react/addons';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import SearchInputComponent from './SearchInputComponent';
+import AppStore from '../../stores/AppStore';
+import SearchListComponent from './SearchListComponent';
+import AppActionCreators from '../../actions/AppActionCreators';
+import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+import Reflux from 'reflux';
 
 require('../../../styles/SearchView.sass');
 function getStateFromStores() {
@@ -17,7 +17,7 @@ function getStateFromStores() {
   };
 }
 
-var SearchView = React.createClass({
+const SearchView = React.createClass({
   mixins: [Reflux.listenTo(AppStore, '_onChange')],
 
   getInitialState: getStateFromStores,
@@ -46,9 +46,9 @@ var SearchView = React.createClass({
     document.removeEventListener('keyup', this.handleKeyPress);
   },
 
-  render: function() {
-    var query = AppStore.getSearchQuery();
-    var sectionPlaceholder = 'Loading...';
+  render() {
+    let query = AppStore.getSearchQuery();
+    let sectionPlaceholder = 'Loading...';
 
     if (query.length > 1) {
       if (this.state.searchResults.length > 0) {
@@ -62,11 +62,11 @@ var SearchView = React.createClass({
 
     return (
       <div>
-        <a onClick={this.handleClose} className="close-icon"><i className="fa fa-times"></i></a>
-        <div className="search-view">
-          <div className="inner-wrap">
-            <span className="title">SEARCHING:</span>
-            <SearchInputComponent focusOnLoad="true" />
+        <a onClick={this.handleClose} className='close-icon'><i className='fa fa-times'></i></a>
+        <div className='search-view'>
+          <div className='inner-wrap'>
+            <span className='title'>SEARCHING:</span>
+            <SearchInputComponent focusOnLoad='true' />
             {sectionPlaceholder}
           </div>
         </div>

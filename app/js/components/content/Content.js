@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react/addons');
-var ContentSection = require('./ContentSection');
-var _ = require('lodash');
+import React from 'react/addons';
+import ContentSection from './ContentSection';
+import _ from 'lodash';
 
 require('../../../styles/Content.sass');
 
-var Content = React.createClass({
+const Content = React.createClass({
 
-  onScroll: function() {
-    var scrollTop = window.scrollY;
-    var closestSection;
+  onScroll() {
+    let scrollTop = window.scrollY;
+    let closestSection;
 
     for (var contentsection in this.refs) {
       if (scrollTop >= this.refs[contentsection].getOffsetTop()) {
@@ -24,13 +24,13 @@ var Content = React.createClass({
 
   },
 
-  render: function() {
-    var contentSections = [];
-    var categories = _.sortBy(this.props.categories, 'order');
-    var userIsAdmin = this.props.userIsAdmin;
-    var sections;
-    var keyId;
-    var params = this.props.params;
+  render() {
+    let contentSections = [];
+    let categories = _.sortBy(this.props.categories, 'order');
+    let userIsAdmin = this.props.userIsAdmin;
+    let sections;
+    let keyId;
+    let params = this.props.params;
 
     for (var id in categories) {
       for (var key in categories[id].sections) {
@@ -43,7 +43,7 @@ var Content = React.createClass({
     }
 
     return (
-        <div id="content">
+        <div id='content'>
           {contentSections}
         </div>
       );

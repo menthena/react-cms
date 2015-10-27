@@ -1,19 +1,19 @@
 'use strict';
 
-var _ = require('lodash');
-var React = require('react/addons');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var SearchInputComponent = require('./SearchInputComponent');
+import _ from 'lodash';
+import React from 'react/addons';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import SearchInputComponent from './SearchInputComponent';
 
 require('../../../styles/SearchListComponent.sass');
 
-var SearchListComponent = React.createClass({
+const SearchListComponent = React.createClass({
 
-  render: function() {
-    var results = this.props.results || [];
-    var groupedResults = [];
-    var templates = [];
+  render() {
+    let results = this.props.results || [];
+    let groupedResults = [];
+    let templates = [];
 
     if (results.length) {
       groupedResults = _.groupBy(results, 'matchType');
@@ -39,10 +39,8 @@ var SearchListComponent = React.createClass({
       }
     }
 
-
-
     return (
-      <div className="section-list-component">
+      <div className='section-list-component'>
         {templates.map((template) => {
           return template;
         })}

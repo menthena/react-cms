@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react/addons');
-var SectionActionCreators = require('../../actions/SectionActionCreators');
-var ModalMixin = require('../../mixins/ModalMixin');
+import React from 'react/addons';
+import SectionActionCreators from '../../actions/SectionActionCreators';
+import ModalMixin from '../../mixins/ModalMixin';
 
 require('../../../styles/section.sass');
 
-var Section = React.createClass({
+const Section = React.createClass({
   mixins: [ModalMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       isEditing: false,
       sectionName: this.props.section.title
@@ -17,20 +17,20 @@ var Section = React.createClass({
   },
 
   delete() {
-    var sectionId = this.props.section.id;
-    var categoryId = this.props.categoryId;
+    let sectionId = this.props.section.id;
+    let categoryId = this.props.categoryId;
     SectionActionCreators.deleteSection(categoryId, sectionId);
   },
 
   deleteSection() {
-    var props = {
+    let props = {
       actions: this.delete,
       text: 'You are about to delete "' + this.state.sectionName + '"'
     };
     ModalMixin.appendModalToBody(props);
   },
 
-  handleClick: function() {
+  handleClick() {
     if (!this.state.isVisible) {
       this.setState({
         isVisible: true
@@ -45,15 +45,15 @@ var Section = React.createClass({
   handleEditSectionName() {
     this.setState({
       isEditing: true
-    }, function() {
+    }, () => {
       React.findDOMNode(this.refs.sectionInput).focus();
     });
   },
 
   update(event) {
     if (event.keyCode === 13) {
-      var sectionId = this.props.section.id;
-      var categoryId = this.props.categoryId;
+      let sectionId = this.props.section.id;
+      let categoryId = this.props.categoryId;
       SectionActionCreators.updateSection(categoryId, sectionId, { title: this.state.sectionName });
       this.setState({
         isEditing: false
@@ -67,33 +67,33 @@ var Section = React.createClass({
     });
   },
 
-  render: function() {
-    var section = this.props.section;
-    var userIsAdmin = this.props.userIsAdmin;
-    var titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
-    var titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
-    var deleteAction;
-    var actions;
+  render() {
+    let section = this.props.section;
+    let userIsAdmin = this.props.userIsAdmin;
+    let titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
+    let titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
+    let deleteAction;
+    let actions;
 
-    var sectionName = <div>
+    let sectionName = <div>
       <span style={titleStyle}>{section.title}</span>
     </div>;
 
     if (userIsAdmin) {
-      deleteAction = <div className="actions left">
-        <i className="fa fa-remove" onClick={this.deleteSection}></i>
+      deleteAction = <div className='actions left'>
+        <i className='fa fa-remove' onClick={this.deleteSection}></i>
       </div>;
-      actions = <div className="actions right" draggable="true" data-parent="true" onMouseDown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
-        <i className="fa fa-reorder ui-sortable-handle drag-controller"></i>
+      actions = <div className='actions right' draggable='true' data-parent='true' onMouseDown={this.props.mouseDown} onDragStart={this.props.dragStart} onDragEnd={this.props.dragEnd}>
+        <i className='fa fa-reorder ui-sortable-handle drag-controller'></i>
       </div>;
       sectionName = <div>
-        <input style={titleInputStyle} type="text" maxLength="20" ref="sectionInput" name="title" value={this.state.sectionName} onChange={this.handleInputChange} onKeyDown={this.update} />
-        <span style={titleStyle}>{section.title}<i className="fa fa-pencil" onClick={this.handleEditSectionName}></i></span>
+        <input style={titleInputStyle} type='text' maxLength='20' ref='sectionInput' name='title' value={this.state.sectionName} onChange={this.handleInputChange} onKeyDown={this.update} />
+        <span style={titleStyle}>{section.title}<i className='fa fa-pencil' onClick={this.handleEditSectionName}></i></span>
       </div>;
     }
 
     return (
-        <div className="full-section" data-droppable="section" data-order={section.order}>
+        <div className='full-section' data-droppable='section' data-order={section.order}>
           {deleteAction}
           {actions}
           {sectionName}

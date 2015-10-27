@@ -1,11 +1,11 @@
 'use strict';
 
 require('../../styles/ReorderMixin.sass');
-var _ = require('lodash');
-var canDrag = false;
-var getParent = function(element) {
-  var parent = element.parentNode;
-  var i = 0;
+import _ from 'lodash';
+let canDrag = false;
+let getParent = (element) => {
+  let parent = element.parentNode;
+  let i = 0;
   while (parent && i < 10) {
     if (parent) {
       if (parent.dataset && parent.dataset.droppable) {
@@ -20,18 +20,18 @@ var getParent = function(element) {
   return parent;
 };
 
-var ReorderMixin = {
+const ReorderMixin = {
 
   componentWillMount() {
     this.draggableData = [];
     this.parent = false;
   },
 
-  loadDraggableData: function(data) {
+  loadDraggableData(data) {
     this.draggableData = data;
   },
 
-  dragStart: function(e) {
+  dragStart(e) {
     if (!canDrag) {
       e.stopPropagation();
       e.preventDefault();
@@ -39,7 +39,7 @@ var ReorderMixin = {
     this.dragged = e.currentTarget;
     if (this.dragged.dataset.parent) {
       // this.dragged = this.dragged.parentNode; //
-      var parent = getParent(this.dragged);
+      let parent = getParent(this.dragged);
       this.dragged = parent;
       this.parent = true;
     }
@@ -52,7 +52,7 @@ var ReorderMixin = {
     e.dataTransfer.setData('text/html', e.currentTarget);
   },
 
-  drop: function(e) {
+  drop(e) {
     e.preventDefault();
     if (e.dataTransfer.effectAllowed !== 'copy') {
       this.addLinkPlaceholder({
@@ -66,26 +66,26 @@ var ReorderMixin = {
     }
   },
 
-  mouseDown: function(e) {
-    var element = e.target;
+  mouseDown(e) {
+    let element = e.target;
     canDrag = false;
     if (element.className.indexOf('drag-controller') > -1) {
       canDrag = true;
     }
   },
 
-  dragEnd: function() {
+  dragEnd() {
     if (this.over && this.dragged.dataset.droppable === this.over.dataset.droppable) {
       this.dragged.style.display = 'block';
       this.over.parentNode.removeChild(this.placeholder);
 
       // Update state
-      var from = Number(this.dragged.dataset.order);
-      var to = Number(this.over.dataset.order);
+      let from = Number(this.dragged.dataset.order);
+      let to = Number(this.over.dataset.order);
 
       if (!isNaN(to) && !isNaN(from)) {
         this.draggableData.splice(to, 0, this.draggableData.splice(from, 1)[0]);
-        _.each(this.draggableData, function(data, index) {
+        _.each(this.draggableData, (data, index) => {
           data.order = index;
         });
         this.setDraggableData(this.draggableData);
@@ -96,9 +96,9 @@ var ReorderMixin = {
     }
   },
 
-  dragOver: function(e) {
+  dragOver(e) {
     e.preventDefault();
-    var target = e.target;
+    let target = e.target;
     if (this.parent) {
       target = getParent(target);
     }

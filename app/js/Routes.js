@@ -12,8 +12,8 @@ Api.getAllCategories();
 
 export default (
   <Router history={CreateBrowserHistory()}>
-    <Route path="/" component={App} />
-    <Route path="/section/:sectionId" component={App}/>
-    <Route path="/login" component={Login}/>
+    <Route path='/' component={App} />
+    <Route path='/section/:sectionId' component={App}/>
+    <Route path='/login' component={Login}/>
   </Router>
 );

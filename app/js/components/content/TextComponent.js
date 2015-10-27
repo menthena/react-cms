@@ -1,31 +1,31 @@
 'use strict';
 
-var React = require('react/addons');
-var Editor = require('react-medium-editor');
-var PageComponentActions = require('./PageComponentActions');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var ComponentActionCreators = require('../../actions/ComponentActionCreators');
+import React from 'react/addons';
+import Editor from 'react-medium-editor';
+import PageComponentActions from './PageComponentActions';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 require('../../../styles/TextComponent.sass');
 
-var TextComponent = React.createClass({
+const TextComponent = React.createClass({
 
-  handleContentChange: function(content) {
+  handleContentChange(content) {
     ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
   },
 
-  render: function() {
-    var component = this.props.component;
-    var userIsAdmin = this.props.userIsAdmin;
-    var classes;
+  render() {
+    let component = this.props.component;
+    let userIsAdmin = this.props.userIsAdmin;
+    let classes;
 
     if (userIsAdmin) {
       classes = 'template';
     }
 
     return (
-      <div className={classes} data-droppable="component" data-order={component.order}>
-        <div className="editor">
+      <div className={classes} data-droppable='component' data-order={component.order}>
+        <div className='editor'>
           { userIsAdmin ?
             <Editor text={this.props.data} sectionId={this.props.sectionId}
               onChange={this.handleContentChange} options={{buttons: ['bold', 'italic', 'underline', 'anchor', 'header2']}}/>

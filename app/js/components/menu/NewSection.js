@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react/addons');
-var SectionActionCreators = require('../../actions/SectionActionCreators');
+import React from 'react/addons';
+import SectionActionCreators from '../../actions/SectionActionCreators';
 
-var NewSection = React.createClass({
+const NewSection = React.createClass({
 
   getInitialState() {
     return {
@@ -13,8 +13,8 @@ var NewSection = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    var categoryId = this.props.categoryId;
-    var sectionName = this.state.sectionName;
+    let categoryId = this.props.categoryId;
+    let sectionName = this.state.sectionName;
     if (sectionName) {
       SectionActionCreators.createSection(categoryId, sectionName);
       this.setState({
@@ -29,15 +29,15 @@ var NewSection = React.createClass({
     });
   },
 
-  render: function() {
+  render() {
     if (this.props.userIsAdmin) {
       return (
         <form onSubmit={this.handleSubmit}>
-          <h3 className="new-category">
-            <div className="actions right">
-              <i className="fa fa-plus"></i>
+          <h3 className='new-category'>
+            <div className='actions right'>
+              <i className='fa fa-plus'></i>
             </div>
-            <input type="text" onChange={this.handleChange} placeholder="Add new section" maxLength="20" name="title" value={this.state.sectionName} />
+            <input type='text' onChange={this.handleChange} placeholder='Add new section' maxLength='20' name='title' value={this.state.sectionName} />
           </h3>
         </form>
       );

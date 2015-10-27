@@ -25,7 +25,7 @@ function getStateFromStores() {
 }
 
 const App = React.createClass({
-  mixins: [Router.History, Reflux.listenTo(AppStore, '_onChange')],
+  mixins: [Router.History, Reflux.listenTo(AppStore, '_onChange'), Reflux.listenTo(CategoryStore, '_onChange')],
 
   getInitialState() {
     return getStateFromStores();
@@ -71,13 +71,13 @@ const App = React.createClass({
   },
 
   render() {
-    var MobilePanelVisible = this.state.mobilePanelVisible;
-    var isSearchInProgress = this.state.isSearchInProgress;
-    var logged = true;
-    var classes = 'off-canvas-wrap';
-    var userIsAdmin = this.state.userIsAdmin;
-    var searchViewPlaceholder;
-    var params = this.props.params;
+    let MobilePanelVisible = this.state.mobilePanelVisible;
+    let isSearchInProgress = this.state.isSearchInProgress;
+    let logged = true;
+    let classes = 'off-canvas-wrap';
+    let userIsAdmin = this.state.userIsAdmin;
+    let searchViewPlaceholder;
+    let params = this.props.params;
 
     if (!logged) {
       this.context.router.transitionTo('login');

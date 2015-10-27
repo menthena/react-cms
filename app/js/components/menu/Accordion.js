@@ -1,27 +1,27 @@
 'use strict';
 
-var React = require('react/addons');
-var Category = require('./Category');
-var ReorderMixin = require('../../mixins/ReorderMixin');
-var NewCategory = require('./NewCategory');
-var CategoryActionCreators = require('../../actions/CategoryActionCreators');
-var _ = require('lodash');
+import React from 'react/addons';
+import Category from './Category';
+import ReorderMixin from '../../mixins/ReorderMixin';
+import NewCategory from './NewCategory';
+import CategoryActionCreators from '../../actions/CategoryActionCreators';
+import _ from 'lodash';
 
-var Accordion = React.createClass({
+const Accordion = React.createClass({
   mixins: [ReorderMixin],
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       visibleCategory: null,
       activeMenuSection: {}
     };
   },
 
-  setDraggableData: function(categories) {
+  setDraggableData(categories) {
     CategoryActionCreators.updateCategories(categories);
   },
 
-  handleClick: function(category) {
+  handleClick(category) {
     if (this.state.visibleCategory !== category) {
       this.setState({
         visibleCategory: category
@@ -33,22 +33,22 @@ var Accordion = React.createClass({
     }
   },
 
-  render: function() {
+  render() {
 
-    var categories = [];
-    var items = this.props.categories;
-    var currentSection = this.props.currentSection;
-    var userIsAdmin = this.props.userIsAdmin;
+    let categories = [];
+    let items = this.props.categories;
+    let currentSection = this.props.currentSection;
+    let userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.categories);
 
     items = _.sortBy(items, 'order');
-    items.map(function(item) {
+    items.map((item) => {
       categories.push(<Category key={item.id} userIsAdmin={userIsAdmin} category={item} currentSection={currentSection} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
-    }.bind(this));
+    });
 
     return (
-        <div id="categories" className="Accordion" onDragOver={this.dragOver}>
+        <div id='categories' className='Accordion' onDragOver={this.dragOver}>
           {categories}
           <NewCategory userIsAdmin={userIsAdmin} />
         </div>
