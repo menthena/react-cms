@@ -1161,23 +1161,6 @@
       "from": "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz",
       "resolved": "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz"
     },
-    "reflux": {
-      "version": "0.2.9",
-      "from": "reflux@0.2.9",
-      "resolved": "https://registry.npmjs.org/reflux/-/reflux-0.2.9.tgz",
-      "dependencies": {
-        "eventemitter3": {
-          "version": "0.1.6",
-          "from": "eventemitter3@>=0.1.2 <0.2.0",
-          "resolved": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-0.1.6.tgz"
-        },
-        "native-promise-only": {
-          "version": "0.7.8-a",
-          "from": "native-promise-only@>=0.7.8-a <0.8.0",
-          "resolved": "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.7.8-a.tgz"
-        }
-      }
-    },
     "serve-favicon": {
       "version": "2.3.0",
       "from": "https://registry.npmjs.org/serve-favicon/-/serve-favicon-2.3.0.tgz",
