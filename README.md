@@ -23,8 +23,10 @@ Run the following commands:
     x> mongo tabhqreact server/data/seed.js
     x> gulp dev
 
+###Development (*IMPORTANT*)
+Every time a module is installed or removed, make sure that you run `npm shrinkrap` afterwards.
+
 To re-seed your database run:
 
     x> mongo tabhqreact server/data/seed.js
     x> node server/data/reindex_search.js
-    
