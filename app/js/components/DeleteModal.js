@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 let Modal = require('react-bootstrap').Modal;
 let OverlayTrigger = require('react-bootstrap').OverlayTrigger;
 

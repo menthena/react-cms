@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import Editor from 'react-medium-editor';
 import PageComponentActions from './PageComponentActions';
 import ReorderMixin from '../../mixins/ReorderMixin';

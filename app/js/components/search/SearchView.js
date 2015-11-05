@@ -1,13 +1,13 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import SearchInputComponent from './SearchInputComponent';
 import AppStore from '../../stores/AppStore';
 import SearchListComponent from './SearchListComponent';
 import AppActionCreators from '../../actions/AppActionCreators';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+import ExecutionEnvironment from 'exenv';
 import Reflux from 'reflux';
 
 require('../../../styles/SearchView.sass');

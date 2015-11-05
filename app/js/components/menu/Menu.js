@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import Accordion from './Accordion';
 
 require('../../../styles/Menu.sass');

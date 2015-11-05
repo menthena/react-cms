@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import NewSection from './NewSection';
 import Section from './Section';

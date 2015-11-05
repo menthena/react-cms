@@ -1,7 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
-import React from 'react/addons';
+import React from 'react';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import SearchInputComponent from './SearchInputComponent';

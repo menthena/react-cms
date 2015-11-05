@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import TextComponent from './TextComponent';
 import ListComponent from './ListComponent';
 import ImageComponent from './ImageComponent';

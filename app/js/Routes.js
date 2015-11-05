@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import {Router, Route, IndexRoute} from 'react-router';
 import CreateBrowserHistory from 'react-router/node_modules/history/lib/createBrowserHistory';
 

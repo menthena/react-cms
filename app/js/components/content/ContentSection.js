@@ -1,6 +1,6 @@
   'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import PageComponent from './PageComponent';
 import Editor from 'react-medium-editor';
 import SectionActionCreators from '../../actions/SectionActionCreators';

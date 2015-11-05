@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
 
 require('../../../styles/NewSectionComponent.sass');

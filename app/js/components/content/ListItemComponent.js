@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 
 require('../../../styles/ListItemComponent.sass');

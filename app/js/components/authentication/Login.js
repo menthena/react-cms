@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 
 require('../../../styles/Login.sass');
 
@@ -18,7 +18,7 @@ const Login = React.createClass({
           <script src='https://apis.google.com/js/platform.js' async defer></script>
           <meta name='google-signin-client_id' content='328354766394-2v20l3ggtoo2q69qttv07btohmhv2c6j.apps.googleusercontent.com'></meta>
 
-          <div class='g-signin2' data-onsuccess='onSignIn'></div>
+          <div className='g-signin2' data-onsuccess='onSignIn'></div>
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import GoogleDriveMixin from '../../mixins/GoogleDriveMixin';
 
 const DropFileComponent = React.createClass({

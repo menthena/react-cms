@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import SectionActionCreators from '../../actions/SectionActionCreators';
 import ModalMixin from '../../mixins/ModalMixin';
 

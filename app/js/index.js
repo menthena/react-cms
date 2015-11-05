@@ -1,6 +1,7 @@
 'use strict';
 
-import React  from 'react/addons';
+import React  from 'react';
+import ReactDOM  from 'react-dom';
 import Routes from './Routes';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -8,4 +9,4 @@ if (process.env.NODE_ENV !== 'production') {
   window.React = React;
 }
 
-React.render(Routes, document.getElementById('content'));
+ReactDOM.render(Routes, document.getElementById('content'));

@@ -1,8 +1,8 @@
 'use strict';
 
-import React  from 'react/addons';
-import Router from 'react-router';
-import ExecutionEnvironment from 'react/lib/ExecutionEnvironment';
+import React  from 'react';
+import {History} from 'react-router';
+import ExecutionEnvironment from 'exenv';
 import Reflux from 'reflux';
 import _ from 'lodash';
 import Api from './utils/Api';
@@ -13,7 +13,6 @@ import Menu from './components/menu/Menu';
 import Content from './components/content/Content';
 import Header from './components/Header';
 
-require('react-fastclick');
 require('../styles/main.sass');
 
 function getStateFromStores() {
@@ -25,7 +24,7 @@ function getStateFromStores() {
 }
 
 const App = React.createClass({
-  mixins: [Router.History, Reflux.listenTo(AppStore, '_onChange'), Reflux.listenTo(CategoryStore, '_onChange')],
+  mixins: [History, Reflux.listenTo(AppStore, '_onChange'), Reflux.listenTo(CategoryStore, '_onChange')],
 
   getInitialState() {
     return getStateFromStores();

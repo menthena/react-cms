@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import MenuSections from './MenuSections';
 import classNames from 'classnames';
 import CategoryActionCreators from '../../actions/CategoryActionCreators';

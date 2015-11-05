@@ -1,13 +1,12 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import ListItemComponent from './ListItemComponent';
 import DropFileComponent from './DropFileComponent';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import ModalMixin from '../../mixins/ModalMixin';
 import PageComponentActions from './PageComponentActions';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
-let update = React.addons.update;
 import _ from 'lodash';
 
 require('../../../styles/ListComponent.sass');

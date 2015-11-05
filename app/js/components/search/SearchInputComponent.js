@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react/addons';
+import React from 'react';
 import AppStore from '../../stores/AppStore';
 import AppActionCreators from '../../actions/AppActionCreators';
 import Reflux from 'reflux';
