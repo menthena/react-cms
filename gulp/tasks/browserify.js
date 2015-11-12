@@ -29,7 +29,9 @@ function buildScript(file, watch) {
   });
 
   if ( watch ) {
-    bundler = watchify(bundler);
+    bundler = watchify(bundler, {
+      ignoreWatch: config.sourceDir + 'js/**/*-test.js'
+    });
     bundler.on('update', rebundle);
   }
 

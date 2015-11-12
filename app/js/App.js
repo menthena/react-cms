@@ -19,7 +19,7 @@ function getStateFromStores() {
   return {
     allCategories: CategoryStore.getCategories(),
     isSearchInProgress: AppStore.isSearchInProgress(),
-    isAdmin: true
+    userIsAdmin: false
   };
 }
 
