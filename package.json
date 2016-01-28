@@ -82,8 +82,10 @@
     "karma-browserify": "^4.2.0",
     "karma-chrome-launcher": "^0.2.1",
     "karma-jquery": "^0.1.0",
+    "karma-mocha": "^0.2.1",
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^3.10.0",
+    "mocha": "^2.4.4",
     "morgan": "^1.6.1",
     "passport-stub": "^1.0.1",
     "phantomjs": "^1.9.18",
@@ -94,8 +96,8 @@
     "run-sequence": "^1.1.1",
     "superagent": "^1.2.0",
     "supertest": "^1.0.1",
+    "swagger-node-express": "~2.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.2.x",
-    "swagger-node-express": "~2.0"
+    "watchify": "^3.2.x"
   }
 }
