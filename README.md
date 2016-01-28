@@ -3,11 +3,11 @@
 ###Prerequisites
 You will need the following:
 
+* Node (> V4.0) 
 * NPM
 * MongoDB
 * ElasticSearch
 * Gulp (`npm install gulp -g`)
-* Mocha (`npm install mocha -g`)
 
 ###Getting set up
 Run the following commands:
@@ -24,7 +24,6 @@ Run the following commands:
     x> gulp dev
 
 ###Development (*IMPORTANT*)
-Every time a module is installed or removed, make sure that you run `npm shrinkrap` afterwards.
 
 To re-seed your database run:
 
