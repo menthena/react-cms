@@ -28,3 +28,6 @@ build
 .elasticbeanstalk/
 
 server/secrets.js
+
+Vagrantfile
+.vagrant/
