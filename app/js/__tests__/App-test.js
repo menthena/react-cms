@@ -1,10 +1,13 @@
-'use strict';
+jest.autoMockOff();
 
 import React from 'react';
-import {History} from 'react-router';
-import App  from '../App.js';
-import AppStore from '../stores/AppStore';
-import TestUtils from 'react/lib/ReactTestUtils';
+import { render } from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
+
+const App = require('../App');
+const AppStore = require('../stores/AppStore');
+
+let routes, node;
 
 describe('App', function() {
 
@@ -13,11 +16,15 @@ describe('App', function() {
   describe('getInitialState()', function() {
 
     it('allCategories should be an empty array', function() {
-      expect(AppElement.getInitialState().allCategories.length).to.equal(0);
+      expect(AppElement.getInitialState().allCategories.length).toEqual(0);
     });
 
     it('userIsAdmin should be false', function() {
-      expect(AppElement.state.userIsAdmin).to.be.false;
+      expect(AppElement.state.userIsAdmin).toBe(false);
+    });
+
+    it('isSearchInProgress should be false', function() {
+      expect(AppElement.state.isSearchInProgress).toBe(false);
     });
 
   });
@@ -26,28 +33,14 @@ describe('App', function() {
 
     it('userIsAdmin should be true', function() {
       AppElement.toggleAdminMode();
-      expect(AppElement.state.userIsAdmin).to.be.true;
+      expect(AppElement.state.userIsAdmin).toBe(true);
     });
 
     it('userIsAdmin should be false', function() {
-      AppElement.setState({
-        userIsAdmin: true
-      });
       AppElement.toggleAdminMode();
-      expect(AppElement.state.userIsAdmin).to.be.false;
+      expect(AppElement.state.userIsAdmin).toBe(false);
     });
 
-  });
-
-  describe('_onChange()', function() {
-    AppElement.history = {
-      pushState: function() {
-        self.location = '#login';
-      }
-    };
-    AppStore.setAuthorizedStatus(true);
-    AppElement._onChange();
-    expect(window.location.hash).to.equal('#login');
   });
 
   describe('toggleMobilePanel()', function() {
@@ -56,12 +49,12 @@ describe('App', function() {
     var pageContainer = TestUtils.scryRenderedDOMComponentsWithClass(AppElement, 'off-canvas-wrap')[0];
 
     it('Closed mobile panel', function() {
-      expect(pageContainer.classList.toString()).not.to.contain('move-right');
+      expect(pageContainer.classList.toString()).not.toContain('move-right');
     });
 
     it('Open mobile panel', function() {
       TestUtils.Simulate.click(mobilePanelButton);
-      expect(pageContainer.classList.toString()).to.contain('move-right');
+      expect(pageContainer.classList.toString()).toContain('move-right');
     });
 
   });

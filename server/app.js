@@ -25,6 +25,7 @@ mongoose.connect(config.db.mongodb);
 var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
 app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -114,9 +115,9 @@ app.get('/logout', function(req, res) {
 });
 
 // Serve index.html for all routes to leave routing up to react-router
-app.all('/*', function(req, res) {
-  res.sendFile('index.html', { root: 'build' });
-});
+// app.all('/*', function(req, res) {
+//   res.sendFile('index.html', { root: 'build' });
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

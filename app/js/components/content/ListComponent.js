@@ -32,7 +32,7 @@ const ListComponent = React.createClass({
   },
 
   addImage() {
-    console.log('add');
+    // console.log('add');
   },
 
   setDraggableData(links) {

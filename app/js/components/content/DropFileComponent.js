@@ -7,7 +7,7 @@ const DropFileComponent = React.createClass({
   mixins: [GoogleDriveMixin],
 
   uploadFile(e) {
-    console.log(e);
+    // console.log(e);
   },
 
   render() {

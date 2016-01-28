@@ -72,15 +72,11 @@ const App = React.createClass({
   render() {
     let MobilePanelVisible = this.state.mobilePanelVisible;
     let isSearchInProgress = this.state.isSearchInProgress;
-    let logged = true;
     let classes = 'off-canvas-wrap';
     let userIsAdmin = this.state.userIsAdmin;
     let searchViewPlaceholder;
     let params = this.props.params;
 
-    if (!logged) {
-      this.context.router.transitionTo('login');
-    }
     if (MobilePanelVisible) {
       classes += ' move-right';
     }

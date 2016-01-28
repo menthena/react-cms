@@ -20,7 +20,7 @@ module.exports = function(error) {
   } else {
     // Log the error and stop the process
     // to prevent broken code from building
-    console.log(error);
+    // console.log(error);
     process.exit(1);
   }
 
