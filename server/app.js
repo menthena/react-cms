@@ -115,9 +115,9 @@ app.get('/logout', function(req, res) {
 });
 
 // Serve index.html for all routes to leave routing up to react-router
-// app.all('/*', function(req, res) {
-//   res.sendFile('index.html', { root: 'build' });
-// });
+app.all('/*', function(req, res) {
+  res.sendFile('index.html', { root: 'build' });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
