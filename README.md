@@ -60,29 +60,16 @@ In the first tab/window, from the root of this repository run:
 
 Run the following commands from the root of this repository:
 
-<<<<<<< 630ee01fe149aef821bf06390e3c9999334163b1
     x> git clone git@github.com:lukemarsh/tab-hq-react.git
     x> cd tab-hq-react
-=======
->>>>>>> readme updates to mention vagrant
     x> npm install
     x> sudo mkdir -p /data/db
     x> chmod 0755 /data/db
     x> sudo chown $USER /data/db
     x> mongod & # runs in background, kill later with pkill mongod
     x> mongo tabhqreact server/data/seed.js
-<<<<<<< 630ee01fe149aef821bf06390e3c9999334163b1
     x> rename secrets.js.example to secrets.js
     x> gulp dev
-
-###Development (*IMPORTANT*)
-
-To re-seed your database run:
-
-    x> mongo tabhqreact server/data/seed.js
-    x> node server/data/reindex_search.js
-=======
-
 
 ### Reseeding your database
 
@@ -96,4 +83,3 @@ Run from the root of the repo:
 Run from the root of the repo:
 
     x> gulp dev        
->>>>>>> readme updates to mention vagrant
