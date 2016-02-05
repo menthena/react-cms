@@ -1,6 +1,7 @@
 @import 'logo'
 @import '_variables'
 
+
 #menu
   -webkit-backface-visibility: hidden
   background: $white
@@ -15,7 +16,7 @@
   z-index: 1001
   left: 0
   top: 0
-  width: 240px
+  width: 280px
   border-right  : 1px solid $grey
   z-index: 10000
 
@@ -28,6 +29,7 @@
       font-size     : 16px
       position      : relative
       padding       : 0 24px
+      cursor : pointer
 
       p
         font-size : inherit
@@ -45,9 +47,15 @@
     ul.open
       display : block
 
+    .category
+      position : relative
+
+      &:not(:first-child)
+        h3
+          border-top : 1px solid #ebebeb
+
     h3
-      padding    : 17px 24px 13px 24px
-      border-top : 1px solid #ebebeb
+      padding : 17px 24px 13px 24px
 
     #categories
       h3.has-sections
@@ -96,8 +104,33 @@
 #menu-inner
   position : fixed
   top : 0
-  width : 240px
+  width : 280px
+
+#menu-left
+  width : 60px
+  height : 100%
+  position: fixed
+  background : #444
+  padding : 16px
+  top: 0
+
+  img
+    border-radius: 5px
+    width : 100%
+
+#menu-right
+  width : 220px
+  position: fixed
+  left: 60px
+  top: 0
 
 @media screen and (max-width: 767px)
+  #menu-right
+    left: -220px
+
   #menu
-    left: -240px
+    left: -280px
+
+  .off-canvas-wrap.move-right
+    #menu-right
+      left: -220px

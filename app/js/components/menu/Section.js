@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM  from 'react-dom';
 import SectionActionCreators from '../../actions/SectionActionCreators';
 import ModalMixin from '../../mixins/ModalMixin';
 
@@ -46,7 +47,7 @@ const Section = React.createClass({
     this.setState({
       isEditing: true
     }, () => {
-      React.findDOMNode(this.refs.sectionInput).focus();
+      ReactDOM.findDOMNode(this.refs.sectionInput).focus();
     });
   },
 

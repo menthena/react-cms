@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM  from 'react-dom';
 import TimerMixin from 'react-timer-mixin';
 
 require('../../../styles/ListItemComponent.sass');
@@ -20,7 +21,7 @@ const ListItemComponent = React.createClass({
   },
 
   blurInput(input) {
-    React.findDOMNode(input).blur();
+    ReactDOM.findDOMNode(input).blur();
   },
 
   update(event, data) {
@@ -89,7 +90,7 @@ const ListItemComponent = React.createClass({
     this.setState({
       isEditingUrl: true
     }, () => {
-      React.findDOMNode(this.refs.listItemUrlInput).focus();
+      ReactDOM.findDOMNode(this.refs.listItemUrlInput).focus();
     });
   },
 
@@ -97,7 +98,7 @@ const ListItemComponent = React.createClass({
     this.setState({
       isEditingTitle: true
     }, () => {
-      React.findDOMNode(this.refs.listItemInput).focus();
+      ReactDOM.findDOMNode(this.refs.listItemInput).focus();
     });
   },
 

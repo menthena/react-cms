@@ -3,6 +3,8 @@
 import React from 'react';
 import ContentSection from './ContentSection';
 import _ from 'lodash';
+import AppActionCreators from '../../actions/AppActionCreators';
+import smoothScroll from 'smoothscroll';
 
 require('../../../styles/Content.sass');
 
@@ -19,7 +21,7 @@ const Content = React.createClass({
     }
 
     if (closestSection) {
-      this.props.onSectionScroll(closestSection.props.section.title);
+      AppActionCreators.setSelectedSection(closestSection.props.section);
     }
 
   },
@@ -37,7 +39,7 @@ const Content = React.createClass({
         sections = categories[id].sections;
         keyId = id + key + sections[key].id;
         if (params.sectionId === sections[key].id || !params.sectionId) {
-          contentSections.push(<ContentSection userIsAdmin={userIsAdmin} key={keyId} categoryId={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
+          contentSections.push(<ContentSection currentSection={this.props.currentSection} userIsAdmin={userIsAdmin} key={keyId} categoryId={categories[id].id} section={sections[key]} ref={'contentsection_' + keyId} />);
         }
       }
     }

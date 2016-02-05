@@ -11,9 +11,9 @@ const Login = React.createClass({
       <div id='auth'>
         <div className='container container-narrow'>
           <div className='text-center'>
-            <h1>Sign in to TAB HQ</h1>
-            <a className="btn btn-lg btn-success" href="auth/google">
-              <i className="fa fa-google fa-lg"></i> Login
+            <h1>Login</h1>
+            <a className='btn btn-lg btn-google' href='auth/google'>
+              <i className='fa fa-google fa-lg'></i> Login with your TAB account
             </a>
           </div>
 

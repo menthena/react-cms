@@ -3,6 +3,7 @@
 import Reflux from 'reflux';
 
 const ServerActions = Reflux.createActions([
+  'receiveUser',
   'receiveAllCategories',
   'receiveCreatedCategory',
   'receiveUpdatedCategory',

@@ -11,6 +11,12 @@ const baseApiUrl = 'http://localhost:3001/';
 
 const Api = {
 
+  getUser() {
+    return axios.get(baseApiUrl + 'user').then((response) => {
+      ServerActionCreators.receiveUser(response.data.data);
+    });
+  },
+
   getAllCategories() {
     return axios.get(baseApiUrl + 'categories?includes=sections').then((response) => {
       // TODO: Handle errors

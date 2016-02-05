@@ -1,10 +1,16 @@
   'use strict';
 
 import React from 'react';
+
 import PageComponent from './PageComponent';
 import Editor from 'react-medium-editor';
 import SectionActionCreators from '../../actions/SectionActionCreators';
+import AppActionCreators from '../../actions/AppActionCreators';
 import ModalMixin from '../../mixins/ModalMixin';
+import ReactDOM  from 'react-dom';
+import smoothScroll from 'smoothscroll';
+import Reflux from 'reflux';
+import Waypoint from 'react-waypoint';
 
 require('../../../styles/ContentSection.sass');
 
@@ -18,8 +24,12 @@ const ContentSection = React.createClass({
     };
   },
 
+  runTestFunction(section) {
+    AppActionCreators.setSelectedSection(section);
+  },
+
   getOffsetTop() {
-    let domNode = this.refs['section_' + this.props.section.id].getDOMNode();
+    let domNode = this.refs['section_' + this.props.section.id];
     return domNode.getBoundingClientRect().top;
   },
 
@@ -27,7 +37,7 @@ const ContentSection = React.createClass({
     this.setState({
       isEditing: true
     }, () => {
-      React.findDOMNode(this.refs.sectionInput).focus();
+      ReactDOM.findDOMNode(this.refs.sectionInput).focus();
     });
   },
 
@@ -62,15 +72,23 @@ const ContentSection = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
+  componentWillUnmount() {
+    smoothScroll(null);
+  },
+
+  componentDidUpdate() {
+    if (this.props.currentSection && this.props.currentSection.id && (this.props.section.id === this.props.currentSection.id)) {
+      smoothScroll(ReactDOM.findDOMNode(this));
+    }
+  },
+
   render() {
     let section = this.props.section;
     let sectionId = section.id;
     let userIsAdmin = this.props.userIsAdmin;
-
     let titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
     let titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
     let sectionActions;
-
     let sectionHeading = <div>
       <span style={titleStyle}>{section.title}</span>
     </div>;
