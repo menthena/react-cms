@@ -21,9 +21,7 @@ function getStateFromStores() {
     allCategories: CategoryStore.getCategories(),
     isSearchInProgress: AppStore.isSearchInProgress(),
     userIsAdmin: false,
-    user: UserStore.getUser(),
-    selectedSection: AppStore.getSelectedSection(),
-    currentSection: AppStore.getCurrentSection()
+    user: UserStore.getUser()
   };
 }
 
@@ -96,8 +94,8 @@ const App = React.createClass({
         <div className={classes}>
           <div className='inner-wrap'>
             <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
-            <Menu user={user} selectedSection={this.state.selectedSection} userIsAdmin={userIsAdmin} categories={this.state.allCategories} />
-            <Content userIsAdmin={userIsAdmin} currentSection={this.state.currentSection} params={params} categories={this.state.allCategories} ref='content' />
+            <Menu user={user} userIsAdmin={userIsAdmin} categories={this.state.allCategories} />
+            <Content userIsAdmin={userIsAdmin} params={params} categories={this.state.allCategories} ref='content' />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from  'react-dom';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import NewSection from './NewSection';
 import Section from './Section';
@@ -10,8 +11,10 @@ import AppActionCreators from '../../actions/AppActionCreators';
 import AppStore from '../../stores/AppStore';
 import Reflux from 'reflux';
 
+let currentSectionStyle = {};
+
 const MenuSections = React.createClass({
-  mixins: [ReorderMixin],
+  mixins: [ReorderMixin, Reflux.connect(AppActionCreators.setScrolledToSection, "scrolledToSection")],
 
   setDraggableData(sections) {
     let categoryId = this.props.category.id;
@@ -19,7 +22,7 @@ const MenuSections = React.createClass({
   },
 
   handleClick(section) {
-    AppActionCreators.scrollToSection(section);
+    AppActionCreators.setCurrentSection(section.id);
   },
 
   render() {
@@ -40,9 +43,9 @@ const MenuSections = React.createClass({
           <ul>
             {category.sections.map((section, index) => {
               let currentSectionStyle = {};
-              if (this.props.selectedSection) {
+              if (this.state.scrolledToSection) {
                 currentSectionStyle = {
-                  fontWeight: this.props.selectedSection.title === section.title ? 'bold' : 'normal'
+                  fontWeight: this.state.scrolledToSection === section.id ? 'bold' : 'normal'
                 };
               }
 

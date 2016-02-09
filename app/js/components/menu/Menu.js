@@ -39,7 +39,7 @@ const Menu = React.createClass({
                 <p>{user.displayName}</p>
               </div>
               <div className='scroll' style={scrollStyles}>
-                <Accordion selectedSection={this.props.selectedSection} userIsAdmin={this.props.userIsAdmin} categories={categories} />
+                <Accordion userIsAdmin={this.props.userIsAdmin} categories={categories} />
               </div>
             </div>
           </div>
