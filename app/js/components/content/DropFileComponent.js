@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import GoogleDriveMixin from '../../mixins/GoogleDriveMixin';
 
 const DropFileComponent = React.createClass({
@@ -8,6 +9,19 @@ const DropFileComponent = React.createClass({
 
   uploadFile(e) {
     // console.log(e);
+  },
+
+  addLinkFromDrive(elem, params) {
+    this.props.addLinkFromDrive(elem, params);
+  },
+
+  triggerFileUpload() {
+    let uploadField = this.refs.upload;
+    uploadField.click();
+  },
+
+  fileUploaded(event) {
+    console.log(event);
   },
 
   render() {
@@ -28,7 +42,8 @@ const DropFileComponent = React.createClass({
               <i className='fa fa-cloud-upload fa-3x' />
             </a>
             <h3>Drag & Drop</h3>
-            <p>or <a href='#'>browse</a></p>
+            <input id="upload" onChange={this.fileUploaded} type="file" ref='upload' style={{display: 'none'}} />
+            <p>or <a href='#' onClick={this.triggerFileUpload}>browse</a></p>
             <div className={classes}>
               {addLinkButton}
               {googleDriveButton}

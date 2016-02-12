@@ -14,7 +14,7 @@ import Reflux from 'reflux';
 let currentSectionStyle = {};
 
 const MenuSections = React.createClass({
-  mixins: [ReorderMixin, Reflux.connect(AppActionCreators.setScrolledToSection, "scrolledToSection")],
+  mixins: [ReorderMixin, Reflux.connect(AppActionCreators.setScrolledToSection, 'scrolledToSection')],
 
   setDraggableData(sections) {
     let categoryId = this.props.category.id;

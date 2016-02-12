@@ -1,8 +1,8 @@
 'use strict';
 
-let CLIENT_ID = '129240546275-as9foc1e3ioosvgqgif02l8gtok6d67l.apps.googleusercontent.com';
+let CLIENT_ID = '696135464587-peh56h3qlmpp77dsafkgmi4mlhgn2h4h.apps.googleusercontent.com';
 let SCOPES = ['https://www.googleapis.com/auth/drive'];
-let developerKey = 'AIzaSyDRZpwa2jwiNNVqrDLID7sI0WiJrt-byaU';
+// let developerKey = 'AIzaSyDRZpwa2jwiNNVqrDLID7sI0WiJrt-byaU';
 
 let pickerApiLoaded = false;
 let oauthToken;
@@ -44,10 +44,11 @@ const GoogleDriveMixin = {
       let picker = new google.picker.PickerBuilder().
           addView(google.picker.ViewId.DOCS).
           setOAuthToken(oauthToken).
-          setDeveloperKey(developerKey).
+          setOrigin('http://localhost:3001').
+          // setDeveloperKey(developerKey).
           setSize(640, 480).
           hideTitleBar().
-          setCallback(this.pickerCallback.bind(this)).
+          setCallback(this.pickerCallback).
           build();
       picker.setVisible(true);
     }
@@ -57,10 +58,13 @@ const GoogleDriveMixin = {
     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
       let doc = data[google.picker.Response.DOCUMENTS][0];
       let url = doc[google.picker.Document.URL];
+      console.log(doc);
       this.add({
           title: doc.name,
           url: url,
-          size: doc.sizeBytes
+          size: doc.sizeBytes,
+          last_updated: doc.lastEditedUtc,
+          extension: doc.mimeType
         });
     }
   },
@@ -71,7 +75,7 @@ const GoogleDriveMixin = {
   },
 
   add(link) {
-    this.addComponent('link', link);
+    this.addLinkFromDrive('link', link);
   }
 
 };

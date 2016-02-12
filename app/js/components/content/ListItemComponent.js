@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 import TimerMixin from 'react-timer-mixin';
+import Moment from 'moment';
 
 require('../../../styles/ListItemComponent.sass');
 
@@ -46,6 +47,13 @@ const ListItemComponent = React.createClass({
     }
   },
 
+  updateOnTab(event, data) {
+    this.clearTimeout(this.state.timeoutId);
+    if (event.keyCode === 9) {
+      this.update(event, data);
+    }
+  },
+
   updateAfterTimeout(event, data) {
     this.clearTimeout(this.state.timeoutId);
     this.state.timeoutId = this.setTimeout(
@@ -60,14 +68,20 @@ const ListItemComponent = React.createClass({
     let data = {
       url: this.state.url
     };
-    this.updateOnEnter(event, data);
+    if (data.url) {
+      this.updateOnEnter(event, data);
+      this.updateOnTab(event, data);
+    }
   },
 
   updateTitle(event) {
     let data = {
       title: this.state.title
     };
-    this.updateOnEnter(event, data);
+    if (data.title) {
+      this.updateOnEnter(event, data);
+      this.updateOnTab(event, data);
+    }
   },
 
   handleTitleInputChange(event) {
@@ -102,16 +116,6 @@ const ListItemComponent = React.createClass({
     });
   },
 
-  //
-  // handleUrlInputChange(event) {
-  //   this.setState({
-  //     url: event.target.value
-  //   });
-  //   if (this.state.submitted) {
-  //     this.validateUrl();
-  //   }
-  // },
-
   validateUrl() {
     let url = String(this.state.url);
     let regex = new RegExp(/s/);
@@ -122,13 +126,64 @@ const ListItemComponent = React.createClass({
     return urlError;
   },
 
+  formatSize(bytes) {
+    let k = 1000;
+    let sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    let i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+  },
+
+  getFileExtension(type) {
+    let fileExtension = {
+      icon: 'fa fa-file-o fa-3x',
+      text: ''
+    };
+    if (type) {
+      if (type.indexOf('photoshop') > -1) {
+        fileExtension = {
+          text: 'psd',
+          icon: 'fa fa-file-photo-o fa-3x'
+        }
+      }
+      if (type.indexOf('pdf') > -1) {
+        fileExtension = {
+          text: 'pdf',
+          icon: 'fa fa-file-pdf-o fa-3x'
+        }
+      }
+      if (type.indexOf('document') > -1) {
+        fileExtension = {
+          text: 'word',
+          icon: 'fa fa-file-text-o fa-3x'
+        }
+      }
+      if (type.indexOf('drawing') > -1) {
+        fileExtension = {
+          text: 'drawing',
+          icon: 'fa fa-file-o fa-3x'
+        }
+      }
+      if (type.indexOf('spreadsheet') > -1) {
+        fileExtension = {
+          text: 'spreadsheet',
+          icon: 'fa fa-table fa-3x'
+        }
+      }
+      if (type.indexOf('zip') > -1) {
+        fileExtension = {
+          text: 'zip',
+          icon: 'fa fa-file-archive-o fa-3x'
+        }
+      }
+      return fileExtension;
+    }
+  },
+
   render() {
     let item = this.props.item;
     let userIsAdmin = this.props.userIsAdmin;
-
     let titleInputStyle = { display: this.state.isEditingTitle ? 'block' : 'none' };
     let titleStyle = { display: !(this.state.isEditingTitle && userIsAdmin) ? 'block' : 'none' };
-
     let urlInputStyle = {
       display: this.state.isEditingUrl ? 'inline-block' : 'none',
       color: this.state.urlError ? '#f00' : ''
@@ -137,14 +192,28 @@ const ListItemComponent = React.createClass({
       display: !this.state.isEditingUrl ? 'inline-block' : 'none'
     };
 
-    let icon = (<div className='item-icon pdf'>{item.extension}</div>),
-        info = 'PDF - 498.2 KB',
+    let icon,
+        info,
         image = <i className='fa fa-arrow-right'></i>,
         type = item.type,
-        lastUpdated = '(' + item.updated_at + ')',
-        url = (<span className='item-type'>
-                <a target='_blank' href={item.url}>{info}</a>
-              </span>);
+        lastUpdated = ' (Last updated ' + Moment(item.last_updated).format('DD/MM/YYYY') + ')',
+        url;
+
+    if (item.extension) {
+      icon = (<i className={this.getFileExtension(item.extension).icon}></i>);
+    }
+
+    if (item.extension) {
+      if (item.size) {
+        info = this.getFileExtension(item.extension).text.toUpperCase() + ' - ' + this.formatSize(item.size);
+      } else {
+        info = this.getFileExtension(item.extension).text.toUpperCase();
+      }
+    }
+
+    url = (<span className='item-type'>
+            <a target='_blank' href={item.url}>{info}</a>
+          </span>);
 
     if (item.type === 'link') {
       icon = <i className='fa fa-link fa-3x'></i>;
@@ -156,7 +225,7 @@ const ListItemComponent = React.createClass({
               { userIsAdmin ?
                 <input style={urlInputStyle} placeholder='Enter a URL' type='text'
                 maxLength='20' ref='listItemUrlInput' name='url' value={this.state.url}
-                onChange={this.handleUrlInputChange} onBlur={this.updateUrl} onKeyDown={this.updateUrl} />
+                onChange={this.handleUrlInputChange} onKeyDown={this.updateUrl} />
               : null }
               <span style={urlStyle}>
                 {item.url}
@@ -184,7 +253,7 @@ const ListItemComponent = React.createClass({
                 { userIsAdmin ?
                   <input style={titleInputStyle} placeholder='Enter a title' type='text'
                   maxLength='20' ref='listItemInput' name='title' value={this.state.title}
-                  onChange={this.handleTitleInputChange} onBlur={this.updateTitle} onKeyDown={this.updateTitle} />
+                  onChange={this.handleTitleInputChange} onKeyDown={this.updateTitle} />
                 : null }
                 <span style={titleStyle}>
                   {item.title}

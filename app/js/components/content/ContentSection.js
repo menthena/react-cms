@@ -16,7 +16,7 @@ import smoothScroll from 'smoothscroll';
 require('../../../styles/ContentSection.sass');
 
 const ContentSection = React.createClass({
-  mixins: [ModalMixin, Reflux.listenTo(AppActionCreators.setCurrentSection, "scrollToSection")],
+  mixins: [ModalMixin, Reflux.listenTo(AppActionCreators.setCurrentSection, 'scrollToSection')],
 
   getInitialState() {
     return {
@@ -87,7 +87,7 @@ const ContentSection = React.createClass({
       <span style={titleStyle}>{section.title}</span>
     </div>;
     let contentSectionStyles = {
-      minHeight : window.innerHeight + 'px'
+      minHeight: window.innerHeight + 'px'
     };
 
     if (userIsAdmin) {
