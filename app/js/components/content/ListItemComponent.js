@@ -145,6 +145,12 @@ const ListItemComponent = React.createClass({
           icon: 'fa fa-file-photo-o fa-3x'
         }
       }
+      if (type.indexOf('gif') > -1) {
+        fileExtension = {
+          text: 'gif',
+          icon: 'fa fa-file-photo-o fa-3x'
+        }
+      }
       if (type.indexOf('pdf') > -1) {
         fileExtension = {
           text: 'pdf',
