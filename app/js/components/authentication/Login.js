@@ -11,8 +11,10 @@ const Login = React.createClass({
       <div id='auth'>
         <div className='container container-narrow'>
           <div className='text-center'>
-            <h2>Sign in to React With TAB</h2>
-            <a href='auth/google'>test</a>
+            <h1>Login</h1>
+            <a className='btn btn-lg btn-google' href='auth/google'>
+              <i className='fa fa-google fa-lg'></i> Login with your TAB account
+            </a>
           </div>
 
           <script src='https://apis.google.com/js/platform.js' async defer></script>

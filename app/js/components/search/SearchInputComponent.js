@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM  from 'react-dom';
 import AppStore from '../../stores/AppStore';
 import AppActionCreators from '../../actions/AppActionCreators';
 import Reflux from 'reflux';
@@ -29,8 +30,8 @@ const SearchComponent = React.createClass({
 
   componentDidMount() {
     if (this.props.focusOnLoad) {
-      React.findDOMNode(this.refs.searchInput).focus();
-      React.findDOMNode(this.refs.searchInput).setSelectionRange(AppStore.getSearchQuery().length, 1);
+      ReactDOM.findDOMNode(this.refs.searchInput).focus();
+      ReactDOM.findDOMNode(this.refs.searchInput).setSelectionRange(AppStore.getSearchQuery().length, 1);
     }
   },
 

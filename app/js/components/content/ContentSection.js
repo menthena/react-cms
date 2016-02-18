@@ -1,15 +1,22 @@
   'use strict';
 
 import React from 'react';
+
 import PageComponent from './PageComponent';
 import Editor from 'react-medium-editor';
 import SectionActionCreators from '../../actions/SectionActionCreators';
+import AppActionCreators from '../../actions/AppActionCreators';
 import ModalMixin from '../../mixins/ModalMixin';
+import AppStore from '../../stores/AppStore';
+import ReactDOM  from 'react-dom';
+import Reflux from 'reflux';
+import Waypoint from 'react-waypoint';
+import smoothScroll from 'smoothscroll';
 
 require('../../../styles/ContentSection.sass');
 
 const ContentSection = React.createClass({
-  mixins: [ModalMixin],
+  mixins: [ModalMixin, Reflux.listenTo(AppActionCreators.setCurrentSection, 'scrollToSection')],
 
   getInitialState() {
     return {
@@ -19,15 +26,15 @@ const ContentSection = React.createClass({
   },
 
   getOffsetTop() {
-    let domNode = this.refs['section_' + this.props.section.id].getDOMNode();
-    return domNode.getBoundingClientRect().top;
+    let domNode = ReactDOM.findDOMNode(this);
+    return domNode.offsetTop;
   },
 
   handleEditSectionName() {
     this.setState({
       isEditing: true
     }, () => {
-      React.findDOMNode(this.refs.sectionInput).focus();
+      ReactDOM.findDOMNode(this.refs.sectionInput).focus();
     });
   },
 
@@ -62,18 +69,26 @@ const ContentSection = React.createClass({
     ModalMixin.appendModalToBody(props);
   },
 
+  scrollToSection(sectionId) {
+    if (sectionId === this.props.section.id) {
+      let sectionNode = ReactDOM.findDOMNode(this);
+      smoothScroll(sectionNode, 200);
+    }
+  },
+
   render() {
     let section = this.props.section;
     let sectionId = section.id;
     let userIsAdmin = this.props.userIsAdmin;
-
     let titleInputStyle = { display: this.state.isEditing ? 'block' : 'none' };
     let titleStyle = { display: !(this.state.isEditing && userIsAdmin) ? 'block' : 'none' };
     let sectionActions;
-
     let sectionHeading = <div>
       <span style={titleStyle}>{section.title}</span>
     </div>;
+    let contentSectionStyles = {
+      minHeight: window.innerHeight + 'px'
+    };
 
     if (userIsAdmin) {
       sectionHeading = <div>
@@ -89,7 +104,7 @@ const ContentSection = React.createClass({
     }
 
     return (
-        <section ref={'section_' + sectionId}>
+        <section style={contentSectionStyles} ref={'section_' + sectionId} id={'section_' + sectionId}>
           <div className='content-inner'>
             <header>
               <h1>{sectionHeading}</h1>

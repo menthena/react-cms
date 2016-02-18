@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM  from 'react-dom';
 import MenuSections from './MenuSections';
 import classNames from 'classnames';
 import CategoryActionCreators from '../../actions/CategoryActionCreators';
@@ -57,7 +58,7 @@ const Category = React.createClass({
     this.setState({
       isEditing: true
     }, () => {
-      React.findDOMNode(this.refs.theInput).focus();
+      ReactDOM.findDOMNode(this.refs.theInput).focus();
     });
   },
 
@@ -71,7 +72,6 @@ const Category = React.createClass({
     let category = this.props.category;
     let isVisible = this.state.isVisible;
     let userIsAdmin = this.props.userIsAdmin;
-    let currentSection = this.props.currentSection;
     let deleteAction;
     let arrows;
 
@@ -116,13 +116,13 @@ const Category = React.createClass({
     }
 
     return (
-        <div data-order={category.order} data-droppable='category' style={{pointerEvents: 'all'}}>
+        <div className='category' data-order={category.order} data-droppable='category' style={{pointerEvents: 'all'}}>
           {deleteAction}
           {actions}
           <h3 className={ classes } onClick={this.handleClick}>
             {categoryName}
           </h3>
-          <MenuSections userIsAdmin={userIsAdmin} category={category} isVisible={this.state.isVisible} currentSection={currentSection} />
+          <MenuSections userIsAdmin={userIsAdmin} category={category} isVisible={this.state.isVisible} />
         </div>
       );
   }

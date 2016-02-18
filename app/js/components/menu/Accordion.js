@@ -37,14 +37,13 @@ const Accordion = React.createClass({
 
     let categories = [];
     let items = this.props.categories;
-    let currentSection = this.props.currentSection;
     let userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.categories);
 
     items = _.sortBy(items, 'order');
     items.map((item) => {
-      categories.push(<Category key={item.id} userIsAdmin={userIsAdmin} category={item} currentSection={currentSection} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
+      categories.push(<Category key={item.id} userIsAdmin={userIsAdmin} category={item} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart} />);
     });
 
     return (

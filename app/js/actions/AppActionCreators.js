@@ -7,7 +7,9 @@ const AppActions = Reflux.createActions([
   'search',
   'closeSearchView',
   'receiveSearchResults',
-  'receiveUnauthorizedUser'
+  'receiveUnauthorizedUser',
+  'setCurrentSection',
+  'setScrolledToSection'
 ]);
 
 AppActions.search.listen((query) => {

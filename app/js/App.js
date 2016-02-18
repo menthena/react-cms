@@ -2,16 +2,17 @@
 
 import React  from 'react';
 import {History} from 'react-router';
-import ExecutionEnvironment from 'exenv';
 import Reflux from 'reflux';
 import _ from 'lodash';
 import Api from './utils/Api';
 import CategoryStore from './stores/CategoryStore';
+import UserStore from './stores/UserStore';
 import AppStore from './stores/AppStore';
 import SearchView from './components/search/SearchView';
 import Menu from './components/menu/Menu';
 import Content from './components/content/Content';
 import Header from './components/Header';
+import ExecutionEnvironment from 'exenv';
 
 require('../styles/main.sass');
 
@@ -19,12 +20,32 @@ function getStateFromStores() {
   return {
     allCategories: CategoryStore.getCategories(),
     isSearchInProgress: AppStore.isSearchInProgress(),
-    userIsAdmin: false
+    userIsAdmin: false,
+    user: UserStore.getUser()
   };
 }
 
 const App = React.createClass({
-  mixins: [History, Reflux.listenTo(AppStore, '_onChange'), Reflux.listenTo(CategoryStore, '_onChange')],
+  mixins: [
+    History,
+    Reflux.listenTo(AppStore, '_onChange'),
+    Reflux.listenTo(CategoryStore, '_onChange'),
+    Reflux.listenTo(UserStore, '_onChange')
+  ],
+
+  componentDidMount() {
+    if (ExecutionEnvironment.canUseDOM) {
+      document.addEventListener('scroll', this.handleScroll);
+    }
+  },
+
+  handleScroll() {
+    this.refs.content.onScroll();
+  },
+
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll);
+  },
 
   getInitialState() {
     return getStateFromStores();
@@ -33,12 +54,6 @@ const App = React.createClass({
   toggleAdminMode() {
     this.setState({
       userIsAdmin: this.state.userIsAdmin ? false : true
-    });
-  },
-
-  handleSectionScroll(sectionTitle) {
-    this.setState({
-      currentSection: sectionTitle
     });
   },
 
@@ -55,20 +70,6 @@ const App = React.createClass({
     });
   },
 
-  handleScroll() {
-    this.refs.content.onScroll();
-  },
-
-  componentDidMount() {
-    if (ExecutionEnvironment.canUseDOM) {
-      document.addEventListener('scroll', this.handleScroll);
-    }
-  },
-
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll);
-  },
-
   render() {
     let MobilePanelVisible = this.state.mobilePanelVisible;
     let isSearchInProgress = this.state.isSearchInProgress;
@@ -76,6 +77,7 @@ const App = React.createClass({
     let userIsAdmin = this.state.userIsAdmin;
     let searchViewPlaceholder;
     let params = this.props.params;
+    let user = this.state.user;
 
     if (MobilePanelVisible) {
       classes += ' move-right';
@@ -92,8 +94,8 @@ const App = React.createClass({
         <div className={classes}>
           <div className='inner-wrap'>
             <Header toggleMobilePanel={this.toggleMobilePanel} toggleAdminMode={this.toggleAdminMode} />
-            <Menu userIsAdmin={userIsAdmin} categories={this.state.allCategories} currentSection={this.state.currentSection} />
-            <Content userIsAdmin={userIsAdmin} params={params} categories={this.state.allCategories} onSectionScroll={this.handleSectionScroll} ref='content' />
+            <Menu user={user} userIsAdmin={userIsAdmin} categories={this.state.allCategories} />
+            <Content userIsAdmin={userIsAdmin} params={params} categories={this.state.allCategories} ref='content' />
           </div>
         </div>
       </div>

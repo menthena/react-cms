@@ -8,6 +8,7 @@ import Login from './components/authentication/Login';
 import App from './App';
 
 Api.getAllCategories();
+Api.getUser();
 
 export default (
   <Router history={browserHistory}>

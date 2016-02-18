@@ -15,6 +15,7 @@ var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var categories = require('./routes/categories');
 var components = require('./routes/components');
+var user = require('./routes/user');
 var search = require('./routes/search');
 var User = require('./models/User')
 var port = process.env.PORT || '3000';
@@ -96,6 +97,7 @@ app.use(function(req, res, next) {
 
 app.use('/categories', ensureApiAuthenticated, categories);
 app.use('/components', ensureApiAuthenticated, components);
+app.use('/user', ensureApiAuthenticated, user);
 
 app.use('/search', ensureApiAuthenticated, search);
 

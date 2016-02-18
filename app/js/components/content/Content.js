@@ -3,6 +3,8 @@
 import React from 'react';
 import ContentSection from './ContentSection';
 import _ from 'lodash';
+import AppActionCreators from '../../actions/AppActionCreators';
+import ReactDOM  from 'react-dom';
 
 require('../../../styles/Content.sass');
 
@@ -13,15 +15,11 @@ const Content = React.createClass({
     let closestSection;
 
     for (var contentsection in this.refs) {
-      if (scrollTop >= this.refs[contentsection].getOffsetTop()) {
+      if (scrollTop >= this.refs[contentsection].getOffsetTop() - 1) {
         closestSection = this.refs[contentsection];
       }
     }
-
-    if (closestSection) {
-      this.props.onSectionScroll(closestSection.props.section.title);
-    }
-
+    AppActionCreators.setScrolledToSection(closestSection.props.section.id);
   },
 
   render() {

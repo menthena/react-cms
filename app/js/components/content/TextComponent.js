@@ -5,13 +5,31 @@ import Editor from 'react-medium-editor';
 import PageComponentActions from './PageComponentActions';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
+import TimerMixin from 'react-timer-mixin';
 
 require('../../../styles/TextComponent.sass');
 
 const TextComponent = React.createClass({
+  mixins: [TimerMixin],
+
+  getInitialState() {
+    return {
+      timeoutId: null
+    };
+  },
+
+  updateAfterTimeout(content) {
+    this.clearTimeout(this.state.timeoutId);
+    this.state.timeoutId = this.setTimeout(
+      () => {
+        ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
+      },
+      500
+    );
+  },
 
   handleContentChange(content) {
-    ComponentActionCreators.updateComponent(this.props.componentId, {data: content});
+    this.updateAfterTimeout(content);
   },
 
   render() {

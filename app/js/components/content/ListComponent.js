@@ -31,6 +31,20 @@ const ListComponent = React.createClass({
     this.updateComponent(componentData);
   },
 
+  addLinkFromDrive(element, params) {
+    let elem = {
+      title: params.title,
+      url: params.url,
+      order: this.state.data.links.length,
+      size: params.size,
+      last_updated: params.last_updated,
+      extension: params.extension
+    };
+    let componentData = this.state.data;
+    componentData.links.push(elem);
+    this.updateComponent(componentData);
+  },
+
   addImage() {
     // console.log('add');
   },
@@ -54,7 +68,7 @@ const ListComponent = React.createClass({
 
   removeLink(index, item) {
     let props = {
-      actions: this.delete,
+      actions: this.delete.bind(this, index),
       text: 'You are about to delete "' + item.title + '"'
     };
     ModalMixin.appendModalToBody(props);
@@ -94,7 +108,7 @@ const ListComponent = React.createClass({
                 return (<ListItemComponent key={index} updateListItem={this.updateListItem.bind(null, index)} dragStart={this.dragStart} dragEnd={this.dragEnd} mouseDown={this.mouseDown} item={item} onClick={this.removeLink.bind(null, index, item)} userIsAdmin={userIsAdmin}></ListItemComponent>);
               }.bind(this))}
             </div>
-            <DropFileComponent type={'link'} userIsAdmin={userIsAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
+            <DropFileComponent type={'link'} addLinkFromDrive={this.addLinkFromDrive} userIsAdmin={userIsAdmin} addImage={this.addImage} addLink={this.addLink}></DropFileComponent>
           </div>
           <PageComponentActions userIsAdmin={userIsAdmin} type={component.componentType} componentId={this.props.componentId} dragStart={this.props.dragStart} dragEnd={this.props.dragEnd} mouseDown={this.props.mouseDown} />
         </div>

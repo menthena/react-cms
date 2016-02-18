@@ -1,24 +1,33 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from  'react-dom';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import NewSection from './NewSection';
 import Section from './Section';
 import _ from 'lodash';
 import SectionActionCreators from '../../actions/SectionActionCreators';
+import AppActionCreators from '../../actions/AppActionCreators';
+import AppStore from '../../stores/AppStore';
+import Reflux from 'reflux';
+
+let currentSectionStyle = {};
 
 const MenuSections = React.createClass({
-  mixins: [ReorderMixin],
+  mixins: [ReorderMixin, Reflux.connect(AppActionCreators.setScrolledToSection, 'scrolledToSection')],
 
   setDraggableData(sections) {
     let categoryId = this.props.category.id;
     SectionActionCreators.updateSections(categoryId, sections);
   },
 
+  handleClick(section) {
+    AppActionCreators.setCurrentSection(section.id);
+  },
+
   render() {
     let category = this.props.category;
     let isVisible = this.props.isVisible;
-    let currentSection = this.props.currentSection;
     let userIsAdmin = this.props.userIsAdmin;
 
     this.loadDraggableData(this.props.category.sections);
@@ -33,12 +42,15 @@ const MenuSections = React.createClass({
         <div onDragOver={this.dragOver} style={ inlineStyles }>
           <ul>
             {category.sections.map((section, index) => {
-              let currentSectionStyle = {
-                fontWeight: currentSection === section.title ? 'bold' : 'normal'
-              };
+              let currentSectionStyle = {};
+              if (this.state.scrolledToSection) {
+                currentSectionStyle = {
+                  fontWeight: this.state.scrolledToSection === section.id ? 'bold' : 'normal'
+                };
+              }
 
               return (
-                <li className='full-section' key={section.id} data-order={section.order} style={ currentSectionStyle }>
+                <li className='full-section' key={section.id} data-order={section.order} style={ currentSectionStyle } onClick={this.handleClick.bind(this, section)}>
                   <Section key={ category.title + section.title } userIsAdmin={userIsAdmin} section={section} categoryId={this.props.category.id} mouseDown={this.mouseDown} dragEnd={this.dragEnd} dragStart={this.dragStart}/>
                 </li>
               );
