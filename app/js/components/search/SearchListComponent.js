@@ -5,10 +5,15 @@ import React from 'react';
 import ComponentActionCreators from '../../actions/ComponentActionCreators';
 import ReorderMixin from '../../mixins/ReorderMixin';
 import SearchInputComponent from './SearchInputComponent';
+import AppActionCreators from '../../actions/AppActionCreators';
 
 require('../../../styles/SearchListComponent.sass');
 
 const SearchListComponent = React.createClass({
+
+  handleClose() {
+    AppActionCreators.closeSearchView();
+  },
 
   render() {
     let results = this.props.results || [];
@@ -30,7 +35,7 @@ const SearchListComponent = React.createClass({
               <h3>{title}</h3>
               <ul>
                 {groupedResult.map((result) => {
-                  return <li><a href={'/section/' + result.sectionId}>{result.highlight}</a></li>;
+                  return <li><a href={'/#/section/' + result.sectionId} onClick={this.handleClose}>{result.highlight}</a></li>;
                 })}
               </ul>
             </div>);
